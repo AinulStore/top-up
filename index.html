@@ -491,59 +491,35 @@
 
 
   
-          <div class="item">
-            <div class="row align-items-center">
-              <div class="col-md-6 py-3">
-                <div class="testi-image">
-                  <img src="../assets/img/person/person_2.jpg" alt="">
-                </div>
-      </div> <!-- .container -->
-    </div> <!-- .page-section -->
-  
     <div class="page-section">
       <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-6 py-3 wow fadeInUp">
-            <h2 class="title-section">My Information</h2>
-            <div class="divider"></div>
-            <p>Name : Ainul</p>
-            <p>Years : 16 Tahun</p>
-            <p>Hobby : Listening to music</p>
-            <p>Gender : Male</p>
-  
-            <ul class="contact-list">
-              <li>
-                <div class="icon"><span class="mai-map"></span></div>
-                <div class="content">Kalimantan Selatan , Banjarmasin</div>
-              </li>
-              <li>
-                <div class="icon"><span class="mai-mail"></span></div>
-                <div class="content">ainulkece90@gmail.com</div>
-              </li>
-              <li>
-                <div class="icon"><span class="mai-phone-portrait"></span></div>
-                <div class="content">+6285754202785</div>
-              </li>
-            </ul>
-          </div>
-          <div class="col-lg-6 py-3 wow fadeInUp">
+        <div class="row justify-content-center">
+          
+          <!-- BAGIAN CONTACT US (Dibuat ke tengah) -->
+          <div class="col-lg-8 py-3 wow fadeInUp text-center">
             <div class="subhead">Contact Us</div>
             <h2 class="title-section">Drop Us a Line</h2>
-            <div class="divider"></div>
+            <div class="divider mx-auto"></div>
             
-            <form action="https://formspree.io/f/xrgdnjkr"method="POST">
+            <p class="mb-4 text-muted">Punya pertanyaan seputar top up atau kendala transaksi? Jangan ragu buat kirim pesan ke kami!</p>
+            
+            <form action="https://formspree.io/f/xrgdnjkr" method="POST" class="text-left">
               <div class="py-2">
-                <input type="email" class="form-control" placeholder="email">
+                <input type="email" name="email" class="form-control shadow-sm" style="border-radius: 8px;" placeholder="Masukkan Email kamu" required>
               </div>
               <div class="py-2">
-                <textarea name="message" class="form-control" placeholder="Enter message"></textarea>
+                <textarea name="message" class="form-control shadow-sm" style="border-radius: 8px;" rows="5" placeholder="Tulis pesan atau kendala kamu di sini..." required></textarea>
               </div>
-              <button type="submit" class="btn btn-primary rounded-pill mt-4">Send Message</button>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary rounded-pill mt-4 shadow">Send Message</button>
+              </div>
             </form>
           </div>
+          
         </div>
       </div> <!-- .container -->
     </div> <!-- .page-section -->
+
   
     <div class="page-section client-section">
       <div class="container-fluid">
