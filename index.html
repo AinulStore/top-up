@@ -495,7 +495,7 @@
       <div class="container">
         <div class="row justify-content-center">
           
-          <!-- BAGIAN CONTACT US (Dibuat ke tengah) -->
+          <!-- BAGIAN CONTACT US (Posisi di Tengah & Langsung ke Gmail) -->
           <div class="col-lg-8 py-3 wow fadeInUp text-center">
             <div class="subhead">Contact Us</div>
             <h2 class="title-section">Drop Us a Line</h2>
@@ -503,15 +503,16 @@
             
             <p class="mb-4 text-muted">Punya pertanyaan seputar top up atau kendala transaksi? Jangan ragu buat kirim pesan ke kami!</p>
             
-            <form action="https://formspree.io/f/xrgdnjkr" method="POST" class="text-left">
+            <!-- Form ini akan otomatis membuka aplikasi Gmail di HP pelanggan -->
+            <form action="mailto:nullstoregaming@gmail.com" method="POST" enctype="text/plain" class="text-left">
               <div class="py-2">
-                <input type="email" name="email" class="form-control shadow-sm" style="border-radius: 8px;" placeholder="Masukkan Email kamu" required>
+                <input type="email" name="Email_Pelanggan" class="form-control shadow-sm" style="border-radius: 8px;" placeholder="Masukkan Email kamu" required>
               </div>
               <div class="py-2">
-                <textarea name="message" class="form-control shadow-sm" style="border-radius: 8px;" rows="5" placeholder="Tulis pesan atau kendala kamu di sini..." required></textarea>
+                <textarea name="Pesan_Kendala" class="form-control shadow-sm" style="border-radius: 8px;" rows="5" placeholder="Tulis pesan atau kendala kamu di sini..." required></textarea>
               </div>
               <div class="text-center">
-                <button type="submit" class="btn btn-primary rounded-pill mt-4 shadow">Send Message</button>
+                <button type="submit" class="btn btn-primary rounded-pill mt-4 shadow">Kirim via Email</button>
               </div>
             </form>
           </div>
@@ -519,6 +520,7 @@
         </div>
       </div> <!-- .container -->
     </div> <!-- .page-section -->
+
 
   
     <div class="page-section client-section">
