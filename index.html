@@ -296,6 +296,25 @@
             100% { transform: translateX(calc(-200px * 7)); } 
         }
 
+        /* === TOMBOL MEMBER ILUSI === */
+        .btn-login {
+            background: rgba(0, 225, 255, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary) !important;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-right: 0 !important;
+        }
+        .btn-login:hover {
+            background: var(--primary);
+            color: #000 !important;
+            box-shadow: 0 0 15px rgba(0, 225, 255, 0.4);
+        }
+
         /* === FAQ CANGGIH === */
         .faq-section { padding: 80px 5%; max-width: 900px; margin: 0 auto; }
         .faq-header { text-align: center; margin-bottom: 40px; font-family: 'Syne'; font-size: 2.5rem; }
@@ -375,9 +394,8 @@
                 <a href="#">Beranda</a>
                 <a href="#katalog">Katalog</a>
                 <a href="#faq">Bantuan</a>
+                <a href="#" class="btn-login" onclick="showToast('error', 'Pendaftaran Member VIP saat ini sedang penuh / ditutup sementara.'); return false;"><i class="fas fa-user-circle"></i> Member Area</a>
             </div>
-            <a href="https://wa.me/6285757568455?text=Halo%20Mimin" class="btn-contact">Hubungi Kami</a>
-        </div>
     </nav>
 
     <section class="hero">
