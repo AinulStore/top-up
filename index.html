@@ -187,6 +187,22 @@
         .checkout-wrapper { margin-top: 20px; text-align: right; }
         .btn-checkout { background: linear-gradient(90deg, #00E1FF, #B800FF); border: none; padding: 18px 40px; border-radius: 12px; color: #fff; font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 30px rgba(0, 225, 255, 0.3); width: 100%; max-width: 300px; }
         .btn-checkout:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(184, 0, 255, 0.4); }
+        
+        /* === KALKULATOR EVENT === */
+        .calc-section { padding: 50px 5%; max-width: 900px; margin: 0 auto; text-align: center; }
+        .calc-box { background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01)); border: 1px solid var(--glass-border); border-radius: 20px; padding: 30px; text-align: left; }
+        .calc-title { font-family: 'Syne', sans-serif; font-size: 1.8rem; margin-bottom: 20px; color: #fff; text-align: center; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px;}
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .calc-input label { display: block; color: var(--text-dim); font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; }
+        .calc-input select, .calc-input input { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); padding: 15px; border-radius: 12px; color: #fff; outline: none; font-size: 1rem; font-family: 'Inter', sans-serif;}
+        .calc-input select:focus, .calc-input input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 225, 255, 0.2); }
+        .calc-input select option { background: var(--bg-base); color: #fff; }
+        .btn-calc { background: linear-gradient(90deg, #00E1FF, #B800FF); color: #fff; border: none; padding: 15px 40px; border-radius: 12px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: 0.3s; width: 100%; font-family: 'Syne', sans-serif; }
+        .btn-calc:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 225, 255, 0.3); }
+        .calc-result { margin-top: 25px; padding: 20px; background: rgba(0, 225, 255, 0.1); border: 1px solid var(--primary); border-radius: 12px; display: none; text-align: center; animation: fadeIn 0.5s; }
+        .calc-result h4 { color: var(--primary); margin-bottom: 10px; font-size: 1.2rem; }
+        .calc-result p { color: #fff; margin: 5px 0; line-height: 1.5; }
+        @media (max-width: 768px) { .calc-grid { grid-template-columns: 1fr; } }
 
         /* === FAQ CANGGIH === */
         .faq-section { padding: 80px 5%; max-width: 900px; margin: 0 auto; }
@@ -439,6 +455,30 @@
                         <button class="btn-checkout" onclick="prosesCheckout()">Beli Sekarang <i class="fas fa-arrow-right"></i></button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="calc-section">
+        <div class="calc-box">
+            <h2 class="calc-title"><i class="fas fa-calculator"></i> Kalkulator Event MLBB</h2>
+            <div class="calc-grid">
+                <div class="calc-input">
+                    <label>Pilih Jenis Event</label>
+                    <select id="calc-type">
+                        <option value="magic">🔮 Magic Wheel (Maks 200 Poin)</option>
+                        <option value="zodiac">⭐ Zodiac Summon (Maks 100 Poin)</option>
+                    </select>
+                </div>
+                <div class="calc-input">
+                    <label>Poin Kamu Saat Ini</label>
+                    <input type="number" id="calc-points" placeholder="Contoh: 120">
+                </div>
+            </div>
+            <button class="btn-calc" onclick="hitungEvent()">Hitung Kebutuhan 💎</button>
+            <div class="calc-result" id="calc-result">
+                <h4><i class="fas fa-check-circle"></i> Hasil Kalkulasi</h4>
+                <p id="calc-desc"></p>
             </div>
         </div>
     </section>
@@ -698,6 +738,46 @@ const items = [
         }
         setInterval(updateClock, 1000); // Update setiap 1 detik
         updateClock(); // Jalankan langsung pas web dibuka
+        
+                // 9. Logic Kalkulator Event MLBB
+        function hitungEvent() {
+            const type = document.getElementById('calc-type').value;
+            const pointsStr = document.getElementById('calc-points').value;
+            const resultBox = document.getElementById('calc-result');
+            const descEl = document.getElementById('calc-desc');
+            
+            if (!pointsStr || pointsStr < 0) {
+                showToast('error', 'Masukkan jumlah poin yang benar!');
+                return;
+            }
+            
+            let points = parseInt(pointsStr);
+            let sisaPoin = 0;
+            let estDiamond = 0;
+            let textOutput = '';
+
+            if (type === 'magic') {
+                if (points >= 200) { textOutput = 'Poin sudah maksimal! Kamu sudah bisa tukar skin Legend.'; }
+                else {
+                    sisaPoin = 200 - points;
+                    let spin5x = Math.floor(sisaPoin / 5);
+                    let spin1x = sisaPoin % 5;
+                    estDiamond = (spin5x * 270) + (spin1x * 60);
+                    textOutput = `Kamu butuh <b>${sisaPoin}</b> poin lagi.<br>Estimasi diamond yang dibutuhkan: <b>~${estDiamond} 💎</b><br><span style="font-size:0.85rem;color:var(--text-dim);">(Asumsi putaran 5x = 270 DM)</span>`;
+                }
+            } else if (type === 'zodiac') {
+                if (points >= 100) { textOutput = 'Poin sudah maksimal! Skin Zodiac sudah di tangan.'; }
+                else {
+                    sisaPoin = 100 - points;
+                    estDiamond = sisaPoin * 20; // Estimasi kasar 20 DM per poin
+                    textOutput = `Kamu butuh <b>${sisaPoin}</b> poin lagi.<br>Estimasi diamond yang dibutuhkan: <b>~${estDiamond} 💎</b><br><span style="font-size:0.85rem;color:var(--text-dim);">(Bisa lebih murah tergantung hoki/diskon)</span>`;
+                }
+            }
+            
+            descEl.innerHTML = textOutput;
+            resultBox.style.display = 'block';
+        }
+
 
     </script>
 </body>
