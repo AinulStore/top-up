@@ -12,7 +12,7 @@
     <style>
         /* === TEMA ELEGAN MIDNIGHT AURORA === */
         :root {
-            --bg-base: #0B0F19; /* Bukan hitam pekat, tapi biru malam sangat gelap */
+            --bg-base: #0B0F19;
             --glass-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
             --primary: #00E1FF;
@@ -74,8 +74,52 @@
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* === FORM INPUT DATA AKUN === */
+        .form-container {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+        .input-group-row {
+            display: flex; gap: 20px;
+            flex-wrap: wrap; /* Biar rapi di HP */
+        }
+        .input-box {
+            flex: 1; min-width: 250px;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .input-box label {
+            color: var(--text-dim); font-size: 0.95rem; font-weight: 600;
+        }
+        .input-box input {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 15px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+        .input-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 225, 255, 0.2);
+        }
+        /* Hilangkan panah naik-turun di input angka */
+        input[type="number"]::-webkit-inner-spin-button, 
+        input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        
+        .step-title {
+            font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; 
+            display: flex; align-items: center; gap: 10px; color: #fff;
+        }
+
         /* === 3D TILT PRODUCT CARDS === */
-        .section-title { font-family: 'Syne', sans-serif; font-size: 2rem; margin-bottom: 30px; text-align: left; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px; }
+        .section-title { font-family: 'Syne', sans-serif; font-size: 1.8rem; margin-bottom: 30px; text-align: left; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-bottom: 60px; }
         
         .card { background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01)); border: 1px solid var(--glass-border); border-radius: 20px; padding: 30px 20px; text-align: center; text-decoration: none; color: #fff; transition: 0.3s; position: relative; overflow: hidden; transform-style: preserve-3d; perspective: 1000px; }
@@ -183,74 +227,101 @@
 
         <!-- MLBB CONTENT -->
         <div id="content-mlbb" class="tab-content active">
-            <h2 class="section-title">💎 Top Up Diamonds</h2>
+            
+            <!-- TAHAP 1: FORM INPUT MLBB -->
+            <div class="form-container">
+                <div class="step-title"><i class="fas fa-user-circle"></i> 1. Masukkan Data Akun</div>
+                <div class="input-group-row">
+                    <div class="input-box">
+                        <label>User ID</label>
+                        <input type="number" id="mlbb-id" placeholder="Contoh: 12345678" required>
+                    </div>
+                    <div class="input-box">
+                        <label>Server</label>
+                        <input type="number" id="mlbb-server" placeholder="Contoh: 1234" required>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">💎 2. Pilih Nominal Top Up</h2>
             <div class="grid">
-                <!-- COMPACT MLBB ITEMS -->
-                <a href="https://wa.me/6285757568455?text=Order%205%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">5 💎</div><div class="card-price">Rp 2.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%2012%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">12 💎</div><div class="card-price">Rp 4.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%2019%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">19 💎</div><div class="card-price">Rp 5.700</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%2028%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">28 💎</div><div class="card-price">Rp 8.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%2036%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">36 💎</div><div class="card-price">Rp 10.500</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%2044%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">44 💎</div><div class="card-price">Rp 11.800</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%2056%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">56 💎</div><div class="card-price">Rp 15.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%2059%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">59 💎</div><div class="card-price">Rp 15.500</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%2086%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">86 💎</div><div class="card-price">Rp 22.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20112%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">112 💎</div><div class="card-price">Rp 29.500</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20172%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">172 💎</div><div class="card-price">Rp 45.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20185%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">185 💎</div><div class="card-price">Rp 47.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20257%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">257 💎</div><div class="card-price">Rp 65.500</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20296%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">296 💎</div><div class="card-price">Rp 75.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20344%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">344 💎</div><div class="card-price">Rp 90.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20429%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">429 💎</div><div class="card-price">Rp 110.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20514%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">514 💎</div><div class="card-price">Rp 132.500</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20600%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">600 💎</div><div class="card-price">Rp 152.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20706%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">706 💎</div><div class="card-price">Rp 177.500</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20875%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">875 💎</div><div class="card-price">Rp 218.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20963%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">963 💎</div><div class="card-price">Rp 239.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%201050%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">1050 💎</div><div class="card-price">Rp 262.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%201220%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">1220 💎</div><div class="card-price">Rp 316.500</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%201412%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">1412 💎</div><div class="card-price">Rp 365.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%202195%20Diamond" class="card tilt-card"><div class="inner"><div class="card-title">2195 💎</div><div class="card-price">Rp 536.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">5 💎</div><div class="card-price">Rp 2.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">12 💎</div><div class="card-price">Rp 4.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">19 💎</div><div class="card-price">Rp 5.700</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">28 💎</div><div class="card-price">Rp 8.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">36 💎</div><div class="card-price">Rp 10.500</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">44 💎</div><div class="card-price">Rp 11.800</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">56 💎</div><div class="card-price">Rp 15.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">59 💎</div><div class="card-price">Rp 15.500</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">86 💎</div><div class="card-price">Rp 22.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">112 💎</div><div class="card-price">Rp 29.500</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">172 💎</div><div class="card-price">Rp 45.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">185 💎</div><div class="card-price">Rp 47.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">257 💎</div><div class="card-price">Rp 65.500</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">296 💎</div><div class="card-price">Rp 75.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">344 💎</div><div class="card-price">Rp 90.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">429 💎</div><div class="card-price">Rp 110.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">514 💎</div><div class="card-price">Rp 132.500</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">600 💎</div><div class="card-price">Rp 152.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">706 💎</div><div class="card-price">Rp 177.500</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">875 💎</div><div class="card-price">Rp 218.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">963 💎</div><div class="card-price">Rp 239.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">1050 💎</div><div class="card-price">Rp 262.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">1220 💎</div><div class="card-price">Rp 316.500</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">1412 💎</div><div class="card-price">Rp 365.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">2195 💎</div><div class="card-price">Rp 536.000</div></div></a>
             </div>
 
             <h2 class="section-title">👑 Membership & Pass</h2>
             <div class="grid">
-                <a href="https://wa.me/6285757568455?text=Order%201x%20Weekly" class="card tilt-card"><div class="inner"><div class="card-title">1x Weekly</div><div class="card-price">Rp 28.250</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%202x%20Weekly" class="card tilt-card"><div class="inner"><div class="card-title">2x Weekly</div><div class="card-price">Rp 56.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%203x%20Weekly" class="card tilt-card"><div class="inner"><div class="card-title">3x Weekly</div><div class="card-price">Rp 83.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%204x%20Weekly" class="card tilt-card"><div class="inner"><div class="card-title">4x Weekly</div><div class="card-price">Rp 110.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%205x%20Weekly" class="card tilt-card"><div class="inner"><div class="card-title">5x Weekly</div><div class="card-price">Rp 138.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20Starlight" class="card tilt-card"><div class="inner"><div class="card-title">Starlight</div><div class="card-price">Rp 81.750</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20Starlight%20Plus" class="card tilt-card"><div class="inner"><div class="card-title">Starlight Plus</div><div class="card-price">Rp 196.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">1x Weekly</div><div class="card-price">Rp 28.250</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">2x Weekly</div><div class="card-price">Rp 56.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">3x Weekly</div><div class="card-price">Rp 83.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">4x Weekly</div><div class="card-price">Rp 110.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">5x Weekly</div><div class="card-price">Rp 138.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">Starlight</div><div class="card-price">Rp 81.750</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">Starlight Plus</div><div class="card-price">Rp 196.000</div></div></a>
             </div>
         </div>
 
         <!-- FF CONTENT -->
         <div id="content-ff" class="tab-content">
-            <h2 class="section-title">🔥 Top Up Diamonds</h2>
+            
+            <!-- TAHAP 1: FORM INPUT FF -->
+            <div class="form-container">
+                <div class="step-title"><i class="fas fa-user-circle"></i> 1. Masukkan Data Akun</div>
+                <div class="input-group-row">
+                    <div class="input-box">
+                        <label>User ID Free Fire</label>
+                        <input type="number" id="ff-id" placeholder="Contoh: 1234567890" required>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">🔥 2. Pilih Nominal Top Up</h2>
             <div class="grid">
-                <a href="https://wa.me/6285757568455?text=Order%205%20Diamond%20FF" class="card tilt-card"><div class="inner"><div class="card-title">5 💎</div><div class="card-price">Rp 1.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%2012%20Diamond%20FF" class="card tilt-card"><div class="inner"><div class="card-title">12 💎</div><div class="card-price">Rp 2.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%2050%20Diamond%20FF" class="card tilt-card"><div class="inner"><div class="card-title">50 💎</div><div class="card-price">Rp 7.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%2070%20Diamond%20FF" class="card tilt-card"><div class="inner"><div class="card-title">70 💎</div><div class="card-price">Rp 9.500</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20100%20Diamond%20FF" class="card tilt-card"><div class="inner"><div class="card-title">100 💎</div><div class="card-price">Rp 13.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20140%20Diamond%20FF" class="card tilt-card"><div class="inner"><div class="card-title">140 💎</div><div class="card-price">Rp 18.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20210%20Diamond%20FF" class="card tilt-card"><div class="inner"><div class="card-title">210 💎</div><div class="card-price">Rp 26.500</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20355%20Diamond%20FF" class="card tilt-card"><div class="inner"><div class="card-title">355 💎</div><div class="card-price">Rp 44.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20500%20Diamond%20FF" class="card tilt-card"><div class="inner"><div class="card-title">500 💎</div><div class="card-price">Rp 63.700</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20720%20Diamond%20FF" class="card tilt-card"><div class="inner"><div class="card-title">720 💎</div><div class="card-price">Rp 89.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%201000%20Diamond%20FF" class="card tilt-card"><div class="inner"><div class="card-title">1000 💎</div><div class="card-price">Rp 125.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%201450%20Diamond%20FF" class="card tilt-card"><div class="inner"><div class="card-title">1450 💎</div><div class="card-price">Rp 178.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%202180%20Diamond%20FF" class="card tilt-card"><div class="inner"><div class="card-title">2180 💎</div><div class="card-price">Rp 269.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%203640%20Diamond%20FF" class="card tilt-card"><div class="inner"><div class="card-title">3640 💎</div><div class="card-price">Rp 448.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%207290%20Diamond%20FF" class="card tilt-card"><div class="inner"><div class="card-title">7290 💎</div><div class="card-price">Rp 890.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">5 💎</div><div class="card-price">Rp 1.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">12 💎</div><div class="card-price">Rp 2.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">50 💎</div><div class="card-price">Rp 7.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">70 💎</div><div class="card-price">Rp 9.500</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">100 💎</div><div class="card-price">Rp 13.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">140 💎</div><div class="card-price">Rp 18.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">210 💎</div><div class="card-price">Rp 26.500</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">355 💎</div><div class="card-price">Rp 44.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">500 💎</div><div class="card-price">Rp 63.700</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">720 💎</div><div class="card-price">Rp 89.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">1000 💎</div><div class="card-price">Rp 125.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">1450 💎</div><div class="card-price">Rp 178.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">2180 💎</div><div class="card-price">Rp 269.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">3640 💎</div><div class="card-price">Rp 448.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">7290 💎</div><div class="card-price">Rp 890.000</div></div></a>
             </div>
 
             <h2 class="section-title">🎫 Membership & Pass</h2>
             <div class="grid">
-                <a href="https://wa.me/6285757568455?text=Order%20Mingguan%20FF" class="card tilt-card"><div class="inner"><div class="card-title">Mingguan</div><div class="card-price">Rp 28.000</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20Bulanan%20FF" class="card tilt-card"><div class="inner"><div class="card-title">Bulanan</div><div class="card-price">Rp 81.500</div></div></a>
-                <a href="https://wa.me/6285757568455?text=Order%20Booyah%20Pass%20FF" class="card tilt-card"><div class="inner"><div class="card-title">Booyah Pass</div><div class="card-price">Rp 41.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">Mingguan</div><div class="card-price">Rp 28.000</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">Bulanan</div><div class="card-price">Rp 81.500</div></div></a>
+                <a href="#" class="card tilt-card"><div class="inner"><div class="card-title">Booyah Pass</div><div class="card-price">Rp 41.000</div></div></a>
             </div>
         </div>
     </section>
@@ -359,7 +430,7 @@
             }
         });
 
-        // 5. Logic Fake Live Purchase Toast (Notifikasi Pembelian)
+        // 5. Logic Fake Live Purchase Toast (Notifikasi Pembelian) - DIBIKIN SANTAI MUNCULNYA
         const toastContainer = document.getElementById('toast-container');
         const items = ['1412 Diamond MLBB', 'Weekly Pass MLBB', 'Starlight Member', '720 Diamond Free Fire', 'Booyah Pass', '706 Diamond MLBB', '355 Diamond Free Fire'];
         
@@ -382,8 +453,8 @@
             // Hapus dari memory setelah animasi fadeOut selesai (5 detik)
             setTimeout(() => { toast.remove(); }, 5000);
             
-            // Randomize kemunculan toast selanjutnya antara 5 - 15 detik
-            setTimeout(spawnToast, Math.random() * 10000 + 5000);
+            // Randomize kemunculan toast selanjutnya antara 15 - 35 detik biar natural
+            setTimeout(spawnToast, Math.random() * 20000 + 15000);
         }
         
         // Mulai toast pertama setelah 3 detik web dibuka
