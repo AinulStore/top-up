@@ -20,6 +20,13 @@
   <meta property="og:site_name" content="Ainul">
   <meta name="keywords" content="REST API">
   <meta name="author" content="Ainul">
+  
+  <!-- Tambahan CSS biar efek scroll-nya mulus -->
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
 </head>
 <body data-spy="scroll" data-target=".fixed-top">
 <div class="container">
@@ -62,7 +69,8 @@
             <h1 class="mb-4">Top Up Game</h1>
             <p class="text-lg mb-5">Solusi cepat dan terpercaya untuk kebutuhan Top Up Game kamu. Nikmati harga termurah dengan proses hitungan menit!</p>
 
-            <a href="https://www.instagram.com/null.topup?igsh=Mmh3ZTA0czhuaDAx" class="btn btn-primary btn-split ml-2">INSTAGRAM <div class="fab"><span class="mai-play"></span></div></a>
+            <!-- INI TOMBOL YANG UDAH DIGANTI -->
+            <a href="#harga-game" class="btn btn-primary btn-split ml-2">LIHAT HARGA <div class="fab"><span class="fas fa-arrow-down"></span></div></a>
           </div>
           <div class="col-lg-6 py-3 wow zoomIn">
             <div class="img-place">
@@ -96,7 +104,8 @@
       </div> <!-- .container -->
     </div> <!-- .page-section -->
   
-    <div class="page-section border-top">
+    <!-- TAMBAH ID harga-game DI SINI BIAR JADI TARGET SCROLL -->
+    <div class="page-section border-top" id="harga-game">
       <div class="container">
         <div class="text-center wow fadeInUp">
           <h2 class="title-section">MOBILE LEGENDS</h2>
