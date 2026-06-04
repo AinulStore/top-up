@@ -452,6 +452,26 @@
                 card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
             });
         });
+        // FITUR ANGKA JALAN (Baru Ditambahin Biar Gacor)
+        const counters = document.querySelectorAll('.stat-num');
+        function startCounter() {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const inc = target / 50;
+                let count = 0;
+                const updateCount = () => {
+                    count += inc;
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count);
+                        setTimeout(updateCount, 30);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+        }
+        setTimeout(startCounter, 500); // Muter otomatis setengah detik pas web dibuka
 
         // 5. Logic Sistem Notifikasi (Custom Alert)
         function showToast(type, message) {
@@ -529,6 +549,37 @@
                 window.open(urlWhatsApp, '_blank');
             }, 1200);
         }
+        // 7. Logic Fake Live Purchase Toast (Notifikasi Pembelian) - MUNCUL 10 SAMPAI 15 DETIK
+        const toastContainerLive = document.getElementById('toast-container');
+        const items = ['1412 Diamond MLBB', 'Weekly Pass MLBB', 'Starlight Member', '720 Diamond Free Fire', 'Booyah Pass FF', '706 Diamond MLBB', '355 Diamond Free Fire'];
+        
+        function spawnLiveToast() {
+            const phoneStr = '08' + Math.floor(Math.random() * 90 + 10) + '****' + Math.floor(Math.random() * 900 + 100);
+            const itemStr = items[Math.floor(Math.random() * items.length)];
+            
+            const toast = document.createElement('div');
+            toast.className = 'live-toast';
+            toast.style.borderLeft = '4px solid var(--primary)';
+            toast.innerHTML = `
+                <div class="toast-icon" style="color: var(--primary); background: rgba(0, 225, 255, 0.1);"><i class="fas fa-shopping-cart"></i></div>
+                <div class="toast-text">
+                    <p><b>${phoneStr}</b> baru saja order</p>
+                    <span>${itemStr} • Beberapa detik lalu</span>
+                </div>
+            `;
+            
+            toastContainerLive.appendChild(toast);
+            
+            // Hapus pop-up dari layar setelah 5 detik
+            setTimeout(() => { toast.remove(); }, 5000);
+            
+            // Atur pop-up selanjutnya muncul random antara 10 sampai 15 detik (10000ms - 15000ms)
+            setTimeout(spawnLiveToast, Math.random() * 5000 + 10000);
+        }
+        
+        // Pancingan pertama: Pop-up muncul 3 detik setelah web baru dibuka
+        setTimeout(spawnLiveToast, 3000);
+        
     </script>
 </body>
 </html>
