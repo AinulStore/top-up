@@ -551,7 +551,16 @@
         }
         // 7. Logic Fake Live Purchase Toast (Notifikasi Pembelian) - MUNCUL 10 SAMPAI 15 DETIK
         const toastContainerLive = document.getElementById('toast-container');
-        const items = ['1412 Diamond MLBB', 'Weekly Pass MLBB', 'Starlight Member', '720 Diamond Free Fire', 'Booyah Pass FF', '706 Diamond MLBB', '355 Diamond Free Fire'];
+const items = [
+    '19 Diamond MLBB', '28 Diamond MLBB', '36 Diamond MLBB', '44 Diamond MLBB', 
+    '59 Diamond MLBB', '86 Diamond MLBB', '112 Diamond MLBB', '172 Diamond MLBB', 
+    '257 Diamond MLBB', '296 Diamond MLBB', '344 Diamond MLBB',
+    '1x Weekly Pass MLBB', '2x Weekly Pass MLBB', '3x Weekly Pass MLBB', 'Starlight Member MLBB',
+    '50 Diamond Free Fire', '70 Diamond Free Fire', '100 Diamond Free Fire', 
+    '140 Diamond Free Fire', '210 Diamond Free Fire', '355 Diamond Free Fire', 
+    '500 Diamond Free Fire', '720 Diamond Free Fire',
+    'Member Mingguan FF', 'Member Bulanan FF', 'Booyah Pass FF'
+];
         
         function spawnLiveToast() {
             const phoneStr = '08' + Math.floor(Math.random() * 90 + 10) + '****' + Math.floor(Math.random() * 900 + 100);
@@ -570,11 +579,11 @@
             
             toastContainerLive.appendChild(toast);
             
-            // Hapus pop-up dari layar setelah 5 detik
-            setTimeout(() => { toast.remove(); }, 5000);
+            // Hapus pop-up dari layar setelah 3 detik
+            setTimeout(() => { toast.remove(); }, 3000);
             
-            // Atur pop-up selanjutnya muncul random antara 10 sampai 15 detik (10000ms - 15000ms)
-            setTimeout(spawnLiveToast, Math.random() * 5000 + 10000);
+            // Atur pop-up selanjutnya muncul random antara 3 sampai 15 detik biar natural
+            setTimeout(spawnLiveToast, Math.random() * 10000 + 3000);
         }
         
         // Pancingan pertama: Pop-up muncul 3 detik setelah web baru dibuka
