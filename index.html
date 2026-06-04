@@ -188,7 +188,6 @@
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            .nav-links { display: none; }
             .footer-grid { grid-template-columns: 1fr; gap: 30px; }
             .tabs { flex-direction: column; }
             .btn-checkout { max-width: 100%; }
@@ -220,12 +219,21 @@
 
     <nav>
         <a href="#" class="logo">Null<span>Store.</span></a>
-        <div class="nav-links">
-            <a href="#">Beranda</a>
-            <a href="#katalog">Katalog</a>
-            <a href="#faq">Bantuan</a>
+        
+        <!-- Tombol Garis 3 (Muncul cuma di HP) -->
+        <button class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Menu Bungkus -->
+        <div class="nav-menu" id="mobileMenu">
+            <div class="nav-links">
+                <a href="#">Beranda</a>
+                <a href="#katalog">Katalog</a>
+                <a href="#faq">Bantuan</a>
+            </div>
+            <a href="https://wa.me/6285757568455?text=Halo%20Mimin" class="btn-contact">Hubungi Kami</a>
         </div>
-        <a href="https://wa.me/6285757568455" class="btn-contact">Hubungi Kami</a>
     </nav>
 
     <section class="hero">
@@ -627,12 +635,18 @@ const items = [
             setTimeout(() => { toast.remove(); }, 5000);
             
             // Atur pop-up selanjutnya muncul random antara 3 sampai 15 detik biar natural
-            setTimeout(spawnLiveToast, Math.random() * 10000 + 3000);
+            setTimeout(spawnLiveToast, Math.random() * 12000 + 3000);
         }
         
         // Pancingan pertama: Pop-up muncul 3 detik setelah web baru dibuka
         setTimeout(spawnLiveToast, 3000);
         
+        // Fungsi Buka Tutup Menu Garis 3 di HP
+        function toggleMenu() {
+            document.getElementById("mobileMenu").classList.toggle("active");
+        }
+        
     </script>
 </body>
 </html>
+
