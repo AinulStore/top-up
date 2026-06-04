@@ -121,7 +121,17 @@
         }
         .m-stat { color: var(--text-dim); font-size: 0.9rem; font-weight: 500; display: flex; align-items: center; gap: 8px; }
         .m-stat i { color: #D4AF37; font-size: 1.1rem; }
-
+        
+                /* === SERVER STATUS BAR === */
+        .server-status-bar {
+            display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.4); border: 1px solid var(--glass-border);
+            padding: 10px 25px; border-radius: 50px; margin: 0 auto 30px;
+            font-size: 0.85rem; font-weight: 600; color: var(--text-dim); max-width: 650px;
+        }
+        .status-item { display: flex; align-items: center; gap: 8px; }
+        .text-green { color: var(--success); text-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+        .server-status-bar i { color: var(--primary); }
 
         /* === CATALOG TABS === */
         .catalog { padding: 50px 5%; max-width: 1200px; margin: 0 auto; }
@@ -267,6 +277,14 @@
                 <a href="#katalog" class="btn-gacor"><i class="fas fa-shopping-cart"></i> Order Sekarang</a>
                 <a href="#faq" class="btn-outline"><i class="fas fa-info-circle"></i> Cara Transaksi</a>
             </div>
+            
+            <!-- Live Server Status -->
+            <div class="server-status-bar">
+                <div class="status-item"><i class="far fa-clock"></i> Jam Server: <span id="live-clock" style="color: #fff;">00:00:00</span></div>
+                <div class="status-item"><i class="fas fa-server"></i> Server MLBB: <span class="text-green">Normal 🟢</span></div>
+                <div class="status-item"><i class="fas fa-server"></i> Server FF: <span class="text-green">Normal 🟢</span></div>
+            </div>
+            
 
             <div class="mini-stats">
                 <div class="m-stat"><i class="fas fa-check-circle"></i> 50K+ Transaksi Sukses</div>
@@ -667,6 +685,20 @@ const items = [
             document.getElementById("mobileMenu").classList.toggle("active");
         }
         
+                // 8. Logic Live Jam Server
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const clockEl = document.getElementById('live-clock');
+            if(clockEl) {
+                clockEl.innerText = `${hours}:${minutes}:${seconds}`;
+            }
+        }
+        setInterval(updateClock, 1000); // Update setiap 1 detik
+        updateClock(); // Jalankan langsung pas web dibuka
+
     </script>
 </body>
 </html>
