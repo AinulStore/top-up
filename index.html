@@ -9,7 +9,39 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <style>
+    <style>    
+            /* === TEMA LIGHT MODE === */
+        body.light-mode {
+            --bg-base: #F8FAFC;
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --text-main: #0F172A;
+            --text-dim: #475569;
+            background-color: var(--bg-base);
+        }
+        body.light-mode .title-elegant, body.light-mode .step-title, 
+        body.light-mode .card-title, body.light-mode .calc-title, 
+        body.light-mode .reseller-content ul, body.light-mode .faq-question {
+            color: var(--text-main) !important;
+        }
+        body.light-mode input, body.light-mode select { color: var(--text-main) !important; background: #fff !important; }
+        body.light-mode nav { background: rgba(255, 255, 255, 0.8); }
+        body.light-mode .nav-menu { background: rgba(255, 255, 255, 0.98); }
+        body.light-mode .logo, body.light-mode .menu-toggle { color: var(--text-main); }
+        body.light-mode .card, body.light-mode .form-box, body.light-mode .calc-box { background: #fff; }
+        body.light-mode .live-toast { background: #fff; color: var(--text-main); border-color: rgba(0,0,0,0.1); }
+        body.light-mode .live-toast span { color: var(--text-dim); }
+        body.light-mode .aurora-bg { opacity: 0.3; } /* Biar auranya nggak terlalu nabrak di siang hari */
+
+        /* Tombol Toggle */
+        .theme-toggle {
+            background: transparent; border: 1px solid var(--glass-border);
+            color: var(--text-main); padding: 8px 15px; border-radius: 20px;
+            cursor: pointer; font-size: 1.1rem; transition: 0.3s;
+            margin-right: 15px; display: inline-flex; align-items: center; justify-content: center;
+        }
+        .theme-toggle:hover { background: rgba(255,255,255,0.1); }
+
         /* === TEMA ELEGAN MIDNIGHT AURORA === */
         :root {
             --bg-base: #0B0F19;
@@ -203,6 +235,29 @@
         .calc-result h4 { color: var(--primary); margin-bottom: 10px; font-size: 1.2rem; }
         .calc-result p { color: #fff; margin: 5px 0; line-height: 1.5; }
         @media (max-width: 768px) { .calc-grid { grid-template-columns: 1fr; } }
+        
+        /* === PROGRAM RESELLER === */
+        .reseller-section { padding: 20px 5% 60px; max-width: 1000px; margin: 0 auto; }
+        .reseller-box {
+            background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(11,15,25,0.8) 100%);
+            border: 1px solid rgba(212,175,55,0.3); border-radius: 20px;
+            padding: 40px; display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 30px; position: relative; overflow: hidden;
+        }
+        .reseller-content { flex: 1; min-width: 300px; z-index: 1; }
+        .reseller-content h2 { font-family: 'Syne', sans-serif; font-size: 2.2rem; color: #D4AF37; margin-bottom: 15px; }
+        .reseller-content p { color: var(--text-dim); line-height: 1.6; margin-bottom: 25px; }
+        .reseller-content ul { list-style: none; margin-bottom: 25px; color: #fff; }
+        .reseller-content ul li { margin-bottom: 12px; display: flex; align-items: center; gap: 10px; font-weight: 500; }
+        .reseller-content ul li i { color: #D4AF37; }
+        .btn-reseller {
+            background: linear-gradient(90deg, #D4AF37, #F3E5AB); color: #000;
+            padding: 15px 35px; border-radius: 12px; font-weight: 700; text-decoration: none;
+            display: inline-block; transition: 0.3s; font-family: 'Syne', sans-serif;
+            box-shadow: 0 10px 20px rgba(212,175,55,0.2);
+        }
+        .btn-reseller:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(212,175,55,0.4); }
+        .reseller-icon { font-size: 12rem; color: rgba(212,175,55,0.05); position: absolute; right: -30px; bottom: -30px; z-index: 0; transform: rotate(-15deg); }
 
         /* === FAQ CANGGIH === */
         .faq-section { padding: 80px 5%; max-width: 900px; margin: 0 auto; }
@@ -267,6 +322,11 @@
     <nav>
         <a href="#" class="logo">Null<span>Store.</span></a>
         
+                <!-- Tombol Dark/Light Mode -->
+        <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" title="Ganti Tema">
+            <i class="fas fa-sun"></i>
+        </button>
+
         <!-- Tombol Garis 3 (Muncul cuma di HP) -->
         <button class="menu-toggle" onclick="toggleMenu()">
             <i class="fas fa-bars"></i>
@@ -479,6 +539,25 @@
             <div class="calc-result" id="calc-result">
                 <h4><i class="fas fa-check-circle"></i> Hasil Kalkulasi</h4>
                 <p id="calc-desc"></p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Program Reseller VIP -->
+    <section class="reseller-section">
+        <div class="reseller-box">
+            <i class="fas fa-crown reseller-icon"></i>
+            <div class="reseller-content">
+                <h2>Join VIP Reseller</h2>
+                <p>Ingin jualan diamond dengan modal minim? Bergabunglah menjadi mitra Null Store dan nikmati harga khusus yang jauh lebih murah dari harga normal!</p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> Harga Khusus Reseller (Untung Lebih Gede)</li>
+                    <li><i class="fas fa-check-circle"></i> Tanpa Syarat Ribet, Langsung Jualan</li>
+                    <li><i class="fas fa-check-circle"></i> Prioritas Layanan CS VIP 24/7</li>
+                </ul>
+                <a href="https://wa.me/6285757568455?text=Halo%20Mimin%20Null%20Store%2C%20saya%20tertarik%20mau%20daftar%20jadi%20Reseller%20VIP!" target="_blank" class="btn-reseller">
+                    <i class="fab fa-whatsapp"></i> Daftar Sekarang
+                </a>
             </div>
         </div>
     </section>
@@ -778,6 +857,21 @@ const items = [
             resultBox.style.display = 'block';
         }
 
+        // 10. Logic Dark/Light Mode Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const themeBtn = document.getElementById('theme-btn');
+            
+            body.classList.toggle('light-mode');
+            
+            if (body.classList.contains('light-mode')) {
+                themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
+                themeBtn.style.color = '#000'; // Biar ikon bulannya hitam pas terang
+            } else {
+                themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
+                themeBtn.style.color = '#fff'; // Biar ikon mataharinya putih pas gelap
+            }
+        }
 
     </script>
 </body>
