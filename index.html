@@ -1,879 +1,499 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="copyright" content="Null Store, https://www.instagram.com/null.topup?igsh=Mmh3ZTA0czhuaDAx">
-  <title>Ainul Store</title>
-  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="all">
-  <link rel="stylesheet" href="css/all.min.css" type="text/css" media="all">
-  <link rel="stylesheet" href="css/simple-line-icons.css" type="text/css" media="all">
-  <link rel="stylesheet" href="css/slick.css" type="text/css" media="all">
-  <link rel="stylesheet" href="css/animate.css" type="text/css" media="all">
-  <link rel="stylesheet" href="css/magnific-popup.css" type="text/css" media="all">
-  <link rel="stylesheet" href="css/style.css" type="text/css" media="all">
-  <link rel="icon" href="logo.png">
-  <script src="ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
-  <meta name="description" content="Ainul - API">
-  <meta property="og:image" content="https://telegra.ph/file/7bb370133e8cc15543905.jpg">
-  <meta property="og:site_name" content="Ainul">
-  <meta name="keywords" content="REST API">
-  <meta name="author" content="Ainul">
-  
-  <!-- Tambahan CSS biar efek scroll-nya mulus -->
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Null Store - Premium Game Top Up">
+    <title>Null Store | Elevate Your Game</title>
+    
+    <!-- Premium Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* === VARIABLES === */
+        :root {
+            --bg-dark: #050507;
+            --text-light: #f5f5f7;
+            --text-muted: #86868b;
+            --mlbb-glow: 212, 175, 55; /* Gold */
+            --ff-glow: 255, 75, 43; /* Orange/Red */
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* === RESET & BASE === */
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            cursor: none; /* Hide default cursor */
+        }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* === CUSTOM CURSOR === */
+        .cursor-dot {
+            width: 8px; height: 8px; background: #fff;
+            position: fixed; border-radius: 50%; z-index: 9999;
+            pointer-events: none; transform: translate(-50%, -50%);
+        }
+        .cursor-ring {
+            width: 32px; height: 32px; border: 1px solid rgba(255,255,255,0.4);
+            position: fixed; border-radius: 50%; z-index: 9998;
+            pointer-events: none; transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background 0.2s;
+        }
+
+        /* === ANIMATED BACKGROUND === */
+        .ambient-bg {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1; overflow: hidden; background: var(--bg-dark);
+        }
+        .orb {
+            position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.3;
+            animation: float 20s infinite alternate ease-in-out;
+        }
+        .orb-1 { width: 50vw; height: 50vw; background: #1a0b2e; top: -10%; left: -10%; }
+        .orb-2 { width: 40vw; height: 40vw; background: #0c1c38; bottom: -10%; right: -10%; animation-delay: -5s;}
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(5%, 10%) scale(1.1); }
+        }
+
+        /* === NAVBAR === */
+        nav {
+            padding: 24px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .logo {
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem;
+            font-weight: 700; color: #fff; text-decoration: none; letter-spacing: 1px;
+        }
+        .logo span { color: #00f2fe; }
+        .nav-links a {
+            color: var(--text-muted); text-decoration: none; margin-left: 30px;
+            font-weight: 600; transition: var(--transition);
+        }
+        .nav-links a:hover { color: #fff; }
+        .contact-btn {
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+            padding: 10px 24px; border-radius: 30px; color: #fff; text-decoration: none;
+            transition: var(--transition); font-weight: 600;
+        }
+        .contact-btn:hover { background: #fff; color: #000; }
+
+        /* === HERO SECTION === */
+        .hero {
+            padding: 120px 5% 80px; text-align: center;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .hero-badge {
+            background: rgba(0, 242, 254, 0.1); color: #00f2fe;
+            padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 600;
+            margin-bottom: 24px; border: 1px solid rgba(0, 242, 254, 0.2);
+            display: inline-block;
+        }
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif; font-size: clamp(3rem, 6vw, 5rem);
+            line-height: 1.1; margin-bottom: 24px; font-weight: 700;
+            background: linear-gradient(to right, #fff, #86868b);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            color: var(--text-muted); font-size: 1.2rem; max-width: 600px;
+            line-height: 1.6; margin-bottom: 40px;
+        }
+
+        /* === GAME TABS (THE ADVANCED FEATURE) === */
+        .catalog-section { padding: 0 5% 100px; }
+        
+        .tab-container {
+            display: flex; justify-content: center; gap: 20px; margin-bottom: 50px;
+        }
+        .tab-btn {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            padding: 15px 30px; border-radius: 12px; color: var(--text-muted);
+            font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 600;
+            display: flex; align-items: center; gap: 10px; transition: var(--transition);
+        }
+        .tab-btn.active.mlbb {
+            background: rgba(var(--mlbb-glow), 0.1); color: #fff;
+            border-color: rgba(var(--mlbb-glow), 0.5); box-shadow: 0 0 20px rgba(var(--mlbb-glow), 0.2);
+        }
+        .tab-btn.active.ff {
+            background: rgba(var(--ff-glow), 0.1); color: #fff;
+            border-color: rgba(var(--ff-glow), 0.5); box-shadow: 0 0 20px rgba(var(--ff-glow), 0.2);
+        }
+
+        .tab-content { display: none; animation: fadeIn 0.5s ease; }
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* === PRODUCT GRID === */
+        .section-title {
+            font-size: 1.5rem; margin: 40px 0 20px; font-family: 'Space Grotesk';
+            border-bottom: 1px solid var(--glass-border); padding-bottom: 10px;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 16px; padding: 24px 16px; text-align: center;
+            text-decoration: none; color: #fff; transition: var(--transition);
+            display: flex; flex-direction: column; gap: 8px; position: relative;
+            overflow: hidden;
+        }
+        .product-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top, rgba(255,255,255,0.1), transparent 70%);
+            opacity: 0; transition: var(--transition);
+        }
+
+        .item-name { font-size: 1.2rem; font-weight: 700; }
+        .item-price { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* MLBB Hover Glow */
+        .mlbb-content .product-card:hover {
+            transform: translateY(-5px); border-color: rgba(var(--mlbb-glow), 0.4);
+            box-shadow: 0 10px 30px rgba(var(--mlbb-glow), 0.15);
+        }
+        .mlbb-content .product-card:hover .item-name { color: #d4af37; }
+        .mlbb-content .product-card:hover::before { opacity: 1; }
+
+        /* FF Hover Glow */
+        .ff-content .product-card:hover {
+            transform: translateY(-5px); border-color: rgba(var(--ff-glow), 0.4);
+            box-shadow: 0 10px 30px rgba(var(--ff-glow), 0.15);
+        }
+        .ff-content .product-card:hover .item-name { color: #ff4b2b; }
+        .ff-content .product-card:hover::before { opacity: 1; }
+
+        /* === FOOTER === */
+        footer {
+            border-top: 1px solid var(--glass-border); padding: 60px 5%;
+            display: flex; flex-direction: column; align-items: center; gap: 30px;
+        }
+        .social-links { display: flex; gap: 20px; }
+        .social-links a {
+            width: 45px; height: 45px; border-radius: 50%;
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            display: flex; justify-content: center; align-items: center;
+            color: #fff; text-decoration: none; transition: var(--transition); font-size: 1.2rem;
+        }
+        .social-links a:hover { background: #fff; color: #000; transform: scale(1.1); }
+        .copyright { color: var(--text-muted); font-size: 0.9rem; text-align: center;}
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .tab-container { flex-direction: column; padding: 0 20px; }
+            .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            * { cursor: auto; } /* Disable custom cursor on mobile */
+            .cursor-dot, .cursor-ring { display: none; }
+        }
+    </style>
 </head>
-<body data-spy="scroll" data-target=".fixed-top">
-<div class="container">
+<body>
 
-  <!-- intro -->
-  <div class="intro">
-  <!-- Back to top button -->
-  <div class="back-to-top"></div>
+    <!-- Ambient Background -->
+    <div class="ambient-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
 
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-light navbar-float">
-      <div class="container">
-        <a href="index.html" class="text-primary">Null-<span class="text-primary">Store</span></a>
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
 
-        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="navbar-collapse collapse" id="navbarContent">
-          <ul class="navbar-nav ml-lg-4 pt-3 pt-lg-0">
-            <li class="nav-item active">
-              <a href="index.html" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item">
-              <a href="payment.png" class="nav-link">Qris All Payment</a>
-            </li>
-          </ul>
-
-          <div class="ml-auto">
-            <a href="https://wa.me/6285757568455?text=Mau%20TopUp%20min" class="btn btn-outline rounded-pill">CONTACT</a>
-          </div>
+    <!-- Navbar -->
+    <nav>
+        <a href="#" class="logo">Null<span>Store</span></a>
+        <div class="nav-links">
+            <a href="#" class="hover-target">Beranda</a>
+            <a href="#katalog" class="hover-target">Katalog</a>
+            <a href="payment.png" class="hover-target">Qris Payment</a>
         </div>
-      </div>
+        <a href="https://wa.me/6285757568455?text=Halo%20Mimin" class="contact-btn hover-target">Contact Us</a>
     </nav>
 
-    <div class="page-banner home-banner">
-      <div class="container h-100">
-        <div class="row align-items-center h-100">
-          <div class="col-lg-6 py-3 wow fadeInUp">
-            <h1 class="mb-4">Top Up Game</h1>
-            <p class="text-lg mb-5">Solusi cepat dan terpercaya untuk kebutuhan Top Up Game kamu. Nikmati harga termurah dengan proses hitungan menit!</p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge">⚡ Proses 1-5 Menit (Anti Delay)</div>
+        <h1>Elevate Your<br>Gaming Experience.</h1>
+        <p>Solusi top up game tercepat, teraman, dan terpercaya. Nikmati harga eksklusif yang dirancang khusus untuk memuaskan kebutuhan gaming Anda.</p>
+    </section>
 
-            <!-- INI TOMBOL YANG UDAH DIGANTI -->
-            <a href="#harga-game" class="btn btn-primary btn-split ml-2">LIHAT HARGA <div class="fab"><span class="fas fa-arrow-down"></span></div></a>
-          </div>
-          <div class="col-lg-6 py-3 wow zoomIn">
-            <div class="img-place">
-              <img src="../assets/img/arif1.png" alt="">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-	
-    <div class="page-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 py-3 wow zoomIn">
-            <div class="img-place text-center">
-              <img src="../assets/img/zero2.png" alt="">
-            </div>
-          </div>
-          <div class="col-lg-6 py-3 wow fadeInRight">
-            <h2 class="title-section">Cara  <span class="marked">Order</span></h2>
-            <div class="divider"></div>
-            <p>• Pilih Layanan Game yang anda inginkan.</p>
-            <p>• Hubungi kami via WhatsApp infokan mengenai Layanan yang akan anda pesan dan lakukan pembayaran melalui E-Wallet atau Qris All Payment</p>
-            <p>• Proses Pengerjaan Kurang Lebih 1-5 Menit Jika Website Tidak Delay</p>
-            <div class="img-place mb-3">
-              <img src="../assets/img/chat_image.png" alt="">
-            </div>
-          </div>
-        </div>
-      </div> <!-- .container -->
-    </div> <!-- .page-section -->
-  
-    <!-- TAMBAH ID harga-game DI SINI BIAR JADI TARGET SCROLL -->
-    <div class="page-section border-top" id="harga-game">
-      <div class="container">
-        <div class="text-center wow fadeInUp">
-          <h2 class="title-section">MOBILE LEGENDS</h2>
-          <div class="divider mx-auto"></div>
-        </div>
-  
-        <div class="row justify-content-center">
-          <div class="col-12 col-lg-auto py-3 wow fadeInLeft">
-            <div class="card-pricing">
-              <div class="header">
-                <div class="price-icon"><span class="mai-business"></span></div>
-                <div class="price-title">Via ID Dan Server Proses 1-5 Menit</div>
-              </div>              
-              <div class="body py-3">
-                <div class="price-tag mb-4">
-                  <h4 class="font-weight-bold text-primary" style="font-size: 1.5rem;">Pilih Nominal Top Up!</h4>
-                </div>
-<div class="price-info">
-  <div class="row text-center mx-1">
-    
-    <!-- Baris 1 -->
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%205%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">5 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 2.000</div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2012%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">12 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 4.000</div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2019%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">19 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 5.700</div>
-          </div>
-        </div>
-      </a>
-    </div>
-
-    <!-- Baris 2 -->
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2028%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">28 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 8.000</div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2036%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">36 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 10.500</div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2044%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">44 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 11.800</div>
-          </div>
-        </div>
-      </a>
-    </div>
-
-    <!-- Baris 3 -->
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2056%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">56 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 15.000</div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2059%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">59 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 15.500</div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2086%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">86 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 22.000</div>
-          </div>
-        </div>
-      </a>
-    </div>
-
-    <!-- Baris 4 -->
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20112%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">112 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 29.500</div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20172%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">172 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 45.000</div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20185%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">185 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 47.000</div>
-          </div>
-        </div>
-      </a>
-    </div>
-
-    <!-- Baris 5 -->
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20257%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">257 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 65.500</div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20296%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">296 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 75.000</div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20344%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">344 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 90.000</div>
-          </div>
-        </div>
-      </a>
-    </div>
-
-    <!-- Baris 6 -->
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20429%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">429 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 110.000</div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20514%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">514 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 132.500</div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20600%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">600 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 152.000</div>
-          </div>
-        </div>
-      </a>
-    </div>
-
-    <!-- Baris 7 -->
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20706%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">706 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 177.500</div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20875%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">875 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 218.000</div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20963%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">963 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 239.000</div>
-          </div>
-        </div>
-      </a>
-    </div>
-
-    <!-- Baris 8 -->
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%201050%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">1050 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 262.000</div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%201220%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">1220 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 316.500</div>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%201412%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">1412 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 365.000</div>
-          </div>
-        </div>
-      </a>
-    </div>
-
-    <!-- Baris 9 (Sisa 1) -->
-    <div class="col-4 mb-2 px-1">
-      <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%202195%20Diamond" class="text-decoration-none text-dark">
-        <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-          <div class="card-body p-1">
-            <div class="font-weight-bold" style="font-size: 0.85rem;">2195 💎</div>
-            <div class="text-muted" style="font-size: 0.75rem;">Rp 536.000</div>
-          </div>
-        </div>
-      </a>
-    </div>
-
-  </div>
-</div>
-<!-- KOTAK KEDUA (UPGRADE - 1 KOLOM KE BAWAH) -->
-<div class="col-12 col-lg-auto py-3 wow fadeInRight">
-    <div class="card-pricing">
-      <div class="header">
-        <div class="price-icon"><span class="mai-rocket-outline"></span></div>
-        <div class="price-title">Null Store</div>
-      </div>
-      <div class="body py-3">
-        <div class="price-tag mb-3">
-          <h2 class="font-weight-bold" style="font-size: 1.8rem;">Membership & Pass</h2>
-        </div>
+    <!-- Catalog Section -->
+    <section class="catalog-section" id="katalog">
         
-        <div class="price-info mt-3">
-          <div class="row text-center mx-1">
+        <!-- Tab Controls -->
+        <div class="tab-container">
+            <button class="tab-btn active mlbb hover-target" onclick="openTab('mlbb', this)">
+                <i class="fas fa-gem"></i> Mobile Legends
+            </button>
+            <button class="tab-btn ff hover-target" onclick="openTab('ff', this)">
+                <i class="fas fa-fire"></i> Free Fire
+            </button>
+        </div>
+
+        <!-- ==========================================
+             TAB 1: MOBILE LEGENDS
+             ========================================== -->
+        <div id="mlbb" class="tab-content active mlbb-content">
             
-            <!-- Deretan Weekly Pass -->
-            <div class="col-6 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20order%201x%20Weekly%20Diamond%20Pass" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-2">
-                    <div class="font-weight-bold" style="font-size: 0.90rem;">1x Weekly</div>
-                    <div class="text-muted" style="font-size: 0.80rem;">Rp 28.250</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-6 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20order%202x%20Weekly%20Diamond%20Pass" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-2">
-                    <div class="font-weight-bold" style="font-size: 0.90rem;">2x Weekly</div>
-                    <div class="text-muted" style="font-size: 0.80rem;">Rp 56.000</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-6 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20order%203x%20Weekly%20Diamond%20Pass" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-2">
-                    <div class="font-weight-bold" style="font-size: 0.90rem;">3x Weekly</div>
-                    <div class="text-muted" style="font-size: 0.80rem;">Rp 83.000</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-6 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20order%204x%20Weekly%20Diamond%20Pass" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-2">
-                    <div class="font-weight-bold" style="font-size: 0.90rem;">4x Weekly</div>
-                    <div class="text-muted" style="font-size: 0.80rem;">Rp 110.000</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-12 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20order%205x%20Weekly%20Diamond%20Pass" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-2">
-                    <div class="font-weight-bold" style="font-size: 0.90rem;">5x Weekly</div>
-                    <div class="text-muted" style="font-size: 0.80rem;">Rp 138.000</div>
-                  </div>
-                </div>
-              </a>
+            <h2 class="section-title">Top Up Diamonds</h2>
+            <div class="product-grid">
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%205%20Diamond" class="product-card hover-target">
+                    <div class="item-name">5 💎</div><div class="item-price">Rp 2.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2012%20Diamond" class="product-card hover-target">
+                    <div class="item-name">12 💎</div><div class="item-price">Rp 4.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2019%20Diamond" class="product-card hover-target">
+                    <div class="item-name">19 💎</div><div class="item-price">Rp 5.700</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2028%20Diamond" class="product-card hover-target">
+                    <div class="item-name">28 💎</div><div class="item-price">Rp 8.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2036%20Diamond" class="product-card hover-target">
+                    <div class="item-name">36 💎</div><div class="item-price">Rp 10.500</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2044%20Diamond" class="product-card hover-target">
+                    <div class="item-name">44 💎</div><div class="item-price">Rp 11.800</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2056%20Diamond" class="product-card hover-target">
+                    <div class="item-name">56 💎</div><div class="item-price">Rp 15.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2059%20Diamond" class="product-card hover-target">
+                    <div class="item-name">59 💎</div><div class="item-price">Rp 15.500</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2086%20Diamond" class="product-card hover-target">
+                    <div class="item-name">86 💎</div><div class="item-price">Rp 22.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20112%20Diamond" class="product-card hover-target">
+                    <div class="item-name">112 💎</div><div class="item-price">Rp 29.500</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20172%20Diamond" class="product-card hover-target">
+                    <div class="item-name">172 💎</div><div class="item-price">Rp 45.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20185%20Diamond" class="product-card hover-target">
+                    <div class="item-name">185 💎</div><div class="item-price">Rp 47.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20257%20Diamond" class="product-card hover-target">
+                    <div class="item-name">257 💎</div><div class="item-price">Rp 65.500</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20296%20Diamond" class="product-card hover-target">
+                    <div class="item-name">296 💎</div><div class="item-price">Rp 75.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20344%20Diamond" class="product-card hover-target">
+                    <div class="item-name">344 💎</div><div class="item-price">Rp 90.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20429%20Diamond" class="product-card hover-target">
+                    <div class="item-name">429 💎</div><div class="item-price">Rp 110.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20514%20Diamond" class="product-card hover-target">
+                    <div class="item-name">514 💎</div><div class="item-price">Rp 132.500</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20600%20Diamond" class="product-card hover-target">
+                    <div class="item-name">600 💎</div><div class="item-price">Rp 152.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20706%20Diamond" class="product-card hover-target">
+                    <div class="item-name">706 💎</div><div class="item-price">Rp 177.500</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20875%20Diamond" class="product-card hover-target">
+                    <div class="item-name">875 💎</div><div class="item-price">Rp 218.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20963%20Diamond" class="product-card hover-target">
+                    <div class="item-name">963 💎</div><div class="item-price">Rp 239.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%201050%20Diamond" class="product-card hover-target">
+                    <div class="item-name">1050 💎</div><div class="item-price">Rp 262.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%201220%20Diamond" class="product-card hover-target">
+                    <div class="item-name">1220 💎</div><div class="item-price">Rp 316.500</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%201412%20Diamond" class="product-card hover-target">
+                    <div class="item-name">1412 💎</div><div class="item-price">Rp 365.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%202195%20Diamond" class="product-card hover-target">
+                    <div class="item-name">2195 💎</div><div class="item-price">Rp 536.000</div>
+                </a>
             </div>
 
-            <!-- Deretan Starlight -->
-            <div class="col-12 mb-2 px-1 mt-2">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20order%20Starlight%20Membership" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-2">
-                    <div class="font-weight-bold" style="font-size: 0.95rem;">Starlight Membership</div>
-                    <div class="text-muted" style="font-size: 0.85rem;">Rp 81.750</div>
-                  </div>
-                </div>
-              </a>
+            <h2 class="section-title">Membership & Pass</h2>
+            <div class="product-grid">
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20order%201x%20Weekly%20Diamond%20Pass" class="product-card hover-target">
+                    <div class="item-name">1x Weekly</div><div class="item-price">Rp 28.250</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20order%202x%20Weekly%20Diamond%20Pass" class="product-card hover-target">
+                    <div class="item-name">2x Weekly</div><div class="item-price">Rp 56.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20order%203x%20Weekly%20Diamond%20Pass" class="product-card hover-target">
+                    <div class="item-name">3x Weekly</div><div class="item-price">Rp 83.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20order%204x%20Weekly%20Diamond%20Pass" class="product-card hover-target">
+                    <div class="item-name">4x Weekly</div><div class="item-price">Rp 110.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20order%205x%20Weekly%20Diamond%20Pass" class="product-card hover-target">
+                    <div class="item-name">5x Weekly</div><div class="item-price">Rp 138.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20order%20Starlight%20Membership" class="product-card hover-target">
+                    <div class="item-name">Starlight</div><div class="item-price">Rp 81.750</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20order%20Starlight%20Member%20Plus" class="product-card hover-target">
+                    <div class="item-name">Starlight Plus</div><div class="item-price">Rp 196.000</div>
+                </a>
             </div>
-            <div class="col-12 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20order%20Starlight%20Member%20Plus" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-2">
-                    <div class="font-weight-bold" style="font-size: 0.95rem;">Starlight Member Plus</div>
-                    <div class="text-muted" style="font-size: 0.85rem;">Rp 196.000</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-
-          </div>
         </div>
-      </div>
 
-
-  
-  <!-- TOMBOL GRUP WA PINDAH KE SINI (Di Paling Bawah Upgrade) -->
-  <div class="footer mt-1 text-center pb-4 px-3">
-    <a href="https://chat.whatsapp.com/KA6cAAofwQ9JEwym9pIBHQ?s=cl&p=a&mlu=3" class="btn btn-primary btn-block rounded-pill font-weight-bold shadow" style="font-size: 1rem; padding: 10px;">Masuk Grup WhatsApp</a>
-  </div>
-  
-</div>
-</div>
-
-          
-    <div class="page-section border-top">
-      <div class="container">
-        <div class="text-center wow fadeInUp">
-          <h2 class="title-section">FREE FIRE</h2>
-          <div class="divider mx-auto"></div>
-        </div>          
-        
-<!-- KOTAK HARGA FREE FIRE (FORMAT PERSIS MLBB) -->
-<div class="row justify-content-center">
-  
-  <!-- KOLOM KIRI: DIAMOND FREE FIRE -->
-  <div class="col-12 col-lg-auto py-3 wow fadeInLeft">
-    <div class="card-pricing">
-      <div class="header">
-        <div class="price-icon"><span class="mai-business"></span></div>
-        <div class="price-title">Via ID Proses 1-5 Menit</div>
-      </div>              
-      <div class="body py-3">
-        <div class="price-tag mb-4">
-          <h4 class="font-weight-bold text-primary" style="font-size: 1.5rem;">Pilih Nominal Top Up</h4>
-        </div>
-        
-        <div class="price-info">
-          <div class="row text-center mx-1">
-            <!-- Baris 1 -->
-            <div class="col-4 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%205%20Diamond%20Free%20Fire" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-1">
-                    <div class="font-weight-bold" style="font-size: 0.85rem;">5 💎</div>
-                    <div class="text-muted" style="font-size: 0.75rem;">Rp 1.000</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-4 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2012%20Diamond%20Free%20Fire" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-1">
-                    <div class="font-weight-bold" style="font-size: 0.85rem;">12 💎</div>
-                    <div class="text-muted" style="font-size: 0.75rem;">Rp 2.000</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-4 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2050%20Diamond%20Free%20Fire" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-1">
-                    <div class="font-weight-bold" style="font-size: 0.85rem;">50 💎</div>
-                    <div class="text-muted" style="font-size: 0.75rem;">Rp 7.000</div>
-                  </div>
-                </div>
-              </a>
-            </div>
+        <!-- ==========================================
+             TAB 2: FREE FIRE
+             ========================================== -->
+        <div id="ff" class="tab-content ff-content">
             
-            <!-- Baris 2 -->
-            <div class="col-4 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2070%20Diamond%20Free%20Fire" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-1">
-                    <div class="font-weight-bold" style="font-size: 0.85rem;">70 💎</div>
-                    <div class="text-muted" style="font-size: 0.75rem;">Rp 9.500</div>
-                  </div>
-                </div>
-              </a>
+            <h2 class="section-title">Top Up Diamonds</h2>
+            <div class="product-grid">
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%205%20Diamond%20Free%20Fire" class="product-card hover-target">
+                    <div class="item-name">5 💎</div><div class="item-price">Rp 1.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2012%20Diamond%20Free%20Fire" class="product-card hover-target">
+                    <div class="item-name">12 💎</div><div class="item-price">Rp 2.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2050%20Diamond%20Free%20Fire" class="product-card hover-target">
+                    <div class="item-name">50 💎</div><div class="item-price">Rp 7.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%2070%20Diamond%20Free%20Fire" class="product-card hover-target">
+                    <div class="item-name">70 💎</div><div class="item-price">Rp 9.500</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20100%20Diamond%20Free%20Fire" class="product-card hover-target">
+                    <div class="item-name">100 💎</div><div class="item-price">Rp 13.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20140%20Diamond%20Free%20Fire" class="product-card hover-target">
+                    <div class="item-name">140 💎</div><div class="item-price">Rp 18.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20210%20Diamond%20Free%20Fire" class="product-card hover-target">
+                    <div class="item-name">210 💎</div><div class="item-price">Rp 26.500</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20355%20Diamond%20Free%20Fire" class="product-card hover-target">
+                    <div class="item-name">355 💎</div><div class="item-price">Rp 44.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20500%20Diamond%20Free%20Fire" class="product-card hover-target">
+                    <div class="item-name">500 💎</div><div class="item-price">Rp 63.700</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20720%20Diamond%20Free%20Fire" class="product-card hover-target">
+                    <div class="item-name">720 💎</div><div class="item-price">Rp 89.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%201000%20Diamond%20Free%20Fire" class="product-card hover-target">
+                    <div class="item-name">1000 💎</div><div class="item-price">Rp 125.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%201450%20Diamond%20Free%20Fire" class="product-card hover-target">
+                    <div class="item-name">1450 💎</div><div class="item-price">Rp 178.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%202180%20Diamond%20Free%20Fire" class="product-card hover-target">
+                    <div class="item-name">2180 💎</div><div class="item-price">Rp 269.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%203640%20Diamond%20Free%20Fire" class="product-card hover-target">
+                    <div class="item-name">3640 💎</div><div class="item-price">Rp 448.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%207290%20Diamond%20Free%20Fire" class="product-card hover-target">
+                    <div class="item-name">7290 💎</div><div class="item-price">Rp 890.000</div>
+                </a>
             </div>
-            <div class="col-4 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20100%20Diamond%20Free%20Fire" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-1">
-                    <div class="font-weight-bold" style="font-size: 0.85rem;">100 💎</div>
-                    <div class="text-muted" style="font-size: 0.75rem;">Rp 13.000</div>
-                  </div>
-                </div>
-              </a>
+
+            <h2 class="section-title">Membership & Pass</h2>
+            <div class="product-grid">
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20order%20Membership%20Mingguan%20Free%20Fire" class="product-card hover-target">
+                    <div class="item-name">Mingguan</div><div class="item-price">Rp 28.000</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20order%20Membership%20Bulanan%20Free%20Fire" class="product-card hover-target">
+                    <div class="item-name">Bulanan</div><div class="item-price">Rp 81.500</div>
+                </a>
+                <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20order%20Booyah%20Pass%20Free%20Fire" class="product-card hover-target">
+                    <div class="item-name">Booyah Pass</div><div class="item-price">Rp 41.000</div>
+                </a>
             </div>
-            <div class="col-4 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20140%20Diamond%20Free%20Fire" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-1">
-                    <div class="font-weight-bold" style="font-size: 0.85rem;">140 💎</div>
-                    <div class="text-muted" style="font-size: 0.75rem;">Rp 18.000</div>
-                  </div>
-                </div>
-              </a>
-            </div>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="https://www.instagram.com/null.topup?igsh=MTJiZzdrd3N0MzhlOA==" target="_blank" class="hover-target"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@nullstore.id?_r=1&_t=ZS-96tYpcAFGJI" target="_blank" class="hover-target"><i class="fab fa-tiktok"></i></a>
+            <a href="https://github.com/AinulStore" target="_blank" class="hover-target"><i class="fab fa-github"></i></a>
+            <a href="https://chat.whatsapp.com/KA6cAAofwQ9JEwym9pIBHQ?s=cl&p=a&mlu=3" target="_blank" class="hover-target"><i class="fas fa-users"></i></a>
+        </div>
+        <p class="copyright">&copy; 2026 Ainul Riskian (Null Store). Crafted with Advanced UI/UX.</p>
+    </footer>
+
+    <!-- JavaScript for Interactions -->
+    <script>
+        // Custom Cursor Logic
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorRing = document.getElementById('cursor-ring');
+        const hoverTargets = document.querySelectorAll('.hover-target');
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
             
-            <!-- Baris 3 -->
-            <div class="col-4 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20210%20Diamond%20Free%20Fire" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-1">
-                    <div class="font-weight-bold" style="font-size: 0.85rem;">210 💎</div>
-                    <div class="text-muted" style="font-size: 0.75rem;">Rp 26.500</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-4 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20355%20Diamond%20Free%20Fire" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-1">
-                    <div class="font-weight-bold" style="font-size: 0.85rem;">355 💎</div>
-                    <div class="text-muted" style="font-size: 0.75rem;">Rp 44.000</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-4 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20500%20Diamond%20Free%20Fire" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-1">
-                    <div class="font-weight-bold" style="font-size: 0.85rem;">500 💎</div>
-                    <div class="text-muted" style="font-size: 0.75rem;">Rp 63.700</div>
-                  </div>
-                </div>
-              </a>
-            </div>
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
             
-            <!-- Baris 4 -->
-            <div class="col-4 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%20720%20Diamond%20Free%20Fire" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-1">
-                    <div class="font-weight-bold" style="font-size: 0.85rem;">720 💎</div>
-                    <div class="text-muted" style="font-size: 0.75rem;">Rp 89.000</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-4 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%201000%20Diamond%20Free%20Fire" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-1">
-                    <div class="font-weight-bold" style="font-size: 0.85rem;">1000 💎</div>
-                    <div class="text-muted" style="font-size: 0.75rem;">Rp 125.000</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-4 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%201450%20Diamond%20Free%20Fire" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-1">
-                    <div class="font-weight-bold" style="font-size: 0.85rem;">1450 💎</div>
-                    <div class="text-muted" style="font-size: 0.75rem;">Rp 178.000</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            
-            <!-- Baris 5 -->
-            <div class="col-4 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%202180%20Diamond%20Free%20Fire" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-1">
-                    <div class="font-weight-bold" style="font-size: 0.85rem;">2180 💎</div>
-                    <div class="text-muted" style="font-size: 0.75rem;">Rp 269.000</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-4 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%203640%20Diamond%20Free%20Fire" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-1">
-                    <div class="font-weight-bold" style="font-size: 0.85rem;">3640 💎</div>
-                    <div class="text-muted" style="font-size: 0.75rem;">Rp 448.000</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-4 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20top%20up%207290%20Diamond%20Free%20Fire" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-1">
-                    <div class="font-weight-bold" style="font-size: 0.85rem;">7290 💎</div>
-                    <div class="text-muted" style="font-size: 0.75rem;">Rp 890.000</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+            cursorRing.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 150, fill: "forwards" });
+        });
 
-  <!-- KOLOM KANAN: MEMBER FREE FIRE -->
-  <div class="col-12 col-lg-auto py-3 wow fadeInRight">
-    <div class="card-pricing">
-      <div class="header">
-        <div class="price-icon"><span class="mai-rocket-outline"></span></div>
-        <div class="price-title">Null Store</div>
-      </div>
-      <div class="body py-3">
-        <div class="price-tag mb-3">
-          <h2 class="font-weight-bold" style="font-size: 1.8rem;">Membership & Booyah Pass</h2>
-        </div>
-        
-        <div class="price-info mt-3">
-          <div class="row text-center mx-1">
-            
-            <!-- Membership Mingguan -->
-            <div class="col-12 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20order%20Membership%20Mingguan%20Free%20Fire" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-2">
-                    <div class="font-weight-bold" style="font-size: 0.95rem;">Mingguan</div>
-                    <div class="text-muted" style="font-size: 0.85rem;">Rp 28.000</div>
-                  </div>
-                </div>
-              </a>
-            </div>
+        hoverTargets.forEach(target => {
+            target.addEventListener('mouseenter', () => {
+                cursorRing.style.width = '50px';
+                cursorRing.style.height = '50px';
+                cursorRing.style.background = 'rgba(255,255,255,0.1)';
+            });
+            target.addEventListener('mouseleave', () => {
+                cursorRing.style.width = '32px';
+                cursorRing.style.height = '32px';
+                cursorRing.style.background = 'transparent';
+            });
+        });
 
-            <!-- Membership Bulanan -->
-            <div class="col-12 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20order%20Membership%20Bulanan%20Free%20Fire" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-2">
-                    <div class="font-weight-bold" style="font-size: 0.95rem;">Bulanan</div>
-                    <div class="text-muted" style="font-size: 0.85rem;">Rp 81.500</div>
-                  </div>
-                </div>
-              </a>
-            </div>
+        // Tab Switching Logic
+        function openTab(gameName, element) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
 
-            <!-- Booyah Pass -->
-            <div class="col-12 mb-2 px-1">
-              <a href="https://wa.me/6285757568455?text=Permisi%20mimin%20mau%20order%20Booyah%20Pass%20Free%20Fire" class="text-decoration-none text-dark">
-                <div class="card shadow-sm border-primary button-click" style="border-radius: 8px; transition: 0.2s;">
-                  <div class="card-body p-2">
-                    <div class="font-weight-bold" style="font-size: 0.95rem;">Booyah Pass</div>
-                    <div class="text-muted" style="font-size: 0.85rem;">Rp 41.000</div>
-                  </div>
-                </div>
-              </a>
-            </div>
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
 
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-      
-      <!-- TOMBOL GRUP WA FF -->
-      <div class="footer mt-1 text-center pb-4 px-3">
-        <a href="https://chat.whatsapp.com/KA6cAAofwQ9JEwym9pIBHQ?s=cl&p=a&mlu=3" class="btn btn-primary btn-block rounded-pill font-weight-bold shadow" style="font-size: 1rem; padding: 10px;">Masuk Grup WhatsApp</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- KATA PENUTUP / TESTIMONI -->
-  <div class="col-12 col-lg-auto py-3 text-center">
-    <div class="testi-content shadow-sm p-4" style="border-radius: 15px; background-color: #f8f9fa; max-width: 600px; margin: 0 auto;">
-      <p class="font-italic text-muted mb-3" style="font-size: 1.1rem;">"Terima kasih udah mempercayakan top up game kamu di sini! Proses cepat, aman 100%, dan pastinya anti-delay. Happy gaming! 🎮🔥"</p>
-      <div class="entry-footer font-weight-bold">
-        Ainul Riskian &mdash; <span class="text-primary">Founder & Developer</span>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-
-
-  
-    <div class="page-section">
-      <div class="container">
-        <div class="row justify-content-center">
-          
-          <!-- BAGIAN CONTACT US (Posisi di Tengah & Langsung ke Gmail) -->
-          <div class="col-lg-8 py-3 wow fadeInUp text-center">
-            <div class="subhead">Contact Us</div>
-            <h2 class="title-section">Drop Us a Line</h2>
-            <div class="divider mx-auto"></div>
-            
-            <p class="mb-4 text-muted">Punya pertanyaan seputar top up atau kendala transaksi? Jangan ragu buat kirim pesan ke kami!</p>
-            
-            <!-- Form ini akan otomatis membuka aplikasi Gmail di HP pelanggan -->
-            <form action="mailto:nullstoregaming@gmail.com" method="POST" enctype="text/plain" class="text-left">
-              <div class="py-2">
-                <input type="email" name="Email_Pelanggan" class="form-control shadow-sm" style="border-radius: 8px;" placeholder="Masukkan Email kamu" required>
-              </div>
-              <div class="py-2">
-                <textarea name="Pesan_Kendala" class="form-control shadow-sm" style="border-radius: 8px;" rows="5" placeholder="Tulis pesan atau kendala kamu di sini..." required></textarea>
-              </div>
-              <div class="text-center">
-                <button type="submit" class="btn btn-primary rounded-pill mt-4 shadow">Kirim via Email</button>
-              </div>
-            </form>
-          </div>
-          
-        </div>
-      </div> <!-- .container -->
-    </div> <!-- .page-section -->
-
-
-  
-  </main>
-
-  <footer class="page-footer">
-    <div class="container">
-      <div class="row justify-content-center mb-5">
-        
-        <!-- BAGIAN CONTACT ME -->
-        <div class="col-lg-3 py-3">
-          <h3><span class="text-primary">Null Store</span></h3>
-          <p>Contact Me</p>
-          <ul class="list-unstyled li-space-lg p-small">
-            <li class="media" style="display: flex; align-items: center; margin-bottom: 10px;">
-                <i class="fas fa-map-marker-alt" style="margin-right: 12px; color: #6c757d; font-size: 1.2rem;"></i>
-                <div class="media-body">Kalimantan Selatan, Banjarmasin Timur</div>
-            </li>
-            <li class="media" style="display: flex; align-items: center;">
-                <i class="fab fa-whatsapp" style="margin-right: 12px; color: #25D366; font-size: 1.2rem;"></i>
-                <div class="media-body"><a href="https://wa.me/6285757568455?text=Halo%20Mimin" style="color: #6c757d; text-decoration: none;">WhatsApp</a> </div>
-            </li>
-          </ul>
-        </div>
-        
-        <!-- BAGIAN MY SOCIAL MEDIA -->
-        <div class="col-lg-3 py-3">
-          <h5>My Social Media</h5>
-          <ul class="list-unstyled li-space-lg p-small">
-              <li class="media" style="display: flex; align-items: center; margin-bottom: 10px;">
-                  <i class="fab fa-tiktok" style="margin-right: 12px; color: #000000; font-size: 1.2rem;"></i>
-                  <div class="media-body"><a href="https://www.tiktok.com/@nullstore.id?_r=1&_t=ZS-96tYpcAFGJI" style="color: #6c757d; text-decoration: none;">NullStore.id</a></div>
-              </li>
-              <li class="media" style="display: flex; align-items: center; margin-bottom: 10px;">
-                  <i class="fab fa-instagram" style="margin-right: 12px; color: #E1306C; font-size: 1.2rem;"></i>
-                  <div class="media-body"><a href="https://instagram.com/null.topup/" style="color: #6c757d; text-decoration: none;">@Null.TopUp</a></div>
-              </li>
-              <li class="media" style="display: flex; align-items: center; margin-bottom: 10px;">
-                  <i class="fab fa-github" style="margin-right: 12px; color: #333; font-size: 1.2rem;"></i>
-                  <div class="media-body"><a href="https://github.com/AinulStore" style="color: #6c757d; text-decoration: none;">AinulStore</a></div>
-              </li>
-              <li class="media" style="display: flex; align-items: center;">
-                  <i class="fab fa-whatsapp" style="margin-right: 12px; color: #25D366; font-size: 1.2rem;"></i>
-                  <div class="media-body"><a href="https://chat.whatsapp.com/KA6cAAofwQ9JEwym9pIBHQ?s=cl&p=a&mlu=3" style="color: #6c757d; text-decoration: none;">Grup Mabar (Klik di sini)</a></div>
-              </li>                            
-          </ul>
-        </div>
-        
-        <!-- BAGIAN SOSMED BAWAH & COPYRIGHT -->
-        <div class="col-lg-3 py-3">
-          <ul class="footer-menu list-unstyled"></ul>
-          <div class="sosmed-button mt-4">
-            <a href="https://www.instagram.com/null.topup?igsh=MTJiZzdrd3N0MzhlOA=="><span class="fab fa-instagram"></span></a>
-            <a href="https://github.com/AinulStore"><span class="fab fa-github"></span></a>
-            <a href="https://wa.me/6285757568455"><span class="fab fa-whatsapp"></span></a>
-          </div>
-        </div>
-      </div> <!-- .row -->
-
-      <!-- COPYRIGHT -->
-      <div class="row justify-content-center text-center mt-3">
-        <div class="col-12 py-2">
-          <p id="copyright" class="mb-0 text-muted" style="font-size: 0.9rem;">
-            &copy; 2026 <a href="https://www.instagram.com/null.topup?igsh=MTJiZzdrd3N0MzhlOA==" class="font-weight-bold text-primary">Ainul Riskian</a>. All rights reserved.
-          </p>
-        </div>
-      </div>
-      
-    </div> <!-- .container -->
-  </footer> <!-- .page-footer -->
-        
-  <!-- SCRIPTS -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
+            // Show selected tab and set button as active
+            document.getElementById(gameName).classList.add('active');
+            element.classList.add('active');
+        }
+    </script>
 </body>
 </html>
