@@ -157,6 +157,22 @@
             .btn-checkout { max-width: 100%; }
             #toast-container { bottom: 20px; left: 20px; right: 20px; }
             .live-toast { width: 100%; }
+            
+            /* === TAMBAHAN: JADIKAN 3 KOLOM DI HP === */
+            .grid { 
+                grid-template-columns: repeat(3, 1fr); 
+                gap: 10px; 
+            }
+            .card { 
+                padding: 15px 5px; /* Mengecilkan ruang di dalam kartu */
+            }
+            .card-title { 
+                font-size: 1rem; /* Mengecilkan ukuran font diamond */
+                margin-bottom: 5px; 
+            }
+            .card-price { 
+                font-size: 0.75rem; /* Mengecilkan ukuran font harga */
+            }
         }
     </style>
 </head>
@@ -285,8 +301,8 @@
     <div class="card tilt-card" data-val="7290 💎 (Rp 890.000)"><div class="inner"><div class="card-title">7290 💎</div><div class="card-price">Rp 890.000</div></div></div>
     
     <!-- Membership & Pass -->
-    <div class="card tilt-card" data-val="Mingguan (Rp 28.000)"><div class="inner"><div class="card-title">Mingguan</div><div class="card-price">Rp 28.000</div></div></div>
-    <div class="card tilt-card" data-val="Bulanan (Rp 82.00)"><div class="inner"><div class="card-title">Bulanan</div><div class="card-price">Rp 82.000</div></div></div>
+    <div class="card tilt-card" data-val="Membership Mingguan (Rp 28.000)"><div class="inner"><div class="card-title">Membership Mingguan</div><div class="card-price">Rp 28.000</div></div></div>
+    <div class="card tilt-card" data-val="Membership Bulanan (Rp 82.00)"><div class="inner"><div class="card-title">Membership Bulanan</div><div class="card-price">Rp 82.000</div></div></div>
     <div class="card tilt-card" data-val="Booyah Pass (Rp 41.000)"><div class="inner"><div class="card-title">Booyah Pass</div><div class="card-price">Rp 41.000</div></div></div>
 </div>
 
