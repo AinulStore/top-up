@@ -258,6 +258,43 @@
         }
         .btn-reseller:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(212,175,55,0.4); }
         .reseller-icon { font-size: 12rem; color: rgba(212,175,55,0.05); position: absolute; right: -30px; bottom: -30px; z-index: 0; transform: rotate(-15deg); }
+        
+        /* === MITRA PEMBAYARAN BERJALAN === */
+        .payment-partners { 
+            padding: 40px 0; border-top: 1px solid var(--glass-border); 
+            border-bottom: 1px solid var(--glass-border); 
+            background: rgba(0,0,0,0.2); overflow: hidden; margin-top: 20px; 
+        }
+        .partners-title { 
+            text-align: center; color: var(--text-dim); font-size: 0.9rem; 
+            font-weight: 600; margin-bottom: 25px; letter-spacing: 1px; text-transform: uppercase; 
+        }
+        .marquee-container { width: 100%; overflow: hidden; position: relative; display: flex; }
+        
+        /* Efek bayangan di pinggir biar keluarnya mulus */
+        .marquee-container::before, .marquee-container::after { 
+            content: ''; position: absolute; top: 0; width: 80px; height: 100%; z-index: 2; 
+        }
+        .marquee-container::before { left: 0; background: linear-gradient(to right, var(--bg-base), transparent); }
+        .marquee-container::after { right: 0; background: linear-gradient(to left, var(--bg-base), transparent); }
+        
+        /* Lintasan animasinya */
+        .marquee-track { 
+            display: flex; width: calc(200px * 14); 
+            animation: scrollMarquee 20s linear infinite; 
+        }
+        .partner-item { 
+            width: 200px; flex-shrink: 0; display: flex; justify-content: center; 
+            align-items: center; gap: 10px; color: var(--text-dim); font-size: 1.2rem; 
+            font-weight: 700; font-family: 'Syne', sans-serif; opacity: 0.6; transition: 0.3s; 
+        }
+        .partner-item i { font-size: 1.5rem; }
+        
+        /* Rumus Berjalan Tanpa Henti */
+        @keyframes scrollMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-200px * 7)); } 
+        }
 
         /* === FAQ CANGGIH === */
         .faq-section { padding: 80px 5%; max-width: 900px; margin: 0 auto; }
@@ -572,6 +609,32 @@
         <div class="faq-item">
             <button class="faq-question">Apakah layanan ini aman dan legal? <i class="fas fa-chevron-down"></i></button>
             <div class="faq-answer"><p>100% Aman dan Legal. Kami hanya menggunakan metode top up resmi via ID sehingga akun Anda bebas dari risiko banned.</p></div>
+        </div>
+    </section>
+
+    <!-- === BANNER MITRA PEMBAYARAN (JALAN OTOMATIS) === -->
+    <section class="payment-partners">
+        <h3 class="partners-title">Mendukung Berbagai Metode Pembayaran</h3>
+        <div class="marquee-container">
+            <div class="marquee-track">
+                <!-- SET PERTAMA (7 Item) -->
+                <div class="partner-item"><i class="fas fa-qrcode"></i> QRIS</div>
+                <div class="partner-item"><i class="fas fa-wallet" style="color: #118EEA;"></i> DANA</div>
+                <div class="partner-item"><i class="fas fa-wallet" style="color: #00AED6;"></i> GoPay</div>
+                <div class="partner-item"><i class="fas fa-wallet" style="color: #4C3494;"></i> OVO</div>
+                <div class="partner-item"><i class="fas fa-shopping-bag" style="color: #EE4D2D;"></i> ShopeePay</div>
+                <div class="partner-item"><i class="fas fa-university" style="color: #0066AE;"></i> Bank BCA</div>
+                <div class="partner-item"><i class="fas fa-university" style="color: #F2C94C;"></i> Mandiri</div>
+                
+                <!-- SET KEDUA (Wajib diduplikat biar putarannya gak pernah putus) -->
+                <div class="partner-item"><i class="fas fa-qrcode"></i> QRIS</div>
+                <div class="partner-item"><i class="fas fa-wallet" style="color: #118EEA;"></i> DANA</div>
+                <div class="partner-item"><i class="fas fa-wallet" style="color: #00AED6;"></i> GoPay</div>
+                <div class="partner-item"><i class="fas fa-wallet" style="color: #4C3494;"></i> OVO</div>
+                <div class="partner-item"><i class="fas fa-shopping-bag" style="color: #EE4D2D;"></i> ShopeePay</div>
+                <div class="partner-item"><i class="fas fa-university" style="color: #0066AE;"></i> Bank BCA</div>
+                <div class="partner-item"><i class="fas fa-university" style="color: #F2C94C;"></i> Mandiri</div>
+            </div>
         </div>
     </section>
 
