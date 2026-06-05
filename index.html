@@ -60,18 +60,6 @@
         
         body { background-color: var(--bg-base); color: var(--text-main); overflow-x: hidden; }
 
-        /* MESH GRADIENT AURORA BACKGROUND */
-        .aurora-bg {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
-            background: radial-gradient(circle at 15% 50%, rgba(20, 40, 100, 0.4), transparent 50%),
-                        radial-gradient(circle at 85% 30%, rgba(80, 20, 100, 0.3), transparent 50%);
-            filter: blur(80px); animation: auroraPulse 15s infinite alternate ease-in-out;
-        }
-        @keyframes auroraPulse { 
-            0% { transform: scale(1) rotate(0deg); } 
-            100% { transform: scale(1.2) rotate(10deg); } 
-        }
-
         /* === NAVBAR KACA === */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1000;
@@ -215,10 +203,52 @@
 
         .badge-recom { position: absolute; top: 0; right: 0; background: var(--success); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 5px 15px; border-bottom-left-radius: 15px; }
 
-        /* === CHECKOUT BUTTON === */
-        .checkout-wrapper { margin-top: 20px; text-align: right; }
-        .btn-checkout { background: linear-gradient(90deg, #00E1FF, #B800FF); border: none; padding: 18px 40px; border-radius: 12px; color: #fff; font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 30px rgba(0, 225, 255, 0.3); width: 100%; max-width: 300px; }
-        .btn-checkout:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(184, 0, 255, 0.4); }
+        /* === CHECKOUT BUTTON (FLOATING ALA CODASHOP) === */
+        .checkout-wrapper {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--bg-card);
+            padding: 15px 5%;
+            border-top: 1px solid var(--glass-border);
+            z-index: 999;
+            display: flex;
+            justify-content: flex-end; /* Taruh tombol di kanan */
+            align-items: center;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .btn-checkout { 
+            background: linear-gradient(90deg, #00E1FF, #00A3FF); /* Warna biru tema Null Store */
+            border: none; 
+            padding: 15px 40px; 
+            border-radius: 50px; /* Bikin melingkar kayak Codashop */
+            color: #fff; 
+            font-family: 'Syne', sans-serif; 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            cursor: pointer; 
+            transition: 0.3s; 
+            box-shadow: 0 4px 15px rgba(0, 225, 255, 0.3); 
+            width: auto; /* Jangan full width di PC */
+            min-width: 250px;
+        }
+        
+        .btn-checkout:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(0, 225, 255, 0.4); 
+        }
+
+        /* Biar footer gak ketutupan tombol mengambang */
+        body { padding-bottom: 80px; } 
+
+        @media (max-width: 768px) {
+            .btn-checkout {
+                width: 100%; /* Kalau di HP, tombolnya jadi memanjang penuh */
+                max-width: none;
+            }
+        }
         
         /* === KALKULATOR EVENT === */
         .calc-section { padding: 50px 5%; max-width: 900px; margin: 0 auto; text-align: center; }
@@ -390,36 +420,44 @@
             color: rgba(255,255,255,0.3);
             z-index: 10;
         }
-
-        /* === REVISI: DYNAMIC BACKGROUND KEMBALI TERANG === */
-        .game-bg {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            z-index: -2; 
-            background-size: cover;
-            background-position: center;
-            opacity: 0.4; /* Opacity dinaikkan biar foto gamenya lebih terang */
-            filter: none; /* Hilangkan efek gelap dan blur di background */
-            transition: background-image 0.5s ease-in-out; 
+        
+                /* === WARNA ASLI NULL STORE (LAYOUT CLEAN) === */
+        :root {
+            --bg-base: #0B0F19; /* Biru Gelap Original */
+            --bg-card: #161D2E; /* Box Biru Lebih Terang */
+            --primary: #00E1FF; /* Biru Neon Original */
+            --text-main: #FFFFFF;
+            --text-dim: #94A3B8;
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
-        /* === PERJELAS GELEMBUNG (ANTI LAG) === */
-        .form-box {
-            background: rgba(11, 15, 25, 0.75) !important;
-            backdrop-filter: blur(12px) !important; /* Form aman pakai blur karena cuma sedikit */
-            border: 1px solid rgba(0, 225, 255, 0.2) !important;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        body.light-mode {
+            --bg-base: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --primary: #00A3FF;
+            --text-main: #0F172A;
+            --text-dim: #475569;
+            --glass-border: rgba(0, 0, 0, 0.1);
         }
 
-        .card {
-            background: rgba(11, 15, 25, 0.88) !important; /* Warna ditebelin sebagai pengganti blur */
-            /* Blur kaca dicabut dari kotak diamond biar HP nggak ngos-ngosan */
-            border: 1px solid rgba(0, 225, 255, 0.15) !important;
-            box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.4);
-            transform: translateZ(0); /* Trik paksa aktifin GPU HP biar scroll mulus */
-            will-change: transform;
+        /* Layout Kotak Solid ala Codashop */
+        .form-box, .card { 
+            background: var(--bg-card) !important; 
+            border: 1px solid var(--glass-border) !important; 
+            border-radius: 16px; 
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2);
+            backdrop-filter: none !important;
         }
+        
+        .card { transition: all 0.2s ease; }
+        .card:hover { border-color: var(--primary); }
+        .card.selected { 
+            background: rgba(0, 225, 255, 0.1) !important; 
+            border-color: var(--primary) !important; 
+            box-shadow: 0 0 0 1px var(--primary) !important; 
+        }
+        .card-title { color: var(--text-main); text-shadow: none; }
+        .card-price { color: var(--primary); text-shadow: none; }
 
 
         /* === FITUR PENCARIAN LIVE (OPSI 1) === */
@@ -455,6 +493,21 @@
             color: var(--primary);
             font-size: 1.2rem;
         }
+
+        /* === STYLING BANNER GAME === */
+        .game-header { margin-bottom: 30px; border-radius: 16px; overflow: hidden; }
+        .game-banner { position: relative; height: 200px; }
+        .game-banner img { width: 100%; height: 100%; object-fit: cover; }
+        .game-info { 
+            position: absolute; bottom: 0; left: 0; width: 100%; 
+            padding: 20px; background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: #fff;
+        }
+        .game-info h2 { font-family: 'Syne', sans-serif; font-size: 1.8rem; margin: 0; }
+        .game-info p { color: var(--primary); font-size: 0.9rem; margin-top: 5px; margin-bottom: 0; text-shadow: none; }
+        
+        /* Sembunyikan banner FF saat web pertama dibuka */
+        #game-banner-ff { display: none; }
 
     </style>
 </head>
@@ -529,6 +582,16 @@
 
         <!-- ==================== MLBB CONTENT ==================== -->
         <div id="content-mlbb" class="tab-content">
+                <!-- Banner Game -->
+        <div class="game-header">
+            <div class="game-banner" id="game-banner-mlbb">
+                <img src="bg-mlbb.png" alt="MLBB">
+                <div class="game-info">
+                    <h2>Mobile Legends</h2>
+                    <p><i class="fas fa-shield-alt"></i> Pembayaran Aman</p>
+                </div>
+            </div>
+        </div>
             <div class="step-container">
                 <h2 class="step-title"><span>1</span> Masukkan Data Akun</h2>
                 <div class="form-box input-group-row">
@@ -590,6 +653,17 @@
         <!-- ==================== FF CONTENT ==================== -->
         <div id="content-ff" class="tab-content">
             <div class="step-container">
+                        <!-- Banner Game -->
+            <div class="game-header">
+                <div class="game-banner" id="game-banner-ff">
+                    <img src="bg-ff.png" alt="FF">
+                    <div class="game-info">
+                        <h2>Free Fire</h2>
+                        <p><i class="fas fa-shield-alt"></i> Pembayaran Aman</p>
+                    </div>
+                </div>
+            </div>
+
                 <h2 class="step-title"><span>1</span> Masukkan Data Akun</h2>
                 <div class="form-box input-group-row">
                     <div class="input-box">
@@ -781,7 +855,7 @@
         let selectedNominal = null;
         let selectedPayment = null;
 
-        // 1. Logic Tab Switcher
+        // 1. Logic Tab Switcher (Sudah Diupdate dengan Banner)
         function switchTab(tabId, element) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -789,10 +863,15 @@
             element.classList.add('active');
             currentGame = tabId;
             
+            // Logika Ganti Banner
+            document.querySelectorAll('.game-banner').forEach(b => b.style.display = 'none');
+            document.getElementById('game-banner-' + tabId).style.display = 'block';
+            
             // Reset pilihan nominal tiap ganti game biar gak bentrok
             selectedNominal = null;
             document.querySelectorAll('.nominal-grid .card').forEach(c => c.classList.remove('selected'));
         }
+
 
         // 2. Logic Selection Nominal & Payment
         document.querySelectorAll('.nominal-grid .card').forEach(card => {
