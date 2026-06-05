@@ -403,6 +403,40 @@
             transition: background-image 0.5s ease-in-out; /* Efek transisi halus pas ganti foto */
         }
 
+        /* === FITUR PENCARIAN LIVE (OPSI 1) === */
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto 30px;
+            position: relative;
+            display: none; /* Disembunyikan dulu sampai pembeli milih game */
+            animation: fadeIn 0.5s;
+        }
+        .search-container input {
+            width: 100%;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--glass-border);
+            padding: 15px 20px 15px 50px;
+            border-radius: 50px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        .search-container input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 225, 255, 0.2);
+            background: rgba(0,0,0,0.6);
+        }
+        .search-container i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
     </style>
 </head>
 <body>
@@ -466,6 +500,12 @@
         <div class="tabs">
             <button class="tab-btn mlbb" onclick="switchTab('mlbb', this)"><i class="fas fa-gem"></i> Mobile Legends</button>
             <button class="tab-btn ff" onclick="switchTab('ff', this)"><i class="fas fa-fire"></i> Free Fire</button>
+        </div>
+        
+                <!-- KOTAK PENCARIAN LIVE -->
+        <div class="search-container" id="liveSearchBox">
+            <i class="fas fa-search"></i>
+            <input type="text" id="inputCariItem" placeholder="Ketik nominal atau item (contoh: Weekly, 86)..." onkeyup="cariItemLive()">
         </div>
 
         <!-- ==================== MLBB CONTENT ==================== -->
@@ -1039,6 +1079,47 @@ const items = [
             if(bgElement) {
                 bgElement.style.backgroundImage = `url('bg-${tabId}.png')`;
             }
+        };
+        
+        // === FITUR LIVE SEARCH (OPSI 1) ===
+        // 1. Fungsi buat nyaring / filter kotak diamond
+        window.cariItemLive = function() {
+            // Ambil teks yang diketik pembeli
+            let ketikan = document.getElementById('inputCariItem').value.toLowerCase();
+            
+            // Cari daftar diamond di game yang sedang aktif aja (ML atau FF)
+            let gridAktif = document.querySelector('.tab-content.active .nominal-grid');
+            if(!gridAktif) return; 
+
+            let semuaKartu = gridAktif.querySelectorAll('.card');
+            
+            // Cek satu-satu kartunya
+            semuaKartu.forEach(kartu => {
+                let namaItem = kartu.getAttribute('data-val').toLowerCase();
+                if (namaItem.includes(ketikan)) {
+                    kartu.style.display = ''; // Tampilkan kalau cocok
+                } else {
+                    kartu.style.display = 'none'; // Sembunyikan kalau gak cocok
+                }
+            });
+        };
+
+        // 2. Munculkan kotak pencarian HANYA saat tombol game diklik
+        // Kita gabung ke fungsi switchTab yang sebelumnya
+        const fungsiTabAsli = window.switchTab;
+        window.switchTab = function(tabId, element) {
+            // Jalankan ganti foto & tab
+            fungsiTabAsli(tabId, element);
+            
+            // Munculkan kotak pencariannya dengan elegan
+            document.getElementById('liveSearchBox').style.display = 'block';
+            
+            // Reset kolom pencarian setiap ganti game
+            let inputCari = document.getElementById('inputCariItem');
+            inputCari.value = '';
+            
+            // Kembalikan semua kartu yang tadinya disembunyikan
+            document.querySelectorAll('.nominal-grid .card').forEach(k => k.style.display = '');
         };
 
     </script>
