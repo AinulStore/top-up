@@ -391,11 +391,25 @@
             z-index: 10;
         }
 
+        /* === DYNAMIC BACKGROUND (OPSI 4) === */
+        .game-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: -2; /* Taruh di paling belakang */
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2; /* Dibuat transparan 20% biar teks dan form tetap terbaca jelas */
+            transition: background-image 0.5s ease-in-out; /* Efek transisi halus pas ganti foto */
+        }
+
     </style>
 </head>
 <body>
 
     <div class="aurora-bg"></div>
+        <!-- INI KANVAS FOTO BACKGROUNDNYA -->
+    <div id="game-bg" class="game-bg"></div>
     <div id="toast-container"></div>
 
     <nav>
@@ -1011,6 +1025,26 @@ const items = [
                 }
             });
         }
+
+        // === FITUR DYNAMIC BACKGROUND (OPSI 4) ===
+        let bgElement = document.getElementById('game-bg');
+        
+        // 1. Set foto pertama kali saat web dibuka (Default MLBB pakai .png)
+        if(bgElement) {
+            bgElement.style.backgroundImage = "url('bg-mlbb.png')";
+        }
+
+        // 2. Numpang ke fungsi ganti tab yang udah ada
+        const fungsiGantiTabAsli = switchTab;
+        window.switchTab = function(tabId, element) {
+            // Jalankan animasi aslinya dulu
+            fungsiGantiTabAsli(tabId, element);
+            
+            // Ganti fotonya sesuai game yang diklik
+            if(bgElement) {
+                bgElement.style.backgroundImage = `url('bg-${tabId}.png')`;
+            }
+        };
 
     </script>
 </body>
