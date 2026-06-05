@@ -570,18 +570,67 @@
         .testi-text { color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; font-style: italic; margin-bottom: 15px; }
         .testi-game { display: inline-block; background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; color: var(--text-dim); border: 1px solid var(--glass-border); }
         
-        /* Navigasi Bulat Kecil */
-        .swiper-button-next, .swiper-button-prev {
-            width: 40px !important;
-            height: 40px !important;
-            background: var(--primary) !important;
-            color: #000 !important;
+        /* === KONTROL TESTIMONI (PANAH & TOMBOL) === */
+        .testi-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px; /* Jarak dari kartu ke bawah */
+        }
+        
+        /* Modifikasi Panah Swiper Biar Pindah ke Bawah */
+        .swiper-button-next.testi-nav, .swiper-button-prev.testi-nav {
+            position: static !important; /* Cabut dari posisi absolute (tengah kartu) */
+            margin: 0 !important;
+            width: 45px !important;
+            height: 45px !important;
+            background-color: var(--glass-bg) !important; 
+            border: 1px solid var(--primary) !important;
+            color: var(--primary) !important;
             border-radius: 50% !important;
-            top: 50% !important;
+            transition: 0.3s;
+        }
+        .swiper-button-next.testi-nav:hover, .swiper-button-prev.testi-nav:hover {
+            background-color: var(--primary) !important;
+            color: #000 !important;
         }
         .swiper-button-next::after, .swiper-button-prev::after {
-            font-size: 15px !important;
+            font-size: 16px !important;
             font-weight: bold !important;
+        }
+
+        /* Tombol "Lihat Ulasan Lainnya" */
+        .btn-more-testi {
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-more-testi:hover {
+            background: rgba(0, 225, 255, 0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* MODE GRID (Aktif saat "Lihat Ulasan Lainnya" diklik) */
+        .testi-swiper.grid-mode .swiper-wrapper {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+            gap: 20px !important;
+            transform: none !important; /* Matikan sistem geser Swiper */
+        }
+        .testi-swiper.grid-mode .swiper-slide {
+            width: 100% !important;
+            margin: 0 !important;
+        }
+        .testi-swiper.grid-mode .testi-nav {
+            display: none !important; /* Hilangkan panah kalau lagi mode grid */
         }
 
     </style>
@@ -932,7 +981,7 @@
                 <div class="swiper-slide testi-card">
                     <div class="testi-header">
                         <div class="testi-avatar" style="background: #FF8C00; color: #fff;">L</div>
-                        <div class="testi-name">L Laknat</div>
+                        <div class="testi-name">L L*****</div>
                     </div>
                     <p class="testi-text">"Gak tau kenapa ya, tiap top up di sini ngerasa hoki terus, miminnya jg seru bgt diajak chat, gak kaku"</p>
                     <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
@@ -959,9 +1008,12 @@
                 </div>
             </div>
             
-            <!-- Tombol Panah -->
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
+            <!-- Tombol Navigasi & Lihat Semua Ulasan -->
+            <div class="testi-controls">
+                <div class="swiper-button-prev testi-nav"></div>
+                <button class="btn-more-testi" id="btn-show-all" onclick="toggleAllReviews()">Lihat Ulasan Lainnya</button>
+                <div class="swiper-button-next testi-nav"></div>
+            </div>
         </div>
     </section>
 
@@ -1355,27 +1407,49 @@ const items = [
             }
         }
 
-        // Pas web pertama kali dibuka, otomatis pencet tombol "Beranda"
+        // Variabel global untuk Swiper
+        let testiSwiper;
+
+        // Pas web pertama kali dibuka
         document.addEventListener('DOMContentLoaded', () => {
             let btnBeranda = document.querySelector('.tab-btn.beranda');
             if(btnBeranda) btnBeranda.click();
             
-            // Inisialisasi Swiper di sini biar aman
-            new Swiper('.testi-swiper', {
-                slidesPerView: 1,
-                spaceBetween: 20,
-                loop: true,
-                autoplay: { delay: 4000, disableOnInteraction: false },
-                breakpoints: { 768: { slidesPerView: 3 } },
-                // INI YANG BIKIN TOMBOL BISA DIKLIK:
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-            });
+            // Bungkus di dalam function biar bisa dinyala-matikan
+            window.initTestiSwiper = function() {
+                testiSwiper = new Swiper('.testi-swiper', {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                    loop: true,
+                    autoplay: { delay: 4000, disableOnInteraction: false },
+                    breakpoints: { 768: { slidesPerView: 3 } },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                });
+            };
+            
+            initTestiSwiper(); // Jalankan pertama kali
         });
 
+        // Fitur "Lihat Semua Ulasan"
+        window.toggleAllReviews = function() {
+            const swiperContainer = document.querySelector('.testi-swiper');
+            const btn = document.getElementById('btn-show-all');
+            
+            if(swiperContainer.classList.contains('grid-mode')) {
+                // KEMBALI KE MODE SLIDER
+                swiperContainer.classList.remove('grid-mode');
+                btn.innerHTML = 'Lihat Ulasan Lainnya';
+                window.initTestiSwiper(); // Nyalakan lagi mesin Swiper
+            } else {
+                // UBAH KE MODE GRID (Lihat Semua)
+                testiSwiper.destroy(true, true); // Matikan mesin Swiper
+                swiperContainer.classList.add('grid-mode');
+                btn.innerHTML = 'Tutup Ulasan';
+            }
+        };
     </script>
 </body>
 </html>
-
