@@ -549,6 +549,26 @@
             box-shadow: 0 0 30px rgba(0, 225, 255, 0.15); 
         }
 
+        /* === TESTIMONI / ULASAN PELANGGAN === */
+        .testimonial-section { padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
+        .section-title-center { text-align: center; font-family: 'Syne', sans-serif; font-size: 2.2rem; margin-bottom: 40px; color: var(--text-main); }
+        .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .testi-card { 
+            background: var(--bg-card); border: 1px solid var(--glass-border); 
+            border-radius: 16px; padding: 25px; transition: 0.3s;
+        }
+        .testi-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 10px 20px rgba(0, 225, 255, 0.1); }
+        .testi-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .testi-avatar { 
+            width: 50px; height: 50px; border-radius: 50%; background: var(--primary); 
+            color: #000; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; 
+            display: flex; justify-content: center; align-items: center; flex-shrink: 0;
+        }
+        .testi-name { font-weight: 700; color: var(--text-main); font-size: 1.1rem; margin-bottom: 3px; }
+        .testi-stars { color: #FACC15; font-size: 0.9rem; }
+        .testi-text { color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; font-style: italic; margin-bottom: 15px; }
+        .testi-game { display: inline-block; background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; color: var(--text-dim); border: 1px solid var(--glass-border); }
+
     </style>
 </head>
 <body>
@@ -825,6 +845,49 @@
                     <i class="fab fa-whatsapp"></i> Daftar Sekarang
                 </a>
             </div>
+        </div>
+    </section>
+    
+        <section class="testimonial-section" id="ulasan">
+        <h2 class="section-title-center">Apa Kata Pelanggan Kami?</h2>
+        <div class="testi-grid">
+            
+            <div class="testi-card">
+                <div class="testi-header">
+                    <div class="testi-avatar">B</div>
+                    <div>
+                        <div class="testi-name">Bima S***</div>
+                        <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    </div>
+                </div>
+                <p class="testi-text">"Gila sih, saking cepetnya masuk dm gue sampe kaget wkwk. Blm ada 1mnt anjir, fix langganan di sini terus gak bakal pindah ke lain😭"</p>
+                <span class="testi-game">Mobile Legends • 2 jam lalu</span>
+            </div>
+
+            <div class="testi-card">
+                <div class="testi-header">
+                    <div class="testi-avatar" style="background: var(--ff); color: #fff;">A</div>
+                    <div>
+                        <div class="testi-name">Arya_Pro***</div>
+                        <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    </div>
+                </div>
+                <p class="testi-text">"Awalnya takut krn harganya murah bgt, kirain zonk. Pas dicoba eh malah gacor parah, lgsg masuk dong. Mending top up di sni sih drpd t4 lain mahal bgt😭"</p>
+                <span class="testi-game">Free Fire • 5 jam lalu</span>
+            </div>
+
+            <div class="testi-card">
+                <div class="testi-header">
+                    <div class="testi-avatar" style="background: var(--success); color: #fff;">D</div>
+                    <div>
+                        <div class="testi-name">Dina C***</div>
+                        <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    </div>
+                </div>
+                <p class="testi-text">"Adminnya ramah bgt, kmrn gue salah ID malah dibantuin sampe bener. Mana webnya estetik bgt lagi, ga ribet. Luv bgt buat null store!! 😍✨"</p>
+                <span class="testi-game">Mobile Legends • 1 hari lalu</span>
+            </div>
+
         </div>
     </section>
 
