@@ -404,17 +404,23 @@
             transition: background-image 0.5s ease-in-out; 
         }
 
-        /* === PERJELAS GELEMBUNG (KOTAK DIAMOND & FORM) === */
-        .card, .form-box {
-            background: rgba(11, 15, 25, 0.75) !important; /* Gelembung dibikin lebih pekat */
-            backdrop-filter: blur(12px) !important; /* Efek blur kaca dinaikkan drastis */
-            border: 1px solid rgba(0, 225, 255, 0.2) !important; /* Garis luar biru neon tipis */
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5); /* Tambahan bayangan tebal di luar gelembung */
+        /* === PERJELAS GELEMBUNG (ANTI LAG) === */
+        .form-box {
+            background: rgba(11, 15, 25, 0.75) !important;
+            backdrop-filter: blur(12px) !important; /* Form aman pakai blur karena cuma sedikit */
+            border: 1px solid rgba(0, 225, 255, 0.2) !important;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
         }
-        
-        .card-title, .card-price, .step-title, .input-box label {
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9); /* Bayangan teks tetap dipertahankan biar tegas */
+
+        .card {
+            background: rgba(11, 15, 25, 0.88) !important; /* Warna ditebelin sebagai pengganti blur */
+            /* Blur kaca dicabut dari kotak diamond biar HP nggak ngos-ngosan */
+            border: 1px solid rgba(0, 225, 255, 0.15) !important;
+            box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.4);
+            transform: translateZ(0); /* Trik paksa aktifin GPU HP biar scroll mulus */
+            will-change: transform;
         }
+
 
         /* === FITUR PENCARIAN LIVE (OPSI 1) === */
         .search-container {
