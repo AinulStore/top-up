@@ -1132,6 +1132,52 @@ const items = [
             document.querySelectorAll('.nominal-grid .card').forEach(k => k.style.display = '');
         };
 
+        // === FITUR SIMULASI CEK NICKNAME (OPSI 1) ===
+        // Cari kolom input User ID secara otomatis
+        let inputUserID = document.querySelector('input[placeholder*="12345678"]');
+        
+        if(inputUserID) {
+            // Bikin wadah teks nickname (tanpa perlu sentuh HTML)
+            let boxNickname = document.createElement('div');
+            boxNickname.style.marginTop = '8px';
+            boxNickname.style.fontSize = '0.9rem';
+            boxNickname.style.display = 'none';
+            // Sisipkan langsung di bawah input ID
+            inputUserID.parentNode.insertBefore(boxNickname, inputUserID.nextSibling);
+
+            let timerCekNick;
+
+            // Efek saat pembeli mulai ngetik
+            inputUserID.addEventListener('input', function() {
+                clearTimeout(timerCekNick);
+                let ketikanID = this.value.trim();
+                
+                // Kalau angka ID kurang dari 4, sembunyikan teksnya
+                if(ketikanID.length < 4) {
+                    boxNickname.style.display = 'none';
+                    return;
+                }
+                
+                // 1. Munculkan status loading (Warna Kuning)
+                boxNickname.style.display = 'block';
+                boxNickname.style.color = '#eab308'; 
+                boxNickname.innerHTML = '<i>⏳ Mencari Nickname...</i>';
+                
+                // 2. Simulasi jeda server 1.2 detik biar kerasa real
+                timerCekNick = setTimeout(() => {
+                    // Daftar Nickname Sultan (Bisa kamu ganti sendiri nanti)
+                    let daftarNama = ["SultanMuda", "ProPlayer99", "SangPenakluk", "RajaMekanik", "DarkShadow", "BukanKaleng", "PecintaAnime", "KsatriaMalam"];
+                    
+                    // Rumus acak pintar (seolah-olah narik dari ID)
+                    let namaTerpilih = daftarNama[ketikanID.length % daftarNama.length]; 
+                    
+                    // 3. Ubah jadi status sukses (Warna Hijau)
+                    boxNickname.style.color = '#25D366'; 
+                    boxNickname.innerHTML = '✅ Nickname: <strong>' + namaTerpilih + '</strong>';
+                }, 1200);
+            });
+        }
+
     </script>
 </body>
 </html>
