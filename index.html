@@ -494,20 +494,52 @@
             font-size: 1.2rem;
         }
 
-        /* === STYLING BANNER GAME === */
-        .game-header { margin-bottom: 30px; border-radius: 16px; overflow: hidden; }
-        .game-banner { position: relative; height: 200px; }
-        .game-banner img { width: 100%; height: 100%; object-fit: cover; }
-        .game-info { 
-            position: absolute; bottom: 0; left: 0; width: 100%; 
-            padding: 20px; background: linear-gradient(transparent, rgba(0,0,0,0.8));
-            color: #fff;
+        /* === GAYA HEADER ALA CODASHOP ASLI === */
+        .game-header { margin-bottom: 30px; }
+        .game-banner { 
+            position: relative; 
+            height: auto; 
+            display: none; 
+            align-items: center; /* Sejajarkan ikon dan teks */
+            gap: 20px; 
         }
-        .game-info h2 { font-family: 'Syne', sans-serif; font-size: 1.8rem; margin: 0; }
-        .game-info p { color: var(--primary); font-size: 0.9rem; margin-top: 5px; margin-bottom: 0; text-shadow: none; }
         
-        /* Sembunyikan banner FF saat web pertama dibuka */
-        #game-banner-ff { display: none; }
+        .game-banner img { 
+            width: 85px; 
+            height: 85px; 
+            border-radius: 20px; /* Bikin melengkung kayak ikon aplikasi */
+            object-fit: cover; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            flex-shrink: 0; /* Biar ikonnya gak gepeng */
+        }
+        
+        .game-info { 
+            position: static; 
+            padding: 0; 
+            background: none;
+            color: var(--text-main);
+        }
+        .game-info h2 { 
+            font-family: 'Inter', sans-serif; 
+            font-size: 1.4rem; 
+            font-weight: 700;
+            margin: 0 0 10px 0; 
+        }
+        .game-info p { 
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-dim); 
+            font-size: 0.85rem; 
+            margin: 0; 
+            background: var(--bg-card); 
+            border: 1px solid var(--glass-border);
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+        
+        /* Tampilkan default pakai flex */
+        #game-banner-mlbb { display: flex; } 
 
     </style>
 </head>
@@ -865,7 +897,7 @@
             
             // Logika Ganti Banner
             document.querySelectorAll('.game-banner').forEach(b => b.style.display = 'none');
-            document.getElementById('game-banner-' + tabId).style.display = 'block';
+            document.getElementById('game-banner-' + tabId).style.display = 'flex';
             
             // Reset pilihan nominal tiap ganti game biar gak bentrok
             selectedNominal = null;
