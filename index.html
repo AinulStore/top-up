@@ -8,7 +8,9 @@
     <!-- Fonts Canggih: Syne & Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+
     <style>    
             /* === TEMA LIGHT MODE === */
         body.light-mode {
@@ -848,46 +850,131 @@
         </div>
     </section>
     
-        <section class="testimonial-section" id="ulasan">
+    <!-- === SECTION TESTIMONI / ULASAN SLIDER === -->
+    <section class="testimonial-section" id="ulasan">
         <h2 class="section-title-center">Apa Kata Pelanggan Kami?</h2>
-        <div class="testi-grid">
-            
-            <div class="testi-card">
-                <div class="testi-header">
-                    <div class="testi-avatar">B</div>
-                    <div>
-                        <div class="testi-name">Bima S***</div>
-                        <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        
+        <!-- Ini wadah Slider Swiper -->
+        <div class="swiper testi-swiper">
+            <div class="swiper-wrapper">
+                
+                <!-- Ulasan 1 -->
+                <div class="swiper-slide testi-card">
+                    <div class="testi-header">
+                        <div class="testi-avatar">B</div>
+                        <div>
+                            <div class="testi-name">Bima S****</div>
+                            <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
                     </div>
+                    <p class="testi-text">Gila sih, saking cepetnya masuk dm gue sampe kaget wkwk. Blm ada 1mnt anjir, fix langganan di sini terus gak bakal pindah ke lain 😭</p>
+                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
                 </div>
-                <p class="testi-text">"Gila sih, saking cepetnya masuk dm gue sampe kaget wkwk. Blm ada 1mnt anjir, fix langganan di sini terus gak bakal pindah ke lain😭"</p>
-                <span class="testi-game">Mobile Legends • 2 jam lalu</span>
-            </div>
 
-            <div class="testi-card">
-                <div class="testi-header">
-                    <div class="testi-avatar" style="background: var(--ff); color: #fff;">A</div>
-                    <div>
-                        <div class="testi-name">Arya_Pro***</div>
-                        <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <!-- Ulasan 2 -->
+                <div class="swiper-slide testi-card">
+                    <div class="testi-header">
+                        <div class="testi-avatar" style="background: var(--ff); color: #fff;">A</div>
+                        <div>
+                            <div class="testi-name">Arya_Pro******</div>
+                            <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
                     </div>
+                    <p class="testi-text">Awalnya takut krn harganya murah bgt, kirain zonk hehe,pas dicoba eh malah gacor parah, lgsg masuk, mending top up di sni sih drpd t4 lain mahal bgt😭</p>
+                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
                 </div>
-                <p class="testi-text">"Awalnya takut krn harganya murah bgt, kirain zonk. Pas dicoba eh malah gacor parah, lgsg masuk dong. Mending top up di sni sih drpd t4 lain mahal bgt😭"</p>
-                <span class="testi-game">Free Fire • 5 jam lalu</span>
-            </div>
 
-            <div class="testi-card">
-                <div class="testi-header">
-                    <div class="testi-avatar" style="background: var(--success); color: #fff;">D</div>
-                    <div>
-                        <div class="testi-name">Dina C***</div>
-                        <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <!-- Ulasan 3 -->
+                <div class="swiper-slide testi-card">
+                    <div class="testi-header">
+                        <div class="testi-avatar" style="background: var(--success); color: #fff;">D</div>
+                        <div>
+                            <div class="testi-name">Dina C*****</div>
+                            <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
                     </div>
+                    <p class="testi-text">Adminnya ramah bgt, kmrn ak salah ID malah dibantuin sampe bener, mana webnya estetik bgt lagi, ga ribet. Luv bgt buat null store 😍✨</p>
+                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
                 </div>
-                <p class="testi-text">"Adminnya ramah bgt, kmrn gue salah ID malah dibantuin sampe bener. Mana webnya estetik bgt lagi, ga ribet. Luv bgt buat null store!! 😍✨"</p>
-                <span class="testi-game">Mobile Legends • 1 hari lalu</span>
-            </div>
 
+                <!-- Ulasan 4 -->
+                <div class="swiper-slide testi-card">
+                    <div class="testi-header">
+                        <div class="testi-avatar" style="background: #B800FF;">R</div>
+                        <div>
+                            <div class="testi-name">Rendi J**</div>
+                            <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                    </div>
+                    <p class="testi-text">Adminnya sabar bgt, ak nanya mulu soal server tp ttp dijawab dengan santuy. Top up emang paling enak di sini sih, anti ribet</p>
+                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
+                </div>
+
+                <!-- Ulasan 5 (Baru) -->
+                <div class="swiper-slide testi-card">
+                    <div class="testi-header">
+                        <div class="testi-avatar" style="background: #FACC15; color: #000;">K</div>
+                        <div>
+                            <div class="testi-name">Kevin K***</div>
+                            <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                    </div>
+                    <p class="testi-text">Biasanya langganan di tmpt org tapi sering bgt pending, nyoba pindah ke sini malah dapet yang lebih satset, nyesel kenapa gak dari dulu di sini</p>
+                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
+                </div>
+                
+                <!-- Ulasan 6 (Baru) -->
+                <div class="swiper-slide testi-card">
+                    <div class="testi-header">
+                        <div class="testi-avatar" style="background: #FACC15; color: #000;">K</div>
+                        <div>
+                            <div class="testi-name">bocil W*****</div>
+                            <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                    </div>
+                    <p class="testi-text">Biasanya langganan di tmpt org tapi sering bgt pending, nyoba pindah ke sini malah dapet yang lebih satset, nyesel kenapa gak dari dulu di sini</p>
+                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
+                </div>                
+                
+                <!-- Ulasan 7 (Baru) -->
+                <div class="swiper-slide testi-card">
+                    <div class="testi-header">
+                        <div class="testi-avatar" style="background: #FACC15; color: #000;">K</div>
+                        <div>
+                            <div class="testi-name">L L*****</div>
+                            <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                    </div>
+                    <p class="testi-text">Gak tau kenapa ya, tiap top up di sini ngerasa hoki terus, miminnya jg seru bgt diajak chat, gak kaku</p>
+                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
+                </div>                
+                
+                <!-- Ulasan 8 (Baru) -->
+                <div class="swiper-slide testi-card">
+                    <div class="testi-header">
+                        <div class="testi-avatar" style="background: #FACC15; color: #000;">K</div>
+                        <div>
+                            <div class="testi-name">Anti H***</div>
+                            <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                    </div>
+                    <p class="testi-text">Next event pasti balik lagi lah</p>
+                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
+                </div>                              
+                <!-- Ulasan 9 (Baru) -->
+                <div class="swiper-slide testi-card">
+                    <div class="testi-header">
+                        <div class="testi-avatar" style="background: #FACC15; color: #000;">K</div>
+                        <div>
+                            <div class="testi-name">Tukang J***</div>
+                            <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                    </div>
+                    <p class="testi-text">Gacor bgt web nya bro, moga sukses dan lancar terus usahanya</p>
+                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
+                </div>        
+                                
+            </div>
         </div>
     </section>
 
@@ -1285,9 +1372,21 @@ const items = [
         document.addEventListener('DOMContentLoaded', () => {
             let btnBeranda = document.querySelector('.tab-btn.beranda');
             if(btnBeranda) btnBeranda.click();
+            
+            // Inisialisasi Swiper di sini biar aman
+            new Swiper('.testi-swiper', {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                loop: true,
+                autoplay: { delay: 3000, disableOnInteraction: false },
+                breakpoints: { 768: { slidesPerView: 3 } }
+            });
         });
 
     </script>
+    
+    <!-- Swiper JS di bawah script utama -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 </body>
 </html>
 
