@@ -464,12 +464,12 @@
 
     <section class="catalog" id="katalog">
         <div class="tabs">
-            <button class="tab-btn active mlbb" onclick="switchTab('mlbb', this)"><i class="fas fa-gem"></i> Mobile Legends</button>
+            <button class="tab-btn mlbb" onclick="switchTab('mlbb', this)"><i class="fas fa-gem"></i> Mobile Legends</button>
             <button class="tab-btn ff" onclick="switchTab('ff', this)"><i class="fas fa-fire"></i> Free Fire</button>
         </div>
 
         <!-- ==================== MLBB CONTENT ==================== -->
-        <div id="content-mlbb" class="tab-content active">
+        <div id="content-mlbb" class="tab-content">
             <div class="step-container">
                 <h2 class="step-title"><span>1</span> Masukkan Data Akun</h2>
                 <div class="form-box input-group-row">
@@ -1028,11 +1028,6 @@ const items = [
 
         // === FITUR DYNAMIC BACKGROUND (OPSI 4) ===
         let bgElement = document.getElementById('game-bg');
-        
-        // 1. Set foto pertama kali saat web dibuka (Default MLBB pakai .png)
-        if(bgElement) {
-            bgElement.style.backgroundImage = "url('bg-mlbb.png')";
-        }
 
         // 2. Numpang ke fungsi ganti tab yang udah ada
         const fungsiGantiTabAsli = switchTab;
