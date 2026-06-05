@@ -368,6 +368,29 @@
                 font-size: 0.75rem; /* Mengecilkan ukuran font harga */
             }
         }
+        
+                /* === FITUR GEMBOK KATALOG (OPSI 3) === */
+        .katalog-terkunci {
+            opacity: 0.4;
+            filter: grayscale(100%);
+            pointer-events: none; /* Bikin item nggak bisa diklik */
+            transition: all 0.5s ease; /* Transisi halus saat gembok kebuka */
+            position: relative;
+        }
+        /* Tambahan ikon gembok kecil di tengah (Opsional) */
+        .katalog-terkunci::after {
+            content: "\f023"; /* Ikon Gembok FontAwesome */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: rgba(255,255,255,0.3);
+            z-index: 10;
+        }
+
     </style>
 </head>
 <body>
@@ -436,9 +459,9 @@
             <div class="step-container">
                 <h2 class="step-title"><span>1</span> Masukkan Data Akun</h2>
                 <div class="form-box input-group-row">
-                    <div class="input-box">
+class="input-box">
                         <label>User ID</label>
-                        <input type="number" id="mlbb-id" placeholder="Contoh: 12345678">
+                        <input type="number" id="mlbb-id" placeholder="Contoh: 12345678" oninput="bukaGembok()">
                     </div>
                     <div class="input-box">
                         <label>Server</label>
@@ -952,6 +975,41 @@ const items = [
                 themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
                 themeBtn.style.color = '#fff'; // Biar ikon mataharinya putih pas gelap
             }
+        }
+        
+        // === FITUR GEMBOK KATALOG OTOMATIS (OPSI 3) ===
+        // 1. Cari area katalog diamondnya
+        let katalogML = document.querySelector('.nominal-grid[data-game="mlbb"]');
+        let katalogFF = document.querySelector('.nominal-grid[data-game="ff"]');
+        
+        // 2. Pasang gembok dari awal web dibuka
+        if(katalogML) katalogML.classList.add('katalog-terkunci');
+        if(katalogFF) katalogFF.classList.add('katalog-terkunci');
+
+        // 3. Cari kotak inputnya
+        let inputML = document.getElementById('mlbb-id');
+        let inputFF = document.getElementById('ff-id');
+
+        // 4. Fungsi Buka Gembok (Bisa dipakai buat MLBB maupun FF)
+        // Kita timpa fungsi bukaGembok() yang ada di HTML kamu biar lebih canggih
+        window.bukaGembok = function() {
+            // Cek MLBB
+            if (inputML && inputML.value.length >= 5) {
+                katalogML.classList.remove('katalog-terkunci');
+            } else if (inputML) {
+                katalogML.classList.add('katalog-terkunci');
+            }
+        };
+
+        // Otomatis jalan juga kalau FF diketik
+        if (inputFF) {
+            inputFF.addEventListener('input', function() {
+                if (this.value.length >= 5) {
+                    katalogFF.classList.remove('katalog-terkunci');
+                } else {
+                    katalogFF.classList.add('katalog-terkunci');
+                }
+            });
         }
 
     </script>
