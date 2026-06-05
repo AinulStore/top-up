@@ -541,6 +541,14 @@
         /* Tampilkan default pakai flex */
         #game-banner-mlbb { display: flex; } 
 
+        /* === WARNA TOMBOL BERANDA === */
+        .tab-btn.active.beranda { 
+            background: rgba(0, 225, 255, 0.1); 
+            color: var(--primary); 
+            border-color: rgba(0, 225, 255, 0.4); 
+            box-shadow: 0 0 30px rgba(0, 225, 255, 0.15); 
+        }
+
     </style>
 </head>
 <body>
@@ -602,6 +610,7 @@
 
     <section class="catalog" id="katalog">
         <div class="tabs">
+            <button class="tab-btn beranda" onclick="switchTab('beranda', this)"><i class="fas fa-home"></i> Beranda</button>
             <button class="tab-btn mlbb" onclick="switchTab('mlbb', this)"><i class="fas fa-gem"></i> Mobile Legends</button>
             <button class="tab-btn ff" onclick="switchTab('ff', this)"><i class="fas fa-fire"></i> Free Fire</button>
         </div>
@@ -735,7 +744,7 @@
         </div>
 
         <!-- ==================== GLOBAL STEPS 3 & 4 (BERLAKU UNTUK SEMUA GAME) ==================== -->
-        <div class="global-steps">
+        <div class="global-steps" id="global-steps" style="display: none;">
             <div class="step-container">
                 <h2 class="step-title"><span>3</span> Pilih Metode Pembayaran</h2>
                 <div class="grid payment-grid">
@@ -1251,6 +1260,56 @@ const items = [
             // Kembalikan semua kartu yang tadinya disembunyikan
             document.querySelectorAll('.nominal-grid .card').forEach(k => k.style.display = '');
         };
+
+        // === REVISI: BERANDA & SEMBUNYIKAN STEP 3 & 4 ===
+        window.switchTab = function(tabId, element) {
+            currentGame = tabId;
+            
+            // 1. Atur efek nyala di tombol
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            if(element) element.classList.add('active');
+            
+            // 2. Sembunyikan semua katalog game & banner
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.game-banner').forEach(b => b.style.display = 'none');
+            
+            // 3. Reset pilihan diamond & metode pembayaran
+            selectedNominal = null;
+            selectedPayment = null;
+            document.querySelectorAll('.nominal-grid .card, .payment-grid .card').forEach(c => c.classList.remove('selected'));
+            
+            // Tangkap elemen yang mau diatur
+            let globalSteps = document.getElementById('global-steps');
+            let searchBox = document.getElementById('liveSearchBox');
+            let bgGame = document.getElementById('game-bg');
+            
+            if(tabId === 'beranda') {
+                // KALAU DI BERANDA: Sembunyikan form pembayaran & kotak cari
+                if(globalSteps) globalSteps.style.display = 'none';
+                if(searchBox) searchBox.style.display = 'none';
+                if(bgGame) bgGame.style.backgroundImage = 'none'; 
+            } else {
+                // KALAU MILIH GAME: Munculkan katalog, banner, form pembayaran, & kotak cari
+                let contentGame = document.getElementById('content-' + tabId);
+                let bannerGame = document.getElementById('game-banner-' + tabId);
+                
+                if(contentGame) contentGame.classList.add('active');
+                if(bannerGame) bannerGame.style.display = 'flex';
+                if(globalSteps) globalSteps.style.display = 'block';
+                if(searchBox) {
+                    searchBox.style.display = 'block';
+                    document.getElementById('inputCariItem').value = ''; 
+                    document.querySelectorAll('.nominal-grid .card').forEach(k => k.style.display = '');
+                }
+                if(bgGame) bgGame.style.backgroundImage = `url('bg-${tabId}.png')`;
+            }
+        };
+
+        // Pas web pertama kali dibuka, otomatis pencet tombol "Beranda"
+        document.addEventListener('DOMContentLoaded', () => {
+            let btnBeranda = document.querySelector('.tab-btn.beranda');
+            if(btnBeranda) btnBeranda.click();
+        });
 
     </script>
 </body>
