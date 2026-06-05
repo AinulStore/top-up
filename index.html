@@ -391,7 +391,7 @@
             z-index: 10;
         }
 
-        /* === REVISI: DYNAMIC BACKGROUND (OPSI 4) === */
+        /* === REVISI: DYNAMIC BACKGROUND KEMBALI TERANG === */
         .game-bg {
             position: fixed;
             top: 0; left: 0;
@@ -399,18 +399,21 @@
             z-index: -2; 
             background-size: cover;
             background-position: center;
-            opacity: 0.15; /* Diturunkan biar lebih tipis menyatu dengan background dasar */
-            filter: brightness(30%) blur(2px); /* Trik Pro: Foto digelapkan drastis & diblur estetik */
+            opacity: 0.4; /* Opacity dinaikkan biar foto gamenya lebih terang */
+            filter: none; /* Hilangkan efek gelap dan blur di background */
             transition: background-image 0.5s ease-in-out; 
         }
 
-        /* === TAMBAHAN REVISI: PERJELAS KOTAK DIAMOND & TEKS === */
-        .card {
-            background: rgba(11, 15, 25, 0.6) !important; /* Kotak diamond dibikin lebih pekat/hitam transparan */
-            backdrop-filter: blur(4px);
+        /* === PERJELAS GELEMBUNG (KOTAK DIAMOND & FORM) === */
+        .card, .form-box {
+            background: rgba(11, 15, 25, 0.75) !important; /* Gelembung dibikin lebih pekat */
+            backdrop-filter: blur(12px) !important; /* Efek blur kaca dinaikkan drastis */
+            border: 1px solid rgba(0, 225, 255, 0.2) !important; /* Garis luar biru neon tipis */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5); /* Tambahan bayangan tebal di luar gelembung */
         }
+        
         .card-title, .card-price, .step-title, .input-box label {
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9); /* Semua teks penting dikasih bayangan hitam tegas */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9); /* Bayangan teks tetap dipertahankan biar tegas */
         }
 
         /* === FITUR PENCARIAN LIVE (OPSI 1) === */
@@ -1131,52 +1134,6 @@ const items = [
             // Kembalikan semua kartu yang tadinya disembunyikan
             document.querySelectorAll('.nominal-grid .card').forEach(k => k.style.display = '');
         };
-
-        // === FITUR SIMULASI CEK NICKNAME (OPSI 1) ===
-        // Cari kolom input User ID secara otomatis
-        let inputUserID = document.querySelector('input[placeholder*="12345678"]');
-        
-        if(inputUserID) {
-            // Bikin wadah teks nickname (tanpa perlu sentuh HTML)
-            let boxNickname = document.createElement('div');
-            boxNickname.style.marginTop = '8px';
-            boxNickname.style.fontSize = '0.9rem';
-            boxNickname.style.display = 'none';
-            // Sisipkan langsung di bawah input ID
-            inputUserID.parentNode.insertBefore(boxNickname, inputUserID.nextSibling);
-
-            let timerCekNick;
-
-            // Efek saat pembeli mulai ngetik
-            inputUserID.addEventListener('input', function() {
-                clearTimeout(timerCekNick);
-                let ketikanID = this.value.trim();
-                
-                // Kalau angka ID kurang dari 4, sembunyikan teksnya
-                if(ketikanID.length < 4) {
-                    boxNickname.style.display = 'none';
-                    return;
-                }
-                
-                // 1. Munculkan status loading (Warna Kuning)
-                boxNickname.style.display = 'block';
-                boxNickname.style.color = '#eab308'; 
-                boxNickname.innerHTML = '<i>⏳ Mencari Nickname...</i>';
-                
-                // 2. Simulasi jeda server 1.2 detik biar kerasa real
-                timerCekNick = setTimeout(() => {
-                    // Daftar Nickname Sultan (Bisa kamu ganti sendiri nanti)
-                    let daftarNama = ["SultanMuda", "ProPlayer99", "SangPenakluk", "RajaMekanik", "DarkShadow", "BukanKaleng", "PecintaAnime", "KsatriaMalam"];
-                    
-                    // Rumus acak pintar (seolah-olah narik dari ID)
-                    let namaTerpilih = daftarNama[ketikanID.length % daftarNama.length]; 
-                    
-                    // 3. Ubah jadi status sukses (Warna Hijau)
-                    boxNickname.style.color = '#25D366'; 
-                    boxNickname.innerHTML = '✅ Nickname: <strong>' + namaTerpilih + '</strong>';
-                }, 1200);
-            });
-        }
 
     </script>
 </body>
