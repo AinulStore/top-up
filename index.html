@@ -391,16 +391,26 @@
             z-index: 10;
         }
 
-        /* === DYNAMIC BACKGROUND (OPSI 4) === */
+        /* === REVISI: DYNAMIC BACKGROUND (OPSI 4) === */
         .game-bg {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
-            z-index: -2; /* Taruh di paling belakang */
+            z-index: -2; 
             background-size: cover;
             background-position: center;
-            opacity: 0.2; /* Dibuat transparan 20% biar teks dan form tetap terbaca jelas */
-            transition: background-image 0.5s ease-in-out; /* Efek transisi halus pas ganti foto */
+            opacity: 0.15; /* Diturunkan biar lebih tipis menyatu dengan background dasar */
+            filter: brightness(30%) blur(2px); /* Trik Pro: Foto digelapkan drastis & diblur estetik */
+            transition: background-image 0.5s ease-in-out; 
+        }
+
+        /* === TAMBAHAN REVISI: PERJELAS KOTAK DIAMOND & TEKS === */
+        .card {
+            background: rgba(11, 15, 25, 0.6) !important; /* Kotak diamond dibikin lebih pekat/hitam transparan */
+            backdrop-filter: blur(4px);
+        }
+        .card-title, .card-price, .step-title, .input-box label {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9); /* Semua teks penting dikasih bayangan hitam tegas */
         }
 
         /* === FITUR PENCARIAN LIVE (OPSI 1) === */
