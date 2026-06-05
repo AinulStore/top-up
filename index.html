@@ -195,16 +195,6 @@
         .card.selected { background: rgba(0, 225, 255, 0.1); border-color: var(--primary); box-shadow: 0 0 25px rgba(0, 225, 255, 0.2); transform: scale(1.02); }
         .card.selected .card-title { color: var(--primary); }
 
-        /* Specific Brand Colors for Payments */
-        .pay-qris.selected { border-color: #ED1C24; box-shadow: 0 0 25px rgba(237, 28, 36, 0.2); background: rgba(237, 28, 36, 0.05); }
-        .pay-qris.selected .card-title { color: #ED1C24; }
-        .pay-dana.selected { border-color: #118EEA; box-shadow: 0 0 25px rgba(17, 142, 234, 0.2); background: rgba(17, 142, 234, 0.05); }
-        .pay-dana.selected .card-title { color: #118EEA; }
-        .pay-gopay.selected { border-color: #00AED6; box-shadow: 0 0 25px rgba(0, 174, 214, 0.2); background: rgba(0, 174, 214, 0.05); }
-        .pay-gopay.selected .card-title { color: #00AED6; }
-        .pay-shopee.selected { border-color: #EE4D2D; box-shadow: 0 0 25px rgba(238, 77, 45, 0.2); background: rgba(238, 77, 45, 0.05); }
-        .pay-shopee.selected .card-title { color: #EE4D2D; }
-
         .badge-recom { position: absolute; top: 0; right: 0; background: var(--success); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 5px 15px; border-bottom-left-radius: 15px; }
 
         /* === CHECKOUT BUTTON (FLOATING ALA CODASHOP) === */
@@ -455,14 +445,6 @@
         
         .card { transition: all 0.2s ease; }
         .card:hover { border-color: var(--primary); }
-        .card.selected { 
-            background: rgba(0, 225, 255, 0.1) !important; 
-            border-color: var(--primary) !important; 
-            box-shadow: 0 0 0 1px var(--primary) !important; 
-        }
-        .card-title { color: var(--text-main); text-shadow: none; }
-        .card-price { color: var(--primary); text-shadow: none; }
-
 
         /* === FITUR PENCARIAN LIVE (OPSI 1) === */
         .search-container {
@@ -632,6 +614,29 @@
         .testi-swiper.grid-mode .testi-nav {
             display: none !important; /* Hilangkan panah kalau lagi mode grid */
         }
+        
+        /* === EFEK KARTU TERPILIH (LEBIH MENYALA & TEBAL) === */
+        .card.selected { 
+            background: linear-gradient(135deg, rgba(0, 225, 255, 0.2), rgba(184, 0, 255, 0.2)) !important; 
+            border: 2px solid var(--primary) !important; /* Border dilipatgandakan */
+            box-shadow: 0 0 20px rgba(0, 225, 255, 0.6), inset 0 0 10px rgba(0, 225, 255, 0.2) !important; /* Efek glowing dalam dan luar */
+            transform: translateY(-5px) scale(1.03); /* Kartu agak maju ke depan */
+        }
+        .card.selected .card-title { 
+            color: #fff !important; 
+            text-shadow: 0 0 10px var(--primary); /* Teks diamond ikut nyala */
+        }
+        .card.selected .card-price { 
+            color: var(--primary) !important; 
+            font-weight: 800 !important; 
+            text-shadow: 0 0 8px rgba(0, 225, 255, 0.5); 
+        }
+
+        /* Efek Menyala Spesifik untuk Metode Pembayaran */
+        .pay-qris.selected { border: 2px solid #ED1C24 !important; background: rgba(237, 28, 36, 0.15) !important; box-shadow: 0 0 20px rgba(237, 28, 36, 0.5) !important; }
+        .pay-dana.selected { border: 2px solid #118EEA !important; background: rgba(17, 142, 234, 0.15) !important; box-shadow: 0 0 20px rgba(17, 142, 234, 0.5) !important; }
+        .pay-gopay.selected { border: 2px solid #00AED6 !important; background: rgba(0, 174, 214, 0.15) !important; box-shadow: 0 0 20px rgba(0, 174, 214, 0.5) !important; }
+        .pay-shopee.selected { border: 2px solid #EE4D2D !important; background: rgba(238, 77, 45, 0.15) !important; box-shadow: 0 0 20px rgba(238, 77, 45, 0.5) !important; }
 
     </style>
 </head>
@@ -923,7 +928,7 @@
                         <div class="testi-avatar" style="background: #00E1FF; color: #000;">B</div>
                         <div class="testi-name">Bima S****</div>
                     </div>
-                    <p class="testi-text">"Gila sih, saking cepetnya masuk dm gue sampe kaget wkwk. Blm ada 1mnt anjir, fix langganan di sini terus gak bakal pindah ke lain 😭"</p>
+                    <p class="testi-text">gileee sih, saking cepetnya masuk dm gue sampe kaget wkwk, blm ada 1mnt anjir, fix langganan di sini terus gk bakal pindah ke lain😭</p>
                     <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
                 </div>
 
@@ -933,7 +938,7 @@
                         <div class="testi-avatar" style="background: #FF4B2B; color: #fff;">A</div>
                         <div class="testi-name">Arya_Pro******</div>
                     </div>
-                    <p class="testi-text">"Awalnya takut krn harganya murah bgt, kirain zonk hehe,pas dicoba eh malah gacor parah, lgsg masuk, mending top up di sni sih drpd t4 lain mahal bgt😭"</p>
+                    <p class="testi-text">awalnya ak takut krn harganya murah bgt, kirain zonk hehe maaf ya minnn, pas dicoba eh malah gacor parah, lgsg masuk, mending top up di sni sih drpd t4 lain ,mahal bgt sumpill😭"</p>
                     <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
                 </div>
 
@@ -943,7 +948,7 @@
                         <div class="testi-avatar" style="background: #10B981; color: #fff;">D</div>
                         <div class="testi-name">Dina C*****</div>
                     </div>
-                    <p class="testi-text">"Adminnya ramah bgt, kmrn ak salah ID malah dibantuin sampe bener, mana webnya estetik bgt lagi, ga ribet. Luv bgt buat null store 😍✨"</p>
+                    <p class="testi-text">miminya ramah bgt sukakkk💋💜, kmrn ak salah ID malah dibantuin sampe bener, mana webnya estetik bgt lagi, Luv bgt buat miminnn 💋💋"</p>
                     <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
                 </div>
 
@@ -953,7 +958,7 @@
                         <div class="testi-avatar" style="background: #B800FF; color: #fff;">R</div>
                         <div class="testi-name">Rendi J**</div>
                     </div>
-                    <p class="testi-text">"Adminnya sabar bgt, ak nanya mulu soal server tp ttp dijawab dengan santuy. Top up emang paling enak di sini sih, anti ribet"</p>
+                    <p class="testi-text">adminnya sabar bgt jir, gw nanya mulu soal server tp ttp dijawab dengan santuy, top up emang paling enak di sini sih</p>
                     <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
                 </div>
 
@@ -963,7 +968,7 @@
                         <div class="testi-avatar" style="background: #FACC15; color: #000;">K</div>
                         <div class="testi-name">Kevin K***</div>
                     </div>
-                    <p class="testi-text">"Biasanya langganan di tmpt org tapi sering bgt pending, nyoba pindah ke sini malah dapet yang lebih satset, nyesel kenapa gak dari dulu di sini"</p>
+                    <p class="testi-text">biasanya langganan di tmpt org tapi sering bgt pending, nyoba pindah ke sini malah dapet yang lebih satset, nyesel knp gk dari dulu beli disini</p>
                     <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
                 </div>
 
@@ -973,7 +978,7 @@
                         <div class="testi-avatar" style="background: #FF00FF; color: #fff;">W</div>
                         <div class="testi-name">Bocil W*****</div>
                     </div>
-                    <p class="testi-text">"Sumpah ini sih diluar nalar, klik beli gak sampe 1 menit DM udah masuk. Adminnya beneran pake flash apa gimana nih? wkwkwk ⚡"</p>
+                    <p class="testi-text">sumpahh ini sih diluar nalar, klik beli gak sampe 1 menit DM udah masuk, servernya gacor sih</p>
                     <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
                 </div>
 
@@ -981,9 +986,9 @@
                 <div class="swiper-slide testi-card">
                     <div class="testi-header">
                         <div class="testi-avatar" style="background: #FF8C00; color: #fff;">L</div>
-                        <div class="testi-name">L L*****</div>
+                        <div class="testi-name">L W*****</div>
                     </div>
-                    <p class="testi-text">"Gak tau kenapa ya, tiap top up di sini ngerasa hoki terus, miminnya jg seru bgt diajak chat, gak kaku"</p>
+                    <p class="testi-text">"gtw kenapa ya, tiap top up di sini ngerasa hoki terus, miminnya jg seru bgt diajak chat</p>
                     <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
                 </div>
 
@@ -993,7 +998,7 @@
                         <div class="testi-avatar" style="background: #94A3B8; color: #000;">A</div>
                         <div class="testi-name">Anti H***</div>
                     </div>
-                    <p class="testi-text">"Next event pasti balik lagi lah, gak bakal pindah ke lain hati lagi pokoknya!"</p>
+                    <p class="testi-text">next event pasti balik lagi lah, gak bakal pindah ke lain wkwk</p>
                     <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
                 </div>
 
@@ -1003,7 +1008,7 @@
                         <div class="testi-avatar" style="background: #1E3A8A; color: #fff;">T</div>
                         <div class="testi-name">Tukang J***</div>
                     </div>
-                    <p class="testi-text">"Gacor bgt web nya bro, moga sukses dan lancar terus usahanya, rekomended store!"</p>
+                    <p class="testi-text">gacor bgt web nya bro, moga sukses dan lancar terus usahanya</p>
                     <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
                 </div>
             </div>
@@ -1020,15 +1025,36 @@
     <!-- FAQ -->
     <section class="faq-section" id="faq">
         <h2 class="faq-header">Frequently Asked Questions</h2>
+        
         <div class="faq-item">
             <button class="faq-question">Berapa lama proses top up nya? <i class="fas fa-chevron-down"></i></button>
             <div class="faq-answer"><p>Sistem kami terhubung langsung secara real-time. Jika tidak ada gangguan server dari pihak game, pesanan Anda akan masuk dalam hitungan detik hingga maksimal 5 menit.</p></div>
         </div>
+        
         <div class="faq-item">
             <button class="faq-question">Apakah layanan ini aman dan legal? <i class="fas fa-chevron-down"></i></button>
-            <div class="faq-answer"><p>100% Aman dan Legal. Kami hanya menggunakan metode top up resmi via ID sehingga akun Anda bebas dari risiko banned.</p></div>
+            <div class="faq-answer"><p>100% Aman dan Legal. Kami hanya menggunakan metode top up resmi via ID/Server tanpa perlu login, sehingga akun Anda dijamin 100% aman dan anti-banned.</p></div>
         </div>
+
+        <!-- FAQ BARU 1 -->
+        <div class="faq-item">
+            <button class="faq-question">Metode pembayaran apa saja yang didukung? <i class="fas fa-chevron-down"></i></button>
+            <div class="faq-answer"><p>Kami menerima berbagai metode pembayaran otomatis yang memudahkan Anda. Mulai dari QRIS (Support All Payment), E-Wallet (DANA, GoPay, OVO, ShopeePay), hingga Transfer Bank. Pembayaran akan terverifikasi secara otomatis oleh sistem.</p></div>
+        </div>
+
+        <!-- FAQ BARU 2 -->
+        <div class="faq-item">
+            <button class="faq-question">Bagaimana jika saya salah memasukkan User ID? <i class="fas fa-chevron-down"></i></button>
+            <div class="faq-answer"><p>Mohon teliti dan pastikan kembali User ID / Server game Anda sudah benar sebelum melakukan konfirmasi pembayaran. Kesalahan input ID murni kelalaian pembeli dan pesanan yang sudah diproses tidak dapat dibatalkan atau di-refund.</p></div>
+        </div>
+
+        <!-- FAQ BARU 3 -->
+        <div class="faq-item">
+            <button class="faq-question">Apakah sistem dan Customer Service aktif 24 Jam? <i class="fas fa-chevron-down"></i></button>
+            <div class="faq-answer"><p>Sistem top up kami berjalan otomatis 24 Jam penuh (24/7). Anda bebas transaksi jam berapapun. Namun, untuk layanan Customer Service (WhatsApp), tim kami aktif membantu kendala Anda mulai dari pukul 08:00 hingga 22:00 WIB.</p></div>
+        </div>        
     </section>
+
 
     <!-- === BANNER MITRA PEMBAYARAN (JALAN OTOMATIS) === -->
     <section class="payment-partners">
@@ -1450,6 +1476,51 @@ const items = [
                 btn.innerHTML = 'Tutup Ulasan';
             }
         };
+
+         // ==========================================
+        // FITUR FAQ BUKA TUTUP
+        // ==========================================
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const parent = question.parentElement;
+                
+                // Tutup FAQ lain yang lagi kebuka
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if(item !== parent) item.classList.remove('active');
+                });
+                
+                // Buka/Tutup FAQ yang diklik
+                parent.classList.toggle('active');
+            });
+        });
+        
+        // ==========================================
+        // FITUR KLIK KARTU DIAMOND & PEMBAYARAN
+        // ==========================================
+        document.querySelectorAll('.nominal-grid .card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Cari area grid dari kartu yg dipencet (biar gak bentrok MLBB vs FF)
+                const parentGrid = this.closest('.nominal-grid');
+                // Hapus warna dari semua kartu di grid itu
+                parentGrid.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+                // Kasih warna nyala ke kartu yg dipencet
+                this.classList.add('selected');
+                // Simpan data orderan
+                selectedNominal = this.getAttribute('data-val');
+            });
+        });
+
+        document.querySelectorAll('.payment-grid .card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Hapus warna dari semua payment
+                document.querySelectorAll('.payment-grid .card').forEach(c => c.classList.remove('selected'));
+                // Kasih warna nyala ke payment yg dipencet
+                this.classList.add('selected');
+                // Simpan data orderan
+                selectedPayment = this.getAttribute('data-method');
+            });
+        });
     </script>
 </body>
 </html>
