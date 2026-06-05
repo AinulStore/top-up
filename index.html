@@ -785,7 +785,7 @@
         </div>
     </section>
 
-    <section class="calc-section">
+    <section class="calc-section" id="calc-section" style="display: none;">
         <div class="calc-box">
             <h2 class="calc-title"><i class="fas fa-calculator"></i> Kalkulator Event MLBB</h2>
             <div class="calc-grid">
@@ -896,69 +896,7 @@
         let selectedNominal = null;
         let selectedPayment = null;
 
-        // 1. Logic Tab Switcher (Sudah Diupdate dengan Banner)
-        function switchTab(tabId, element) {
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('content-' + tabId).classList.add('active');
-            element.classList.add('active');
-            currentGame = tabId;
-            
-            // Logika Ganti Banner
-            document.querySelectorAll('.game-banner').forEach(b => b.style.display = 'none');
-            document.getElementById('game-banner-' + tabId).style.display = 'flex';
-            
-            // Reset pilihan nominal tiap ganti game biar gak bentrok
-            selectedNominal = null;
-            document.querySelectorAll('.nominal-grid .card').forEach(c => c.classList.remove('selected'));
-        }
-
-
-        // 2. Logic Selection Nominal & Payment
-        document.querySelectorAll('.nominal-grid .card').forEach(card => {
-            card.addEventListener('click', function() {
-                // Hanya pilih nominal di grid game yang sedang aktif
-                const parentGrid = this.closest('.nominal-grid');
-                if(parentGrid.getAttribute('data-game') !== currentGame) return;
-
-                parentGrid.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
-                this.classList.add('selected');
-                selectedNominal = this.getAttribute('data-val');
-            });
-        });
-
-        document.querySelectorAll('.payment-grid .card').forEach(card => {
-            card.addEventListener('click', function() {
-                document.querySelectorAll('.payment-grid .card').forEach(c => c.classList.remove('selected'));
-                this.classList.add('selected');
-                selectedPayment = this.getAttribute('data-method');
-            });
-        });
-
-        // 3. Logic FAQ Accordion
-        document.querySelectorAll('.faq-question').forEach(button => {
-            button.addEventListener('click', () => {
-                const item = button.parentElement;
-                item.classList.toggle('active');
-            });
-        });
-
-        // 4. Logic 3D Tilt Effect
-        document.querySelectorAll('.tilt-card').forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -10; 
-                const rotateY = ((x - centerX) / centerX) * 10;
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-            });
-        });
+  
         // FITUR ANGKA JALAN (Baru Ditambahin Biar Gacor)
         const counters = document.querySelectorAll('.stat-num');
         function startCounter() {
@@ -1205,67 +1143,27 @@ const items = [
             });
         }
 
-        // === FITUR DYNAMIC BACKGROUND (OPSI 4) ===
-        let bgElement = document.getElementById('game-bg');
-
-        // 2. Numpang ke fungsi ganti tab yang udah ada
-        const fungsiGantiTabAsli = switchTab;
-        window.switchTab = function(tabId, element) {
-            // Jalankan animasi aslinya dulu
-            fungsiGantiTabAsli(tabId, element);
-            
-            // Ganti fotonya sesuai game yang diklik
-            if(bgElement) {
-                bgElement.style.backgroundImage = `url('bg-${tabId}.png')`;
-            }
-        };
-        
         // === FITUR LIVE SEARCH (OPSI 1) ===
-        // 1. Fungsi buat nyaring / filter kotak diamond
         window.cariItemLive = function() {
-            // Ambil teks yang diketik pembeli
             let ketikan = document.getElementById('inputCariItem').value.toLowerCase();
-            
-            // Cari daftar diamond di game yang sedang aktif aja (ML atau FF)
             let gridAktif = document.querySelector('.tab-content.active .nominal-grid');
             if(!gridAktif) return; 
-
             let semuaKartu = gridAktif.querySelectorAll('.card');
-            
-            // Cek satu-satu kartunya
             semuaKartu.forEach(kartu => {
                 let namaItem = kartu.getAttribute('data-val').toLowerCase();
                 if (namaItem.includes(ketikan)) {
-                    kartu.style.display = ''; // Tampilkan kalau cocok
+                    kartu.style.display = ''; 
                 } else {
-                    kartu.style.display = 'none'; // Sembunyikan kalau gak cocok
+                    kartu.style.display = 'none'; 
                 }
             });
         };
 
-        // 2. Munculkan kotak pencarian HANYA saat tombol game diklik
-        // Kita gabung ke fungsi switchTab yang sebelumnya
-        const fungsiTabAsli = window.switchTab;
-        window.switchTab = function(tabId, element) {
-            // Jalankan ganti foto & tab
-            fungsiTabAsli(tabId, element);
-            
-            // Munculkan kotak pencariannya dengan elegan
-            document.getElementById('liveSearchBox').style.display = 'block';
-            
-            // Reset kolom pencarian setiap ganti game
-            let inputCari = document.getElementById('inputCariItem');
-            inputCari.value = '';
-            
-            // Kembalikan semua kartu yang tadinya disembunyikan
-            document.querySelectorAll('.nominal-grid .card').forEach(k => k.style.display = '');
-        };
-
-        // === REVISI: BERANDA & SEMBUNYIKAN STEP 3 & 4 ===
-        window.switchTab = function(tabId, element) {
+        // === MASTER FUNGSI SWITCH TAB (GABUNGAN SEMUA FITUR) ===
+        function switchTab(tabId, element) {
             currentGame = tabId;
             
-            // 1. Atur efek nyala di tombol
+            // 1. Atur efek nyala di tombol tab
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             if(element) element.classList.add('active');
             
@@ -1278,32 +1176,47 @@ const items = [
             selectedPayment = null;
             document.querySelectorAll('.nominal-grid .card, .payment-grid .card').forEach(c => c.classList.remove('selected'));
             
-            // Tangkap elemen yang mau diatur
+            // 4. Tangkap elemen-elemen penting
             let globalSteps = document.getElementById('global-steps');
             let searchBox = document.getElementById('liveSearchBox');
             let bgGame = document.getElementById('game-bg');
+            let calcSection = document.getElementById('calc-section');
             
             if(tabId === 'beranda') {
-                // KALAU DI BERANDA: Sembunyikan form pembayaran & kotak cari
+                // KALAU DI BERANDA: Sembunyikan semua fitur order & kalkulator
                 if(globalSteps) globalSteps.style.display = 'none';
                 if(searchBox) searchBox.style.display = 'none';
+                if(calcSection) calcSection.style.display = 'none';
                 if(bgGame) bgGame.style.backgroundImage = 'none'; 
             } else {
-                // KALAU MILIH GAME: Munculkan katalog, banner, form pembayaran, & kotak cari
+                // KALAU MILIH GAME: Munculkan fitur sesuai game
                 let contentGame = document.getElementById('content-' + tabId);
                 let bannerGame = document.getElementById('game-banner-' + tabId);
                 
                 if(contentGame) contentGame.classList.add('active');
                 if(bannerGame) bannerGame.style.display = 'flex';
                 if(globalSteps) globalSteps.style.display = 'block';
+                
+                // Tampilkan Kotak Pencarian
                 if(searchBox) {
                     searchBox.style.display = 'block';
                     document.getElementById('inputCariItem').value = ''; 
                     document.querySelectorAll('.nominal-grid .card').forEach(k => k.style.display = '');
                 }
+                
+                // Ganti Foto Background 
                 if(bgGame) bgGame.style.backgroundImage = `url('bg-${tabId}.png')`;
+
+                // Logika Kalkulator: Khusus MLBB
+                if(calcSection) {
+                    if(tabId === 'mlbb') {
+                        calcSection.style.display = 'block';
+                    } else {
+                        calcSection.style.display = 'none';
+                    }
+                }
             }
-        };
+        }
 
         // Pas web pertama kali dibuka, otomatis pencet tombol "Beranda"
         document.addEventListener('DOMContentLoaded', () => {
