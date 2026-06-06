@@ -1497,6 +1497,25 @@ const items = [
         document.addEventListener('DOMContentLoaded', () => {
             let btnBeranda = document.querySelector('.tab-btn.beranda');
             if(btnBeranda) btnBeranda.click();
+
+            // --- TAMBAHAN LOCALSTORAGE: MUAT ULASAN TERSIMPAN ---
+            let savedReviews = JSON.parse(localStorage.getItem('nullStoreReviews')) || [];
+            let swiperWrapper = document.querySelector('.testi-swiper .swiper-wrapper');
+            
+            savedReviews.forEach(review => {
+                let slideTersimpan = `
+                    <div class="swiper-slide testi-card">
+                        <div class="testi-header">
+                            <div class="testi-avatar" style="background: ${review.bgColor}; color: ${review.txtColor};">${review.inisial}</div>
+                            <div class="testi-name">${review.nama}</div>
+                        </div>
+                        <p class="testi-text">"${review.teks}"</p>
+                        <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Baru</span>
+                    </div>
+                `;
+                swiperWrapper.insertAdjacentHTML('beforeend', slideTersimpan);
+            });
+            // ----------------------------------------------------
             
             // Bungkus di dalam function biar bisa dinyala-matikan
             window.initTestiSwiper = function() {
@@ -1616,7 +1635,7 @@ const items = [
                         <div class="testi-name">${nama}</div>
                     </div>
                     <p class="testi-text">"${teks}"</p>
-                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
+                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Baru</span>
                 </div>
             `;
 
@@ -1627,10 +1646,22 @@ const items = [
             // 2. Cek apakah sedang mode slider atau mode grid
             let swiperContainer = document.querySelector('.testi-swiper');
             if(!swiperContainer.classList.contains('grid-mode') && typeof testiSwiper !== 'undefined' && testiSwiper !== null) {
-                // Kalau lagi mode slider, update mesinnya biar sadar ada slide baru
                 testiSwiper.update(); 
-                testiSwiper.slideTo(testiSwiper.slides.length - 1); // Geser otomatis
+                testiSwiper.slideTo(testiSwiper.slides.length - 1); 
             }
+
+            // --- TAMBAHAN LOCALSTORAGE: SIMPAN KE MEMORI ---
+            let newReviewObj = {
+                nama: nama,
+                teks: teks,
+                inisial: inisial,
+                bgColor: randomColor,
+                txtColor: textColor
+            };
+            let savedReviews = JSON.parse(localStorage.getItem('nullStoreReviews')) || [];
+            savedReviews.push(newReviewObj);
+            localStorage.setItem('nullStoreReviews', JSON.stringify(savedReviews));
+            // -----------------------------------------------
             
             // Tutup pop-up, bersihin teks, dan kasih notif sukses
             tutupModalUlasan();
