@@ -28,7 +28,7 @@
         body.light-mode .reseller-content ul, body.light-mode .faq-question {
             color: var(--text-main) !important;
         }
-        body.light-mode input, body.light-mode select { color: var(--text-main) !important; background: #fff !important; }
+        body.light-mode input, body.light-mode select, body.light-mode textarea { color: var(--text-main) !important; background: #fff !important; }
         body.light-mode nav { background: rgba(255, 255, 255, 0.8); }
         body.light-mode .nav-menu { background: rgba(255, 255, 255, 0.98); }
         body.light-mode .logo, body.light-mode .menu-toggle { color: var(--text-main); }
@@ -637,6 +637,43 @@
         .pay-dana.selected { border: 2px solid #118EEA !important; background: rgba(17, 142, 234, 0.15) !important; box-shadow: 0 0 20px rgba(17, 142, 234, 0.5) !important; }
         .pay-gopay.selected { border: 2px solid #00AED6 !important; background: rgba(0, 174, 214, 0.15) !important; box-shadow: 0 0 20px rgba(0, 174, 214, 0.5) !important; }
         .pay-shopee.selected { border: 2px solid #EE4D2D !important; background: rgba(238, 77, 45, 0.15) !important; box-shadow: 0 0 20px rgba(238, 77, 45, 0.5) !important; }
+        
+        /* === MODAL ULASAN (POP-UP) === */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
+            display: none; justify-content: center; align-items: center; z-index: 2000;
+            animation: fadeInModal 0.3s forwards;
+        }
+        
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .modal-box {
+            background: var(--bg-card); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 30px; width: 90%; max-width: 400px;
+            position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .close-modal {
+            position: absolute; top: 15px; right: 20px; font-size: 1.5rem;
+            color: var(--text-dim); cursor: pointer; background: none; border: none; transition: 0.3s;
+        }
+        .close-modal:hover { color: var(--error); transform: scale(1.1); }
+        .modal-title { font-family: 'Syne'; color: #fff; margin-bottom: 20px; font-size: 1.5rem; text-align: center; }
+        .modal-box .input-box { margin-bottom: 15px; display: flex; flex-direction: column; gap: 8px; }
+        .modal-box input, .modal-box textarea {
+            width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border);
+            padding: 15px; border-radius: 12px; color: #fff; font-family: 'Inter'; outline: none; transition: 0.3s;
+        }
+        .modal-box input:focus, .modal-box textarea:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(0,225,255,0.2); }
+        .modal-box textarea { resize: vertical; min-height: 100px; }
+        .btn-submit-review {
+            width: 100%; background: linear-gradient(90deg, #00E1FF, #00A3FF); color: #fff; border: none;
+            padding: 15px; border-radius: 12px; font-family: 'Syne'; font-weight: 700; font-size: 1.1rem; 
+            cursor: pointer; transition: 0.3s; margin-top: 10px;
+        }
+        .btn-submit-review:hover { box-shadow: 0 5px 20px rgba(0,225,255,0.4); transform: translateY(-2px); }
 
     </style>
 </head>
@@ -1020,6 +1057,11 @@
                 <div class="swiper-button-next testi-nav"></div>
             </div>
         </div>
+        
+                    <!-- Tombol Tambah Ulasan -->
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn-outline" onclick="bukaModalUlasan()"><i class="fas fa-pencil-alt"></i> Tulis Ulasan Kamu</button>
+            </div>
     </section>
 
     <!-- FAQ -->
@@ -1103,6 +1145,21 @@
         </div>
         <div class="copyright">&copy; 2026 Null Store By Ainul Riskian. Crafted with <i class="fas fa-heart" style="color:var(--ff)"></i> & Advanced Tech.</div>
     </footer>
+
+    <!-- KOTAK POP UP ISI ULASAN (Dipindah ke luar footer) -->
+    <div class="modal-overlay" id="modal-ulasan">
+        <div class="modal-box">
+            <button class="close-modal" onclick="tutupModalUlasan()"><i class="fas fa-times"></i></button>
+            <h3 class="modal-title">Tulis Ulasan Kamu</h3>
+            <div class="input-box">
+                <input type="text" id="ulasan-nama" placeholder="Nama Akun (Contoh: Bima S**)">
+            </div>
+            <div class="input-box">
+                <textarea id="ulasan-teks" placeholder="Kasih tau dong gimana rasanya top up di Null Store..."></textarea>
+            </div>
+            <button class="btn-submit-review" onclick="kirimUlasan()">Kirim Ulasan <i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
 
     <!-- JAVASCRIPT MAHA DEWA -->
     <script>
@@ -1521,6 +1578,66 @@ const items = [
                 selectedPayment = this.getAttribute('data-method');
             });
         });
+        
+                // ==========================================
+        // FITUR TAMBAH ULASAN PELANGGAN
+        // ==========================================
+        function bukaModalUlasan() { 
+            document.getElementById('modal-ulasan').style.display = 'flex'; 
+        }
+        
+        function tutupModalUlasan() { 
+            document.getElementById('modal-ulasan').style.display = 'none'; 
+        }
+
+        function kirimUlasan() {
+            let nama = document.getElementById('ulasan-nama').value;
+            let teks = document.getElementById('ulasan-teks').value;
+
+            // Validasi kalau form kosong
+            if(!nama || !teks) {
+                showToast('error', 'Nama dan ulasan wajib diisi bosku!');
+                return;
+            }
+
+            // Ambil huruf pertama buat dijadiin foto profil (Avatar)
+            let inisial = nama.charAt(0).toUpperCase();
+            
+            // Generate Warna Random buat Avatar biar estetik
+            let colors = ['#00E1FF', '#FF4B2B', '#10B981', '#B800FF', '#FACC15', '#FF00FF'];
+            let randomColor = colors[Math.floor(Math.random() * colors.length)];
+            let textColor = (randomColor === '#FACC15' || randomColor === '#00E1FF') ? '#000' : '#fff';
+
+            // Bikin struktur HTML kartu ulasan yang baru
+            let slideBaru = `
+                <div class="swiper-slide testi-card">
+                    <div class="testi-header">
+                        <div class="testi-avatar" style="background: ${randomColor}; color: ${textColor};">${inisial}</div>
+                        <div class="testi-name">${nama}</div>
+                    </div>
+                    <p class="testi-text">"${teks}"</p>
+                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Baru</span>
+                </div>
+            `;
+
+            // 1. Masukkan HTML-nya secara manual ke dalam wrapper Swiper
+            let swiperWrapper = document.querySelector('.testi-swiper .swiper-wrapper');
+            swiperWrapper.insertAdjacentHTML('beforeend', slideBaru);
+
+            // 2. Cek apakah sedang mode slider atau mode grid
+            let swiperContainer = document.querySelector('.testi-swiper');
+            if(!swiperContainer.classList.contains('grid-mode') && typeof testiSwiper !== 'undefined' && testiSwiper !== null) {
+                // Kalau lagi mode slider, update mesinnya biar sadar ada slide baru
+                testiSwiper.update(); 
+                testiSwiper.slideTo(testiSwiper.slides.length - 1); // Geser otomatis
+            }
+            
+            // Tutup pop-up, bersihin teks, dan kasih notif sukses
+            tutupModalUlasan();
+            document.getElementById('ulasan-nama').value = '';
+            document.getElementById('ulasan-teks').value = '';
+            showToast('success', 'Ulasan kamu berhasil ditambahkan! Makasih ya!');
+        }
     </script>
 </body>
 </html>
