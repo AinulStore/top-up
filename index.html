@@ -1671,7 +1671,7 @@ const items = [
                 let harga = this.querySelector('.card-price').innerText;
                 let tombolBeli = document.querySelector('.btn-checkout');
                 if(tombolBeli) {
-                    tombolBeli.innerHTML = `Beli Sekarang - ${harga} <i class="fas fa-arrow-right"></i>`;
+                    tombolBeli.innerHTML = `<span style="display: block; line-height: 1.2;">Beli Sekarang <i class="fas fa-arrow-right"></i></span><span style="display: block; font-size: 0.85rem; font-family: 'Inter', sans-serif; font-weight: 500; margin-top: 4px; opacity: 0.9;">Total: ${harga}</span>`;
                 }
                 
                 // === AUTO-SCROLL KE MENU PEMBAYARAN ===
