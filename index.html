@@ -715,6 +715,37 @@
             gap: 5px; 
         }
         .disclaimer-text i { font-size: 0.7rem; color: #D4AF37; } 
+        
+                /* === REVISI 1: MENU PILIH GAME ALA TAKAPEDIA === */
+        .populer-title { font-family: 'Syne', sans-serif; font-size: 1.5rem; color: #fff; margin-bottom: 5px; display: flex; align-items: center; gap: 10px; }
+        .populer-subtitle { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 25px; }
+        
+        .game-selection-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 40px; }
+        @media (min-width: 768px) { .game-selection-grid { grid-template-columns: repeat(4, 1fr); } }
+        
+        .game-card { 
+            background: var(--bg-card); border-radius: 12px; overflow: hidden; cursor: pointer; 
+            transition: all 0.3s ease; 
+            filter: grayscale(100%); /* Bawaan abu-abu */
+            border: 2px solid transparent; 
+        }
+        .game-card:hover { filter: grayscale(50%); transform: translateY(-3px); }
+        .game-card.active { 
+            filter: grayscale(0%); /* Jadi berwarna pas dipencet */
+            border-color: #FACC15; /* Kuning Taka */
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 20px rgba(250, 204, 21, 0.2); 
+        }
+        .game-card-img { width: 100%; height: 100px; object-fit: cover; }
+        .game-card-info { background: #FACC15; padding: 10px 12px; color: #000; position: relative; }
+        .game-card-info h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 2px; }
+        .game-card-info p { font-size: 0.75rem; font-weight: 500; opacity: 0.8; margin: 0; }
+        
+        /* Efek miring di pojok kanan bawah kuningnya */
+        .game-card-info::after { 
+            content: ''; position: absolute; bottom: 0; right: 0; width: 25px; height: 25px; 
+            background: rgba(0,0,0,0.1); clip-path: polygon(100% 0, 100% 100%, 0 100%); 
+        }
 
     </style>
 </head>
@@ -782,10 +813,47 @@
     </section>
 
     <section class="catalog" id="katalog">
-        <div class="tabs">
-            <button class="tab-btn beranda" onclick="switchTab('beranda', this)"><i class="fas fa-home"></i> Beranda</button>
-            <button class="tab-btn mlbb" onclick="switchTab('mlbb', this)"><i class="fas fa-gem"></i> Mobile Legends</button>
-            <button class="tab-btn ff" onclick="switchTab('ff', this)"><i class="fas fa-fire"></i> Free Fire</button>
+        <!-- JUDUL ALA TAKAPEDIA -->
+        <div class="populer-title"><i class="fas fa-fire" style="color: #FF4B2B;"></i> POPULER SEKARANG!</div>
+        <p class="populer-subtitle">Berikut adalah beberapa produk yang paling populer saat ini.</p>
+        
+        <!-- GRID KARTU GAME -->
+        <div class="game-selection-grid">
+            <!-- Card MLBB -->
+            <div class="game-card" onclick="switchTab('mlbb', this)">
+                <img src="bg-mlbb.png" alt="Mobile Legends" class="game-card-img">
+                <div class="game-card-info">
+                    <h3>Mobile Legends</h3>
+                    <p>Moonton</p>
+                </div>
+            </div>
+            
+            <!-- Card FF -->
+            <div class="game-card" onclick="switchTab('ff', this)">
+                <img src="bg-ff.png" alt="Free Fire" class="game-card-img">
+                <div class="game-card-info">
+                    <h3>Free Fire</h3>
+                    <p>Garena</p>
+                </div>
+            </div>
+            
+            <!-- Card Dummy 1 (Biar kelihatan penuh kayak Takapedia) -->
+            <div class="game-card" style="opacity: 0.5; cursor: not-allowed;" onclick="showToast('error', 'Produk ini sedang gangguan / belum tersedia.')">
+                <img src="https://esports.id/img/article/522120200508112347.jpg" alt="PUBG" class="game-card-img">
+                <div class="game-card-info" style="background: #ccc;">
+                    <h3>PUBG Mobile</h3>
+                    <p>Tencent Games</p>
+                </div>
+            </div>
+            
+            <!-- Card Dummy 2 -->
+            <div class="game-card" style="opacity: 0.5; cursor: not-allowed;" onclick="showToast('error', 'Produk ini sedang gangguan / belum tersedia.')">
+                <img src="https://img.redbull.com/images/c_limit,w_1500,h_1000,f_auto,q_auto/redbullcom/2020/6/5/a9v0qikvsq9wzls9qndj/valorant-key-art" alt="Valorant" class="game-card-img">
+                <div class="game-card-info" style="background: #ccc;">
+                    <h3>Valorant</h3>
+                    <p>Riot Games</p>
+                </div>
+            </div>
         </div>
         
                 <!-- KOTAK PENCARIAN LIVE -->
@@ -1372,12 +1440,13 @@ const items = [
             // Hapus pop-up dari layar setelah 5 detik
             setTimeout(() => { toast.remove(); }, 5000);
             
-            // Atur pop-up selanjutnya muncul random antara 3 sampai 15 detik biar natural
-            setTimeout(spawnLiveToast, Math.random() * 12000 + 5000);
+            // Atur pop-up selanjutnya muncul random antara 15 sampai 20 detik
+            let randomJeda = Math.floor(Math.random() * 5000) + 15000; 
+            setTimeout(spawnLiveToast, randomJeda);
         }
         
-        // Pancingan pertama: Pop-up muncul 7 detik setelah web baru dibuka
-        setTimeout(spawnLiveToast, 7000);
+        // Pancingan pertama: Pop-up muncul 15 detik setelah web baru dibuka
+        setTimeout(spawnLiveToast, 15000);
         
         // Fungsi Buka Tutup Menu Garis 3 di HP
         function toggleMenu() {
@@ -1509,7 +1578,7 @@ const items = [
             currentGame = tabId;
             
             // 1. Atur efek nyala di tombol tab
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.game-card').forEach(b => b.classList.remove('active'));
             if(element) element.classList.add('active');
             
             // 2. Sembunyikan semua katalog game & banner
