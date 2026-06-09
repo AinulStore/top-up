@@ -364,7 +364,9 @@
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .footer-grid { grid-template-columns: 1fr; gap: 30px; }
-            .tabs { flex-direction: column; }
+            .tabs { flex-direction: row; justify-content: flex-start; overflow-x: auto; padding-bottom: 10px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+            .tabs::-webkit-scrollbar { display: none; }
+            .tab-btn { flex: 0 0 auto; white-space: nowrap; padding: 12px 25px; }
             .btn-checkout { max-width: 100%; }
             
             /* === TAMBAHAN: JADIKAN 3 KOLOM DI HP === */
