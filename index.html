@@ -1286,6 +1286,14 @@
             if (!wa) return showToast('error', 'Nomor WhatsApp belum diisi!');
 
             // Jika lolos semua validasi
+            
+            // === EFEK LOADING TOMBOL CHECKOUT ===
+            const tombolBeli = document.querySelector('.btn-checkout');
+            const teksAsli = tombolBeli.innerHTML; // Simpan teks aslinya
+            tombolBeli.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Memproses...`;
+            tombolBeli.style.pointerEvents = 'none'; // Biar tombolnya gak bisa di-spam klik
+            tombolBeli.style.opacity = '0.8';
+
             showToast('success', `Mengarahkan ke WhatsApp Pembayaran...`);
             
             // Generate WhatsApp Link dengan format template order
@@ -1299,10 +1307,18 @@
             const encodedText = encodeURIComponent(formatPesan);
             const urlWhatsApp = `https://wa.me/${targetWaNumber}?text=${encodedText}`;
             
-            // Redirect ke WhatsApp setelah animasi toast sukses terlihat sembari proses aman
+            // Redirect ke WhatsApp dengan jeda efek loading
             setTimeout(() => {
                 window.open(urlWhatsApp, '_blank');
-            }, 1200);
+                
+                // Kembalikan tombol seperti semula setelah 1 detik (Buat jaga-jaga kalau pembeli buka tab lama)
+                setTimeout(() => {
+                    tombolBeli.innerHTML = teksAsli;
+                    tombolBeli.style.pointerEvents = 'auto';
+                    tombolBeli.style.opacity = '1';
+                }, 1000);
+                
+            }, 1500); // Waktu loading muternya 1.5 detik
         }
         // 7. Logic Fake Live Purchase Toast (Notifikasi Pembelian) - MUNCUL 10 SAMPAI 15 DETIK
         const toastContainerLive = document.getElementById('toast-container');
@@ -1657,6 +1673,15 @@ const items = [
                 if(tombolBeli) {
                     tombolBeli.innerHTML = `Beli Sekarang - ${harga} <i class="fas fa-arrow-right"></i>`;
                 }
+                
+                // === AUTO-SCROLL KE MENU PEMBAYARAN ===
+                setTimeout(() => {
+                    let sectionPembayaran = document.getElementById('global-steps');
+                    if(sectionPembayaran) {
+                        let y = sectionPembayaran.getBoundingClientRect().top + window.scrollY - 80;
+                        window.scrollTo({top: y, behavior: 'smooth'});
+                    }
+                }, 300); // Jeda 0.3 detik biar suaranya kedengaran dulu
             });
         });
 
@@ -1670,6 +1695,16 @@ const items = [
                 this.classList.add('selected');
                 // Simpan data orderan
                 selectedPayment = this.getAttribute('data-method');
+                
+                // === AUTO-SCROLL KE MENU DETAIL KONTAK ===
+                setTimeout(() => {
+                    let inputEmail = document.getElementById('user-email');
+                    if(inputEmail) {
+                        let y = inputEmail.getBoundingClientRect().top + window.scrollY - 200;
+                        window.scrollTo({top: y, behavior: 'smooth'});
+                        inputEmail.focus(); // Kursor otomatis ngetik di kolom email
+                    }
+                }, 300);
             });
         });
         
