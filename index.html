@@ -194,7 +194,9 @@
         .card.selected { background: rgba(0, 225, 255, 0.1); border-color: var(--primary); box-shadow: 0 0 25px rgba(0, 225, 255, 0.2); transform: scale(1.02); }
         .card.selected .card-title { color: var(--primary); }
 
-        .badge-recom { position: absolute; top: 0; right: 0; background: var(--success); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 5px 15px; border-bottom-left-radius: 15px; }
+        .badge-recom { position: absolute; top: 0; right: 0; background: var(--success); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 5px 15px; border-bottom-left-radius: 15px; z-index: 2;}
+        .badge-hot { position: absolute; top: 0; right: 0; background: linear-gradient(90deg, #FF4B2B, #FF416C); color: #fff; font-size: 0.7rem; font-weight: 800; padding: 5px 15px; border-bottom-left-radius: 15px; box-shadow: 0 4px 10px rgba(255, 75, 43, 0.4); z-index: 2; animation: pulse-hot 1.5s infinite; }
+        @keyframes pulse-hot { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
         /* === CHECKOUT BUTTON (FLOATING ALA CODASHOP) === */
         .checkout-wrapper {
@@ -809,7 +811,10 @@
     <div class="card tilt-card" data-val="2195 💎 (Rp 536.000)"><div class="inner"><div class="card-title">2195 💎</div><div class="card-price">Rp 536.000</div></div></div>
     
     <!-- Membership & Pass -->
-    <div class="card tilt-card" data-val="1x Weekly Pass (Rp 28.250)"><div class="inner"><div class="card-title">1x Weekly Pass</div><div class="card-price">Rp 28.250</div></div></div>
+    <div class="card tilt-card" data-val="1x Weekly Pass (Rp 28.250)">
+        <div class="badge-hot"><i class="fas fa-fire"></i> Paling Laris</div>
+        <div class="inner"><div class="card-title">1x Weekly Pass</div><div class="card-price">Rp 28.250</div></div>
+    </div>
         <div class="card tilt-card" data-val="2x Weekly Pass (Rp 55.500)"><div class="inner"><div class="card-title">2x Weekly Pass</div><div class="card-price">Rp 55.500</div></div></div>
     <div class="card tilt-card" data-val="3x Weekly Pass (Rp 83.000)"><div class="inner"><div class="card-title">3x Weekly Pass</div><div class="card-price">Rp 83.000</div></div></div>        
         <div class="card tilt-card" data-val="4x Weekly Pass (Rp 110.000)"><div class="inner"><div class="card-title">4x Weekly Pass</div><div class="card-price">Rp 110.000</div></div></div>
