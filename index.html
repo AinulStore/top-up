@@ -106,13 +106,6 @@
             padding: 50px 20px; border-radius: 30px; 
             border-top: 1px solid rgba(255,255,255,0.08); 
         }
-        .badge-premium { 
-            display: inline-block; padding: 8px 24px; 
-            background: linear-gradient(90deg, rgba(212,175,55,0.1), rgba(212,175,55,0.05)); 
-            border: 1px solid rgba(212,175,55,0.3); color: #D4AF37; 
-            border-radius: 50px; font-size: 0.85rem; font-weight: 600; 
-            margin-bottom: 25px; letter-spacing: 1px; 
-        }
         .title-elegant { 
             font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 6vw, 4.2rem); 
             font-weight: 800; line-height: 1.15; margin-bottom: 20px; color: #fff; 
@@ -359,22 +352,20 @@
         .copyright { text-align: center; color: var(--text-dim); font-size: 0.9rem; border-top: 1px solid var(--glass-border); padding-top: 30px; }
 
         /* === LIVE TOAST NOTIFICATION === */
-        #toast-container { position: fixed; bottom: 30px; left: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 15px; pointer-events: none; }
-        .live-toast { background: rgba(11, 15, 25, 0.95); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); padding: 15px 20px; border-radius: 12px; display: flex; align-items: center; gap: 15px; color: #fff; animation: slideInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards, fadeOut 0.5s 4.5s forwards; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .toast-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.1rem; }
-        .toast-text p { margin: 0; font-size: 0.9rem; }
-        .toast-text span { color: var(--text-dim); font-size: 0.75rem; }
+        #toast-container { position: fixed; top: 80px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none; align-items: center; width: 100%; }
+        .live-toast { background: rgba(11, 15, 25, 0.95); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); padding: 8px 20px; border-radius: 50px; display: flex; align-items: center; gap: 15px; color: #fff; width: auto; max-width: 90%; animation: slideInDown 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards, fadeOutUp 0.5s 4.5s forwards; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .toast-icon { width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1rem; }
+        .toast-text p { margin: 0; font-size: 0.85rem; }
+        .toast-text span { color: var(--text-dim); font-size: 0.7rem; }
         
-        @keyframes slideInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeOut { to { opacity: 0; transform: translateY(-20px); } }
+        @keyframes slideInDown { from { opacity: 0; transform: translateY(-50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeOutUp { to { opacity: 0; transform: translateY(-20px); } }
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .footer-grid { grid-template-columns: 1fr; gap: 30px; }
             .tabs { flex-direction: column; }
             .btn-checkout { max-width: 100%; }
-            #toast-container { bottom: 20px; left: 20px; right: 20px; }
-            .live-toast { width: 100%; }
             
             /* === TAMBAHAN: JADIKAN 3 KOLOM DI HP === */
             .grid { 
@@ -709,8 +700,7 @@
 
     <section class="hero">
         <div class="hero-container">
-            <div class="badge-premium"><i class="fas fa-crown"></i> Null Store Official</div>
-            <h1 class="title-elegant">Premium Game<br><span>Top Up Center.</span></h1>
+            <h1 class="title-elegant">Top Up Game<br><span>Lebih Mudah.</span></h1>
             <p class="subtitle-elegant">Layanan top up game tercepat dan terpercaya. Nikmati harga reseller sesungguhnya dengan proses masuk hitungan detik.</p>
             
             <div class="hero-buttons">
