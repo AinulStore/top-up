@@ -1486,6 +1486,12 @@ const items = [
             selectedPayment = null;
             document.querySelectorAll('.nominal-grid .card, .payment-grid .card').forEach(c => c.classList.remove('selected'));
             
+            // Reset tulisan tombol Beli Sekarang
+            let tombolBeli = document.querySelector('.btn-checkout');
+            if(tombolBeli) {
+                tombolBeli.innerHTML = `Beli Sekarang <i class="fas fa-arrow-right"></i>`;
+            }
+            
             // 4. Tangkap elemen-elemen penting
             let globalSteps = document.getElementById('global-steps');
             let searchBox = document.getElementById('liveSearchBox');
@@ -1644,6 +1650,13 @@ const items = [
                 this.classList.add('selected');
                 // Simpan data orderan
                 selectedNominal = this.getAttribute('data-val');
+                
+                // === FITUR OPSI 1: UBAH TEKS TOMBOL ===
+                let harga = this.querySelector('.card-price').innerText;
+                let tombolBeli = document.querySelector('.btn-checkout');
+                if(tombolBeli) {
+                    tombolBeli.innerHTML = `Beli Sekarang - ${harga} <i class="fas fa-arrow-right"></i>`;
+                }
             });
         });
 
