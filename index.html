@@ -954,6 +954,24 @@
             <input type="text" id="inputCariItem" placeholder="Ketik nominal atau item (contoh: Weekly, 86)..." onkeyup="cariItemLive()">
         </div>
 
+        <!-- ==================== MLBB CONTENT ==================== -->
+        <div id="content-mlbb" class="tab-content">
+            <!-- BANNER ALA TAKAPEDIA -->
+            <div class="taka-banner" id="game-banner-mlbb">
+                <div class="taka-banner-top">
+                    <img src="bg-mlbb.png" alt="MLBB" class="taka-banner-logo">
+                    <div class="taka-banner-text">
+                        <h2>Mobile Legends</h2>
+                        <p>Moonton</p>
+                    </div>
+                </div>
+                <div class="taka-banner-features">
+                    <span><i class="fas fa-bolt"></i> Proses Cepat</span>
+                    <span><i class="fas fa-headset"></i> Layanan Chat 24/7</span>
+                    <span><i class="fas fa-check-circle"></i> Pembayaran Aman!</span>
+                </div>
+            </div>
+
             <!-- STEP 1: AKUN MLBB -->
             <div class="taka-step-container">
                 <div class="taka-step-header">
@@ -1022,14 +1040,28 @@
             <div class="card tilt-card" data-val="5x Weekly Pass (Rp 138.000)"><div class="inner"><div class="card-title">5x Weekly Pass</div><div class="card-price">Rp 138.000</div></div></div>
     <div class="card tilt-card" data-val="Starlight Membership (Rp 82.000)"><div class="inner"><div class="card-title">Starlight Membership</div><div class="card-price">Rp 82.000</div></div></div>
     <div class="card tilt-card" data-val="Starlight Member Plus (Rp 198.000)"><div class="inner"><div class="card-title">Starlight Member Plus</div><div class="card-price">Rp 198.000</div></div></div>
-    
-                   </div>
+                    </div>
                 </div>
             </div>
-               </div>
+        </div> <!-- Ini penutup kardus MLBB -->
+
+        <!-- ==================== FF CONTENT ==================== -->
+        <div id="content-ff" class="tab-content">
+            <!-- BANNER ALA TAKAPEDIA -->
+            <div class="taka-banner" id="game-banner-ff" style="display: none;">
+                <div class="taka-banner-top">
+                    <img src="bg-ff.png" alt="Free Fire" class="taka-banner-logo">
+                    <div class="taka-banner-text">
+                        <h2>Free Fire</h2>
+                        <p>Garena</p>
+                    </div>
+                </div>
+                <div class="taka-banner-features">
+                    <span><i class="fas fa-bolt"></i> Proses Cepat</span>
+                    <span><i class="fas fa-headset"></i> Layanan Chat 24/7</span>
+                    <span><i class="fas fa-check-circle"></i> Pembayaran Aman!</span>
+                </div>
             </div>
-
-
 
             <!-- STEP 1: AKUN FF -->
             <div class="taka-step-container">
@@ -1081,10 +1113,7 @@
                     </div>
                 </div>
             </div>
-
-                </div>
-            </div>
-        </div>
+        </div> <!-- Ini penutup kardus FF -->
 
         <!-- ==================== GLOBAL STEPS 3 & 4 ==================== -->
         <div class="global-steps" id="global-steps" style="display: none;">
@@ -1101,12 +1130,12 @@
                     <div class="taka-pay-item" data-method="QRIS">
                         <div class="taka-ribbon">BEST PRICE</div>
                         <div class="taka-pay-title">QRIS (All Payment Method)</div>
-                        <div class="taka-pay-logos">
-                            <i class="fas fa-qrcode"></i>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" alt="GoPay">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/ShopeePay.svg" alt="Shopee">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Logo_OVO.svg" alt="OVO">
+                        <div class="taka-pay-logos" style="display: flex; align-items: center; gap: 12px;">
+                            <i class="fas fa-qrcode" style="font-size: 1.4rem;"></i>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA" style="height: 16px;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" alt="GoPay" style="height: 16px;">
+                            <span style="font-weight: 900; font-style: italic; font-size: 0.9rem; letter-spacing: 0.5px;">ShopeePay</span>
+                            <span style="font-weight: 900; font-size: 0.9rem; letter-spacing: 1px;">OVO</span>
                         </div>
                         <div class="taka-pay-desc" style="color: #E11D48; text-align: center; margin-top: 15px; background: rgba(225,29,72,0.1); padding: 5px; border-radius: 5px;">Satu QR Code untuk semua Payment</div>
                     </div>
@@ -1114,23 +1143,14 @@
                     <!-- E-Wallet -->
                     <div class="taka-pay-item" data-method="E-Wallet">
                         <div class="taka-pay-title">E-Wallet</div>
-                        <div class="taka-pay-logos">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" alt="GoPay">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/ShopeePay.svg" alt="Shopee">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Logo_OVO.svg" alt="OVO">
+                        <div class="taka-pay-logos" style="display: flex; align-items: center; gap: 12px;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA" style="height: 16px;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" alt="GoPay" style="height: 16px;">
+                            <span style="font-weight: 900; font-style: italic; font-size: 0.9rem; letter-spacing: 0.5px;">ShopeePay</span>
+                            <span style="font-weight: 900; font-size: 0.9rem; letter-spacing: 1px;">OVO</span>
                         </div>
                     </div>
-                    
-                    <!-- Virtual Account -->
-                    <div class="taka-pay-item" data-method="Virtual Account">
-                        <div class="taka-pay-title">Virtual Account</div>
-                        <div class="taka-pay-logos">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/07/Logo_BCA.svg" alt="BCA">
-                            <img src="https://upload.wikimedia.org/wikipedia/id/5/55/BNI_logo.svg" alt="BNI">
-                            <i class="fas fa-university"></i>
-                        </div>
-                    </div>
+
 
                 </div>
             </div>
