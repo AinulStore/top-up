@@ -123,6 +123,12 @@
             background: #fff; color: #000; padding: 14px 32px; 
             border-radius: 12px; font-weight: 600; text-decoration: none; 
             transition: 0.3s; box-shadow: 0 10px 20px rgba(255,255,255,0.1); 
+            animation: pulse-gacor 2s infinite;
+        }
+        @keyframes pulse-gacor {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
         }
         .btn-gacor:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(255,255,255,0.2); }
         .btn-outline { 
@@ -207,10 +213,10 @@
         }
         
         .btn-checkout { 
-            background: linear-gradient(90deg, #00E1FF, #00A3FF); /* Warna biru tema Null Store */
+            background: linear-gradient(90deg, #00E1FF, #00A3FF); 
             border: none; 
             padding: 15px 40px; 
-            border-radius: 50px; /* Bikin melingkar kayak Codashop */
+            border-radius: 50px; 
             color: #fff; 
             font-family: 'Syne', sans-serif; 
             font-size: 1.1rem; 
@@ -218,8 +224,14 @@
             cursor: pointer; 
             transition: 0.3s; 
             box-shadow: 0 4px 15px rgba(0, 225, 255, 0.3); 
-            width: auto; /* Jangan full width di PC */
+            width: auto; 
             min-width: 250px;
+            animation: pulse-checkout 2s infinite;
+        }
+        @keyframes pulse-checkout {
+            0% { box-shadow: 0 0 0 0 rgba(0, 225, 255, 0.6); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 225, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 225, 255, 0); }
         }
         
         .btn-checkout:hover { 
