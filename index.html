@@ -716,7 +716,7 @@
         }
         .disclaimer-text i { font-size: 0.7rem; color: #D4AF37; } 
         
-                /* === REVISI 1: MENU PILIH GAME ALA TAKAPEDIA === */
+                        /* === REVISI 1: MENU PILIH GAME ALA TAKAPEDIA === */
         .populer-title { font-family: 'Syne', sans-serif; font-size: 1.5rem; color: #fff; margin-bottom: 5px; display: flex; align-items: center; gap: 10px; }
         .populer-subtitle { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 25px; }
         
@@ -726,26 +726,117 @@
         .game-card { 
             background: var(--bg-card); border-radius: 12px; overflow: hidden; cursor: pointer; 
             transition: all 0.3s ease; 
-            filter: grayscale(100%); /* Bawaan abu-abu */
+            filter: grayscale(100%); 
             border: 2px solid transparent; 
         }
         .game-card:hover { filter: grayscale(50%); transform: translateY(-3px); }
         .game-card.active { 
-            filter: grayscale(0%); /* Jadi berwarna pas dipencet */
-            border-color: #FACC15; /* Kuning Taka */
+            filter: grayscale(0%); 
+            border-color: var(--primary); /* Kembali ke warna tema */
             transform: translateY(-5px); 
-            box-shadow: 0 10px 20px rgba(250, 204, 21, 0.2); 
+            box-shadow: 0 10px 20px rgba(0, 225, 255, 0.2); 
         }
         .game-card-img { width: 100%; height: 100px; object-fit: cover; }
-        .game-card-info { background: #FACC15; padding: 10px 12px; color: #000; position: relative; }
+        .game-card-info { background: var(--primary); padding: 10px 12px; color: #000; position: relative; } /* Kembali ke warna tema */
         .game-card-info h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 2px; }
         .game-card-info p { font-size: 0.75rem; font-weight: 500; opacity: 0.8; margin: 0; }
         
-        /* Efek miring di pojok kanan bawah kuningnya */
         .game-card-info::after { 
             content: ''; position: absolute; bottom: 0; right: 0; width: 25px; height: 25px; 
             background: rgba(0,0,0,0.1); clip-path: polygon(100% 0, 100% 100%, 0 100%); 
         }
+
+        /* === REVISI 2: BANNER GAME ALA TAKAPEDIA === */
+        .taka-banner {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.6) 100%);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .taka-banner-top { display: flex; align-items: center; gap: 15px; position: relative; z-index: 1; }
+        .taka-banner-logo { width: 80px; height: 80px; border-radius: 16px; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.5); border: 2px solid rgba(255,255,255,0.1); }
+        .taka-banner-text h2 { font-family: 'Inter', sans-serif; font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .taka-banner-text p { color: var(--text-dim); font-size: 0.9rem; font-weight: 500; margin: 0; }
+        .taka-banner-features { display: flex; flex-wrap: wrap; gap: 15px; position: relative; z-index: 1; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px; font-size: 0.8rem; color: var(--text-dim); font-weight: 500; }
+        .taka-banner-features span { display: flex; align-items: center; gap: 6px; }
+        .taka-banner-features i.fa-bolt { color: var(--primary); } /* Kembali ke warna tema */
+        .taka-banner-features i.fa-headset { color: #B800FF; } 
+        .taka-banner-features i.fa-check-circle { color: var(--success); }
+
+        /* === REVISI 3: STEP & INPUT ALA TAKAPEDIA === */
+        .taka-step-container { background: var(--bg-card); border-radius: 12px; margin-bottom: 25px; overflow: hidden; border: 1px solid var(--glass-border); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .taka-step-header { display: flex; align-items: stretch; background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--glass-border); }
+        .taka-step-num {
+            background: var(--primary); /* Kembali ke warna tema */
+            color: #000; font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; padding: 15px 25px; display: flex; align-items: center; justify-content: center;
+        }
+        .taka-step-title { padding: 15px 20px; font-family: 'Inter', sans-serif; font-size: 1.1rem; font-weight: 700; color: #fff; display: flex; align-items: center; width: 100%; }
+        .taka-step-body { padding: 20px; }
+        
+        .taka-input-row { display: flex; gap: 15px; flex-wrap: wrap; }
+        .taka-input-group { flex: 1; min-width: 150px; }
+        .taka-input-group label { display: block; color: var(--text-dim); font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }
+        .taka-input-group input { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid transparent; border-radius: 8px; padding: 14px 15px; color: #fff; font-size: 0.95rem; outline: none; transition: 0.3s; }
+        .taka-input-group input:focus { border-color: var(--primary); background: rgba(255,255,255,0.08); } /* Kembali ke warna tema */
+        
+        /* === REVISI 4: ULASAN ALA TAKAPEDIA === */
+        .taka-rating-header { text-align: center; margin-bottom: 30px; }
+        .taka-rating-score { font-family: 'Syne', sans-serif; font-size: 3.5rem; font-weight: 800; color: #fff; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .taka-rating-score i { color: #FACC15; font-size: 2.8rem; }
+        .taka-rating-score span { font-size: 1.5rem; color: var(--text-dim); font-weight: 500; }
+        .taka-rating-desc { color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; margin-top: 5px; }
+        
+        .taka-rating-bars { margin-bottom: 30px; padding: 0 10%; }
+        .taka-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; font-size: 0.95rem; font-weight: 700; color: #fff; }
+        .taka-bar-row i { color: #FACC15; font-size: 0.85rem; }
+        .taka-bar-line { flex: 1; height: 12px; background: rgba(255,255,255,0.1); border-radius: 6px; overflow: hidden; }
+        .taka-bar-fill { height: 100%; background: #FACC15; border-radius: 6px; }
+        .taka-bar-count { width: 60px; text-align: right; color: var(--text-dim); font-size: 0.85rem; font-weight: 500; }
+
+        .taka-review-list { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; }
+        .taka-review-item { padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .taka-review-item:last-child { border-bottom: none; }
+        .taka-review-user { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+        .taka-review-name { font-weight: 700; color: #fff; }
+        .taka-review-stars i { color: #FACC15; font-size: 0.8rem; letter-spacing: 2px;}
+        .taka-review-product { font-size: 0.8rem; color: var(--text-dim); margin-bottom: 10px; }
+        .taka-review-text { font-size: 0.95rem; color: #fff; font-style: italic; line-height: 1.5; }
+        
+        @media (max-width: 768px) { .taka-rating-bars { padding: 0; } }
+
+        /* === REVISI 5 & 6: PAYMENT & KONTAK ALA TAKAPEDIA === */
+        .taka-pay-item { background: rgba(255, 255, 255, 0.05); border: 2px solid transparent; border-radius: 12px; padding: 15px; margin-bottom: 15px; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; }
+        .taka-pay-item:hover { background: rgba(255, 255, 255, 0.08); }
+        .taka-pay-item.selected { 
+            border-color: var(--primary); /* Kembali ke warna tema */
+            background: rgba(0, 225, 255, 0.05);
+        }
+        .taka-pay-title { font-weight: 700; color: #fff; margin-bottom: 8px; font-size: 0.95rem; }
+        .taka-pay-logos { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; opacity: 0.7; }
+        .taka-pay-logos i, .taka-pay-logos img { font-size: 1.2rem; height: 18px; filter: grayscale(100%); }
+        .taka-pay-item.selected .taka-pay-logos { opacity: 1; }
+        .taka-pay-desc { font-size: 0.8rem; color: #E11D48; font-weight: 600; }
+        
+        .taka-ribbon {
+            position: absolute; top: 12px; right: -28px;
+            background: var(--primary); color: #000; /* Kembali ke warna tema */
+            font-size: 0.7rem; font-weight: 800; padding: 4px 30px; transform: rotate(45deg); box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Detail Kontak CSS */
+        .taka-wa-box { display: flex; background: rgba(255,255,255,0.05); border-radius: 8px; overflow: hidden; border: 1px solid transparent; transition: 0.3s; margin-top: 5px; }
+        .taka-wa-box:focus-within { border-color: var(--primary); } /* Kembali ke warna tema */
+        .taka-wa-flag { padding: 12px 15px; background: rgba(0,0,0,0.2); display: flex; align-items: center; gap: 8px; color: #fff; border-right: 1px solid rgba(255,255,255,0.05); }
+        .taka-wa-input { flex: 1; border: none; background: transparent; color: #fff; padding: 12px 15px; font-size: 1rem; outline: none; }
+        
+        .taka-contact-info { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 15px; font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; margin-top: 15px; display: flex; gap: 15px; align-items: flex-start; }
+        .taka-contact-info i { margin-top: 3px; font-size: 1.2rem; color: #fff; opacity: 0.8; }
 
     </style>
 </head>
@@ -778,13 +869,14 @@
 
         <!-- Menu Bungkus -->
         <div class="nav-menu" id="mobileMenu">
-            <div class="nav-links">
-                <a href="#">Beranda</a>
-                <a href="#katalog">Katalog</a>
-                <a href="#faq">Bantuan</a>
-                <a href="#" class="btn-login" onclick="showToast('error', 'Pendaftaran Member VIP saat ini sedang penuh / ditutup sementara.'); return false;"><i class="fas fa-user-circle"></i> Member Area</a>
-            </div>
-    </nav>
+                        <div class="nav-links">
+                            <a href="#">Beranda</a>
+                            <a href="#katalog">Katalog</a>
+                            <a href="#faq">Bantuan</a>
+                            <a href="#" class="btn-login" onclick="showToast('error', 'Pendaftaran Member VIP saat ini sedang penuh / ditutup sementara.'); return false;"><i class="fas fa-user-circle"></i> Member Area</a>
+                        </div>
+                    </div>
+                </nav>
 
     <section class="hero">
         <div class="hero-container">
@@ -862,38 +954,37 @@
             <input type="text" id="inputCariItem" placeholder="Ketik nominal atau item (contoh: Weekly, 86)..." onkeyup="cariItemLive()">
         </div>
 
-        <!-- ==================== MLBB CONTENT ==================== -->
-        <div id="content-mlbb" class="tab-content">
-                <!-- Banner Game -->
-        <div class="game-header">
-            <div class="game-banner" id="game-banner-mlbb">
-                <img src="bg-mlbb.png" alt="MLBB">
-                <div class="game-info">
-                    <h2>Mobile Legends : Bang Bang</h2>
-                    <p><i class="fas fa-shield-alt"></i> Pembayaran Aman</p>
+            <!-- STEP 1: AKUN MLBB -->
+            <div class="taka-step-container">
+                <div class="taka-step-header">
+                    <div class="taka-step-num">1</div>
+                    <div class="taka-step-title">Masukkan Data Akun</div>
                 </div>
-            </div>
-        </div>
-            <div class="step-container">
-                <h2 class="step-title"><span>1</span> Masukkan Data Akun</h2>
-                <div class="form-box input-group-row">
-                    <div class="input-box">
-                        <label>User ID</label>
-                        <input type="number" id="mlbb-id" placeholder="Contoh: 12345678" oninput="bukaGembok()">
+                <div class="taka-step-body">
+                    <div class="taka-input-row">
+                        <div class="taka-input-group">
+                            <label>ID</label>
+                            <input type="number" id="mlbb-id" placeholder="Masukkan ID" oninput="bukaGembok()">
+                        </div>
+                        <div class="taka-input-group">
+                            <label>Server</label>
+                            <input type="number" id="mlbb-server" placeholder="Masukkan Server">
+                        </div>
                     </div>
-                    <div class="input-box">
-                        <label>Server</label>
-                        <input type="number" id="mlbb-server" placeholder="Contoh: 1234">
-                        <small class="disclaimer-text">
-                            <i class="fas fa-shield-alt"></i> Pastikan User ID & Server benar. Kesalahan input bukan tanggung jawab kami.
-                        </small>
-                    </div>
+                    <small class="disclaimer-text" style="margin-top: 15px;">
+                        <i class="fas fa-shield-alt"></i> Pastikan User ID & Server benar. Kesalahan bukan tanggung jawab kami.
+                    </small>
                 </div>
             </div>
 
-            <div class="step-container">
-                <h2 class="step-title"><span>2</span> Pilih Nominal Top Up</h2>
-<div class="grid nominal-grid" data-game="mlbb">
+            <!-- STEP 2: NOMINAL MLBB -->
+            <div class="taka-step-container">
+                <div class="taka-step-header">
+                    <div class="taka-step-num">2</div>
+                    <div class="taka-step-title">Pilih Nominal</div>
+                </div>
+                <div class="taka-step-body">                    
+                    <div class="grid nominal-grid" data-game="mlbb">
     <div class="card tilt-card" data-val="5 💎 (Rp 2.000)"><div class="inner"><div class="card-title">5 💎</div><div class="card-price">Rp 2.000</div></div></div>
     <div class="card tilt-card" data-val="12 💎 (Rp 4.000)"><div class="inner"><div class="card-title">12 💎</div><div class="card-price">Rp 4.000</div></div></div>
     <div class="card tilt-card" data-val="19 💎 (Rp 5.700)"><div class="inner"><div class="card-title">19 💎</div><div class="card-price">Rp 5.700</div></div></div>
@@ -933,40 +1024,40 @@
     <div class="card tilt-card" data-val="Starlight Member Plus (Rp 198.000)"><div class="inner"><div class="card-title">Starlight Member Plus</div><div class="card-price">Rp 198.000</div></div></div>
     
                    </div>
+                </div>
+            </div>
                </div>
             </div>
 
 
 
-        <!-- ==================== FF CONTENT ==================== -->
-        <div id="content-ff" class="tab-content">
-            <div class="step-container">
-                        <!-- Banner Game -->
-            <div class="game-header">
-                <div class="game-banner" id="game-banner-ff">
-                    <img src="bg-ff.png" alt="FF">
-                    <div class="game-info">
-                        <h2>Free Fire : Battle Bola</h2>
-                        <p><i class="fas fa-shield-alt"></i> Pembayaran Aman</p>
+            <!-- STEP 1: AKUN FF -->
+            <div class="taka-step-container">
+                <div class="taka-step-header">
+                    <div class="taka-step-num">1</div>
+                    <div class="taka-step-title">Masukkan Data Akun</div>
+                </div>
+                <div class="taka-step-body">
+                    <div class="taka-input-row">
+                        <div class="taka-input-group">
+                            <label>User ID</label>
+                            <input type="number" id="ff-id" placeholder="Masukkan ID">
+                        </div>
                     </div>
+                    <small class="disclaimer-text" style="margin-top: 15px;">
+                        <i class="fas fa-shield-alt"></i> Pastikan User ID benar. Kesalahan bukan tanggung jawab kami.
+                    </small>
                 </div>
             </div>
 
-                <h2 class="step-title"><span>1</span> Masukkan Data Akun</h2>
-                <div class="form-box input-group-row">
-                    <div class="input-box">
-                        <label>User ID Free Fire</label>
-                        <input type="number" id="ff-id" placeholder="Contoh: 1234567890">
-                        <small class="disclaimer-text">
-                            <i class="fas fa-shield-alt"></i> Pastikan User ID benar. Kesalahan input bukan tanggung jawab kami.
-                        </small>
-                    </div>
+            <!-- STEP 2: NOMINAL FF -->
+            <div class="taka-step-container">
+                <div class="taka-step-header">
+                    <div class="taka-step-num">2</div>
+                    <div class="taka-step-title">Pilih Nominal</div>
                 </div>
-            </div>
-
-            <div class="step-container">
-                <h2 class="step-title"><span>2</span> Pilih Nominal Top Up</h2>
-<div class="grid nominal-grid" data-game="ff">
+                <div class="taka-step-body">    
+                    <div class="grid nominal-grid" data-game="ff">
     <div class="card tilt-card" data-val="5 💎 (Rp 1.000)"><div class="inner"><div class="card-title">5 💎</div><div class="card-price">Rp 1.000</div></div></div>
     <div class="card tilt-card" data-val="12 💎 (Rp 2.000)"><div class="inner"><div class="card-title">12 💎</div><div class="card-price">Rp 2.000</div></div></div>
     <div class="card tilt-card" data-val="50 💎 (Rp 7.000)"><div class="inner"><div class="card-title">50 💎</div><div class="card-price">Rp 7.000</div></div></div>
@@ -987,52 +1078,101 @@
     <div class="card tilt-card" data-val="Membership Mingguan (Rp 28.000)"><div class="inner"><div class="card-title">Membership Mingguan</div><div class="card-price">Rp 28.000</div></div></div>
     <div class="card tilt-card" data-val="Membership Bulanan (Rp 82.00)"><div class="inner"><div class="card-title">Membership Bulanan</div><div class="card-price">Rp 82.000</div></div></div>
     <div class="card tilt-card" data-val="Booyah Pass (Rp 41.000)"><div class="inner"><div class="card-title">Booyah Pass</div><div class="card-price">Rp 41.000</div></div></div>
-</div>
+                    </div>
+                </div>
+            </div>
 
                 </div>
             </div>
         </div>
 
-        <!-- ==================== GLOBAL STEPS 3 & 4 (BERLAKU UNTUK SEMUA GAME) ==================== -->
+        <!-- ==================== GLOBAL STEPS 3 & 4 ==================== -->
         <div class="global-steps" id="global-steps" style="display: none;">
-            <div class="step-container">
-                <h2 class="step-title"><span>3</span> Pilih Metode Pembayaran</h2>
-                <div class="grid payment-grid">
-                    <div class="card tilt-card pay-qris" data-method="QRIS All Payment">
-                        <div class="badge-recom">Direkomendasikan</div>
-                        <div class="inner"><div class="card-title">QRIS</div><div class="card-price">All Payment / Bebas Biaya</div></div>
+            
+            <!-- STEP 3: PEMBAYARAN -->
+            <div class="taka-step-container">
+                <div class="taka-step-header">
+                    <div class="taka-step-num" style="background:var(--primary); color:#000;">3</div>
+                    <div class="taka-step-title">Pilih Pembayaran</div>
+                </div>
+                <div class="taka-step-body" style="padding: 15px;">
+                    
+                    <!-- QRIS -->
+                    <div class="taka-pay-item" data-method="QRIS">
+                        <div class="taka-ribbon">BEST PRICE</div>
+                        <div class="taka-pay-title">QRIS (All Payment Method)</div>
+                        <div class="taka-pay-logos">
+                            <i class="fas fa-qrcode"></i>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" alt="GoPay">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/ShopeePay.svg" alt="Shopee">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Logo_OVO.svg" alt="OVO">
+                        </div>
+                        <div class="taka-pay-desc" style="color: #E11D48; text-align: center; margin-top: 15px; background: rgba(225,29,72,0.1); padding: 5px; border-radius: 5px;">Satu QR Code untuk semua Payment</div>
                     </div>
-                    <div class="card tilt-card pay-dana" data-method="DANA">
-                        <div class="inner"><div class="card-title">DANA</div><div class="card-price">E-Wallet</div></div>
+
+                    <!-- E-Wallet -->
+                    <div class="taka-pay-item" data-method="E-Wallet">
+                        <div class="taka-pay-title">E-Wallet</div>
+                        <div class="taka-pay-logos">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" alt="GoPay">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/ShopeePay.svg" alt="Shopee">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Logo_OVO.svg" alt="OVO">
+                        </div>
                     </div>
-                    <div class="card tilt-card pay-gopay" data-method="GoPay">
-                        <div class="inner"><div class="card-title">GoPay</div><div class="card-price">E-Wallet</div></div>
+                    
+                    <!-- Virtual Account -->
+                    <div class="taka-pay-item" data-method="Virtual Account">
+                        <div class="taka-pay-title">Virtual Account</div>
+                        <div class="taka-pay-logos">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/07/Logo_BCA.svg" alt="BCA">
+                            <img src="https://upload.wikimedia.org/wikipedia/id/5/55/BNI_logo.svg" alt="BNI">
+                            <i class="fas fa-university"></i>
+                        </div>
                     </div>
-                    <div class="card tilt-card pay-shopee" data-method="ShopeePay">
-                        <div class="inner"><div class="card-title">ShopeePay</div><div class="card-price">E-Wallet</div></div>
-                    </div>
+
                 </div>
             </div>
 
-            <div class="step-container">
-                <h2 class="step-title"><span>4</span> Detail Kontak & Konfirmasi</h2>
-                <div class="form-box">
-                    <div class="input-group-row">
-                        <div class="input-box">
-                            <label>Alamat Email</label>
-                            <input type="email" id="user-email" placeholder="contoh@gmail.com">
+            <!-- STEP 4: KONTAK -->
+            <div class="taka-step-container">
+                <div class="taka-step-header">
+                    <div class="taka-step-num" style="background:var(--primary); color:#000;">4</div>
+                    <div class="taka-step-title">Detail Kontak</div>
+                </div>
+                <div class="taka-step-body">
+                    <label style="color: #fff; font-weight: 600; font-size: 0.9rem;">No. WhatsApp</label>
+                    <div class="taka-wa-box">
+                        <div class="taka-wa-flag">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" style="width: 22px; border-radius: 2px;">
+                            <i class="fas fa-chevron-down" style="font-size: 0.7rem; color: var(--text-dim);"></i>
                         </div>
-                        <div class="input-box">
-                            <label>Nomor WhatsApp</label>
-                            <input type="number" id="user-wa" placeholder="08123456789">
+                        <input type="number" id="user-wa" class="taka-wa-input" placeholder="+62 Masukkan nomor WA...">
+                    </div>
+                    <p style="font-size: 0.75rem; font-style: italic; color: var(--text-dim); margin-top: 8px;">**Nomor ini akan dihubungi jika terjadi masalah</p>
+
+                    <div class="taka-contact-info">
+                        <i class="fas fa-info-circle" style="font-size: 0.9rem;"></i>
+                        <div>Pastikan nomor WhatsApp benar, agar kami bisa menghubungi jika transaksi bermasalah. Tulis tanpa angka 0 di depan. Contoh: 8960xxxx</div>
+                    </div>
+
+                    <a href="https://wa.me/6285757568455" target="_blank" style="text-decoration: none;">
+                        <div class="taka-contact-info" style="align-items: center; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+                            <i class="fas fa-headset" style="font-size: 1.5rem; margin-right: 5px;"></i>
+                            <div>
+                                <strong style="color: #fff; display: block; margin-bottom: 2px;">Butuh Bantuan?</strong>
+                                Kamu bisa hubungi admin disini.
+                            </div>
                         </div>
-                    </div>
-                    <div class="checkout-wrapper">
-                        <button class="btn-checkout" onclick="prosesCheckout()">Beli Sekarang <i class="fas fa-arrow-right"></i></button>
-                    </div>
+                    </a>
                 </div>
             </div>
-        </div>
+            <div class="checkout-wrapper">
+                <button class="btn-checkout" onclick="prosesCheckout()">Beli Sekarang <i class="fas fa-arrow-right"></i></button>
+            </div>
+            
+        </div> <!-- Ini penutup buat global-steps -->
     </section>
 
     <section class="calc-section" id="calc-section" style="display: none;">
@@ -1079,113 +1219,64 @@
     </section>
     
     <!-- === SECTION TESTIMONI / ULASAN SLIDER === -->
-        <section class="testimonial-section" id="ulasan">
-        <h2 class="section-title-center">Apa Kata Pelanggan Kami?</h2>
+            <!-- === SECTION ULASAN TAKAPEDIA === -->
+    <section class="taka-step-container" id="ulasan" style="max-width: 900px; margin: 0 auto 50px;">
+        <div class="taka-step-header">
+            <!-- Ikon Bintang Kotak Kuning di kiri -->
+            <div class="taka-step-num" style="padding: 15px 22px;"><i class="fas fa-star" style="font-size: 1.1rem;"></i></div>
+            <div class="taka-step-title">Ulasan</div>
+        </div>
         
-        <div class="swiper testi-swiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide testi-card">
-                    <div class="testi-header">
-                        <div class="testi-avatar" style="background: #00E1FF; color: #000;">B</div>
-                        <div class="testi-name">Bima S****</div>
+        <div class="taka-step-body">
+            <!-- Header Rating -->
+            <div class="taka-rating-header">
+                <div class="taka-rating-score"><i class="fas fa-star"></i> 4.99 <span>/ 5.0</span></div>
+                <p class="taka-rating-desc">Pelanggan merasa puas dengan produk ini.<br>Dari <b>21.84jt</b> ulasan.</p>
+            </div>
+            
+            <!-- Rating Bars (Garis Kuning) -->
+            <div class="taka-rating-bars">
+                <div class="taka-bar-row"><span>5</span><i class="fas fa-star"></i> <div class="taka-bar-line"><div class="taka-bar-fill" style="width: 95%;"></div></div> <span class="taka-bar-count">21.83jt</span></div>
+                <div class="taka-bar-row"><span>4</span><i class="fas fa-star"></i> <div class="taka-bar-line"><div class="taka-bar-fill" style="width: 15%;"></div></div> <span class="taka-bar-count">8.57rb</span></div>
+                <div class="taka-bar-row"><span>3</span><i class="fas fa-star"></i> <div class="taka-bar-line"><div class="taka-bar-fill" style="width: 5%;"></div></div> <span class="taka-bar-count">1.12rb</span></div>
+                <div class="taka-bar-row"><span>2</span><i class="fas fa-star"></i> <div class="taka-bar-line"><div class="taka-bar-fill" style="width: 2%;"></div></div> <span class="taka-bar-count">244</span></div>
+                <div class="taka-bar-row"><span>1</span><i class="fas fa-star"></i> <div class="taka-bar-line"><div class="taka-bar-fill" style="width: 4%;"></div></div> <span class="taka-bar-count">1.10rb</span></div>
+            </div>
+
+            <p style="color: var(--text-dim); text-align: center; margin-bottom: 20px; font-size: 0.9rem;">Apakah kamu menyukai produk ini? Beri tahu kami dan calon pembeli lainnya tentang pengalamanmu.</p>
+
+            <!-- List Komentar Teks (Tanpa Avatar) -->
+            <div class="taka-review-list">
+                <div class="taka-review-item">
+                    <div class="taka-review-user">
+                        <span class="taka-review-name">ran**********</span>
+                        <span class="taka-review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
                     </div>
-                    <p class="testi-text">gileee sih, saking cepetnya masuk dm gue sampe kaget wkwk, blm ada 1mnt anjir, fix langganan di sini terus gk bakal pindah ke lain😭</p>
-                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
+                    <div class="taka-review-product">Weekly Diamonds Pass • <span class="tgl-otomatis" data-mundur="0">Hari ini</span></div>
+                    <div class="taka-review-text">“Puas banget topup disini”</div>
+                </div>
+                
+                <div class="taka-review-item">
+                    <div class="taka-review-user">
+                        <span class="taka-review-name">bim**********</span>
+                        <span class="taka-review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                    </div>
+                    <div class="taka-review-product">257 Diamonds • <span class="tgl-otomatis" data-mundur="1">Kemarin</span></div>
+                    <div class="taka-review-text">“gileee sih, saking cepetnya masuk dm gue sampe kaget wkwk, blm ada 1mnt anjir”</div>
                 </div>
 
-                <!-- Ulasan 2 (Merah) -->
-                <div class="swiper-slide testi-card">
-                    <div class="testi-header">
-                        <div class="testi-avatar" style="background: #FF4B2B; color: #fff;">A</div>
-                        <div class="testi-name">Arya_Pro******</div>
+                <div class="taka-review-item">
+                    <div class="taka-review-user">
+                        <span class="taka-review-name">din**********</span>
+                        <span class="taka-review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
                     </div>
-                    <p class="testi-text">awalnya ak takut krn harganya murah bgt, kirain zonk hehe maaf ya minnn, pas dicoba eh malah gacor parah, lgsg masuk, mending top up di sni sih drpd t4 lain ,mahal bgt sumpill😭</p>
-                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
-                </div>
-
-                <!-- Ulasan 3 (Hijau) -->
-                <div class="swiper-slide testi-card">
-                    <div class="testi-header">
-                        <div class="testi-avatar" style="background: #10B981; color: #fff;">D</div>
-                        <div class="testi-name">Dina C*****</div>
-                    </div>
-                    <p class="testi-text">miminya ramah bgt sukakkk💋💜, kmrn ak salah ID malah dibantuin sampe bener, mana webnya estetik bgt lagi, Luv bgt buat miminnn 💋💋</p>
-                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
-                </div>
-
-                <!-- Ulasan 4 (Ungu) -->
-                <div class="swiper-slide testi-card">
-                    <div class="testi-header">
-                        <div class="testi-avatar" style="background: #B800FF; color: #fff;">R</div>
-                        <div class="testi-name">Rendi J**</div>
-                    </div>
-                    <p class="testi-text">adminnya sabar bgt jir, gw nanya mulu soal server tp ttp dijawab dengan santuy, top up emang paling enak di sini sih</p>
-                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
-                </div>
-
-                <!-- Ulasan 5 (Kuning) -->
-                <div class="swiper-slide testi-card">
-                    <div class="testi-header">
-                        <div class="testi-avatar" style="background: #FACC15; color: #000;">K</div>
-                        <div class="testi-name">Kevin K***</div>
-                    </div>
-                    <p class="testi-text">biasanya langganan di tmpt org tapi sering bgt pending, nyoba pindah ke sini malah dapet yang lebih satset, nyesel knp gk dari dulu beli disini</p>
-                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
-                </div>
-
-                <!-- Ulasan 6 (Pink) -->
-                <div class="swiper-slide testi-card">
-                    <div class="testi-header">
-                        <div class="testi-avatar" style="background: #FF00FF; color: #fff;">W</div>
-                        <div class="testi-name">Bocil W*****</div>
-                    </div>
-                    <p class="testi-text">sumpahh ini sih diluar nalar, klik beli gak sampe 1 menit DM udah masuk, servernya gacor sih</p>
-                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
-                </div>
-
-                <!-- Ulasan 7 (Oranye) -->
-                <div class="swiper-slide testi-card">
-                    <div class="testi-header">
-                        <div class="testi-avatar" style="background: #FF8C00; color: #fff;">L</div>
-                        <div class="testi-name">L W*****</div>
-                    </div>
-                    <p class="testi-text">gtw kenapa ya, tiap top up di sini ngerasa hoki terus, miminnya jg seru bgt diajak chat</p>
-                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
-                </div>
-
-                <!-- Ulasan 8 (Abu-abu) -->
-                <div class="swiper-slide testi-card">
-                    <div class="testi-header">
-                        <div class="testi-avatar" style="background: #94A3B8; color: #000;">A</div>
-                        <div class="testi-name">Anti H***</div>
-                    </div>
-                    <p class="testi-text">next event pasti balik lagi lah, gak bakal pindah ke lain wkwk</p>
-                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
-                </div>
-
-                <!-- Ulasan 9 (Biru Tua) -->
-                <div class="swiper-slide testi-card">
-                    <div class="testi-header">
-                        <div class="testi-avatar" style="background: #1E3A8A; color: #fff;">T</div>
-                        <div class="testi-name">Tukang J***</div>
-                    </div>
-                    <p class="testi-text">gacor bgt web nya bro, moga sukses dan lancar terus usahanya</p>
-                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
+                    <div class="taka-review-product">Starlight Member • <span class="tgl-otomatis" data-mundur="2">Kemarin lusa</span></div>
+                    <div class="taka-review-text">“miminya ramah bgt sukakkk, luv bgt”</div>
                 </div>
             </div>
             
-            <!-- Tombol Navigasi & Lihat Semua Ulasan -->
-            <div class="testi-controls">
-                <div class="swiper-button-prev testi-nav"></div>
-                <button class="btn-more-testi" id="btn-show-all" onclick="toggleAllReviews()">Lihat Ulasan Lainnya</button>
-                <div class="swiper-button-next testi-nav"></div>
-            </div>
+            <button class="btn-outline" style="width: 100%; margin-top: 15px;" onclick="bukaModalUlasan()">Tulis Ulasan Kamu</button>
         </div>
-        
-                    <!-- Tombol Tambah Ulasan -->
-            <div style="text-align: center; margin-top: 30px;">
-                <button class="btn-outline" onclick="bukaModalUlasan()"><i class="fas fa-pencil-alt"></i> Tulis Ulasan Kamu</button>
-            </div>
     </section>
 
     <!-- FAQ -->
@@ -1365,10 +1456,8 @@
             if (!selectedPayment) return showToast('error', 'Metode pembayaran belum dipilih!');
 
             // Validasi Kontak
-            const email = document.getElementById('user-email').value;
             const wa = document.getElementById('user-wa').value;
             
-            if (!email || !email.includes('@')) return showToast('error', 'Alamat email tidak valid!');
             if (!wa) return showToast('error', 'Nomor WhatsApp belum diisi!');
 
             // Jika lolos semua validasi
@@ -1583,12 +1672,12 @@ const items = [
             
             // 2. Sembunyikan semua katalog game & banner
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.game-banner').forEach(b => b.style.display = 'none');
+            document.querySelectorAll('.taka-banner').forEach(b => b.style.display = 'none');
             
             // 3. Reset pilihan diamond & metode pembayaran
             selectedNominal = null;
             selectedPayment = null;
-            document.querySelectorAll('.nominal-grid .card, .payment-grid .card').forEach(c => c.classList.remove('selected'));
+            document.querySelectorAll('.nominal-grid .card, .taka-pay-item').forEach(c => c.classList.remove('selected'));
             
             // Reset tulisan tombol Beli Sekarang
             let tombolBeli = document.querySelector('.btn-checkout');
@@ -1603,13 +1692,11 @@ const items = [
             let calcSection = document.getElementById('calc-section');
             
             if(tabId === 'beranda') {
-                // KALAU DI BERANDA: Sembunyikan semua fitur order & kalkulator
                 if(globalSteps) globalSteps.style.display = 'none';
                 if(searchBox) searchBox.style.display = 'none';
                 if(calcSection) calcSection.style.display = 'none';
                 if(bgGame) bgGame.style.backgroundImage = 'none'; 
             } else {
-                // KALAU MILIH GAME: Munculkan fitur sesuai game
                 let contentGame = document.getElementById('content-' + tabId);
                 let bannerGame = document.getElementById('game-banner-' + tabId);
                 
@@ -1617,17 +1704,14 @@ const items = [
                 if(bannerGame) bannerGame.style.display = 'flex';
                 if(globalSteps) globalSteps.style.display = 'block';
                 
-                // Tampilkan Kotak Pencarian
                 if(searchBox) {
                     searchBox.style.display = 'block';
                     document.getElementById('inputCariItem').value = ''; 
                     document.querySelectorAll('.nominal-grid .card').forEach(k => k.style.display = '');
                 }
                 
-                // Ganti Foto Background 
                 if(bgGame) bgGame.style.backgroundImage = `url('bg-${tabId}.png')`;
 
-                // Logika Kalkulator: Khusus MLBB
                 if(calcSection) {
                     if(tabId === 'mlbb') {
                         calcSection.style.display = 'block';
@@ -1638,68 +1722,12 @@ const items = [
             }
         }
 
-        // Variabel global untuk Swiper
-        let testiSwiper;
-
         // Pas web pertama kali dibuka
         document.addEventListener('DOMContentLoaded', () => {
-            let btnBeranda = document.querySelector('.tab-btn.beranda');
-            if(btnBeranda) btnBeranda.click();
-
-            // --- TAMBAHAN LOCALSTORAGE: MUAT ULASAN TERSIMPAN ---
-            let savedReviews = JSON.parse(localStorage.getItem('nullStoreReviews')) || [];
-            let swiperWrapper = document.querySelector('.testi-swiper .swiper-wrapper');
-            
-            savedReviews.forEach(review => {
-                let slideTersimpan = `
-                    <div class="swiper-slide testi-card">
-                        <div class="testi-header">
-                            <div class="testi-avatar" style="background: ${review.bgColor}; color: ${review.txtColor};">${review.inisial}</div>
-                            <div class="testi-name">${review.nama}</div>
-                        </div>
-                        <p class="testi-text">${review.teks}</p>
-                        <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
-                    </div>
-                `;
-                swiperWrapper.insertAdjacentHTML('beforeend', slideTersimpan);
-            });
-            // ----------------------------------------------------
-            
-            // Bungkus di dalam function biar bisa dinyala-matikan
-            window.initTestiSwiper = function() {
-                testiSwiper = new Swiper('.testi-swiper', {
-                    slidesPerView: 1,
-                    spaceBetween: 20,
-                    loop: true,
-                    autoplay: { delay: 4000, disableOnInteraction: false },
-                    breakpoints: { 768: { slidesPerView: 3 } },
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
-                    },
-                });
-            };
-            
-            initTestiSwiper(); // Jalankan pertama kali
+            // Otomatis klik game MLBB pas web dibuka
+            let btnGamePertama = document.querySelector('.game-card');
+            if(btnGamePertama) btnGamePertama.click();
         });
-
-        // Fitur "Lihat Semua Ulasan"
-        window.toggleAllReviews = function() {
-            const swiperContainer = document.querySelector('.testi-swiper');
-            const btn = document.getElementById('btn-show-all');
-            
-            if(swiperContainer.classList.contains('grid-mode')) {
-                // KEMBALI KE MODE SLIDER
-                swiperContainer.classList.remove('grid-mode');
-                btn.innerHTML = 'Lihat Ulasan Lainnya';
-                window.initTestiSwiper(); // Nyalakan lagi mesin Swiper
-            } else {
-                // UBAH KE MODE GRID (Lihat Semua)
-                testiSwiper.destroy(true, true); // Matikan mesin Swiper
-                swiperContainer.classList.add('grid-mode');
-                btn.innerHTML = 'Tutup Ulasan';
-            }
-        };
 
          // ==========================================
         // FITUR FAQ BUKA TUTUP
@@ -1773,12 +1801,15 @@ const items = [
             });
         });
 
-        document.querySelectorAll('.payment-grid .card').forEach(card => {
+        // ==========================================
+        // FITUR KLIK PAYMENT TAKAPEDIA
+        // ==========================================
+        document.querySelectorAll('.taka-pay-item').forEach(card => {
             card.addEventListener('click', function() {
                 playClickSound(); // Keluarin suara Ting!
 
                 // Hapus warna dari semua payment
-                document.querySelectorAll('.payment-grid .card').forEach(c => c.classList.remove('selected'));
+                document.querySelectorAll('.taka-pay-item').forEach(c => c.classList.remove('selected'));
                 // Kasih warna nyala ke payment yg dipencet
                 this.classList.add('selected');
                 // Simpan data orderan
@@ -1786,11 +1817,11 @@ const items = [
                 
                 // === AUTO-SCROLL KE MENU DETAIL KONTAK ===
                 setTimeout(() => {
-                    let inputEmail = document.getElementById('user-email');
-                    if(inputEmail) {
-                        let y = inputEmail.getBoundingClientRect().top + window.scrollY - 200;
+                    let inputWa = document.getElementById('user-wa');
+                    if(inputWa) {
+                        let y = inputWa.getBoundingClientRect().top + window.scrollY - 200;
                         window.scrollTo({top: y, behavior: 'smooth'});
-                        inputEmail.focus(); // Kursor otomatis ngetik di kolom email
+                        inputWa.focus(); // Kursor otomatis ngetik di kolom WA
                     }
                 }, 300);
             });
@@ -1811,62 +1842,69 @@ const items = [
             let nama = document.getElementById('ulasan-nama').value;
             let teks = document.getElementById('ulasan-teks').value;
 
-            // Validasi kalau form kosong
             if(!nama || !teks) {
                 showToast('error', 'Nama dan ulasan wajib diisi bosku!');
                 return;
             }
 
-            // Ambil huruf pertama buat dijadiin foto profil (Avatar)
-            let inisial = nama.charAt(0).toUpperCase();
+            // Bikin struktur teks ulasan baru ala Takapedia
+            let sensorNama = nama.substring(0, 3) + "**********";
             
-            // Generate Warna Random buat Avatar biar estetik
-            let colors = ['#00E1FF', '#FF4B2B', '#10B981', '#B800FF', '#FACC15', '#FF00FF'];
-            let randomColor = colors[Math.floor(Math.random() * colors.length)];
-            let textColor = (randomColor === '#FACC15' || randomColor === '#00E1FF') ? '#000' : '#fff';
-
-            // Bikin struktur HTML kartu ulasan yang baru
-            let slideBaru = `
-                <div class="swiper-slide testi-card">
-                    <div class="testi-header">
-                        <div class="testi-avatar" style="background: ${randomColor}; color: ${textColor};">${inisial}</div>
-                        <div class="testi-name">${nama}</div>
+            let htmlBaru = `
+                <div class="taka-review-item">
+                    <div class="taka-review-user">
+                        <span class="taka-review-name">${sensorNama}</span>
+                        <span class="taka-review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
                     </div>
-                    <p class="testi-text">${teks}</p>
-                    <span class="testi-game"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Pembeli Terverifikasi</span>
+                    <div class="taka-review-product">Pembeli Terverifikasi • Baru saja</div>
+                    <div class="taka-review-text">“${teks}”</div>
                 </div>
             `;
 
-            // 1. Masukkan HTML-nya secara manual ke dalam wrapper Swiper
-            let swiperWrapper = document.querySelector('.testi-swiper .swiper-wrapper');
-            swiperWrapper.insertAdjacentHTML('beforeend', slideBaru);
-
-            // 2. Cek apakah sedang mode slider atau mode grid
-            let swiperContainer = document.querySelector('.testi-swiper');
-            if(!swiperContainer.classList.contains('grid-mode') && typeof testiSwiper !== 'undefined' && testiSwiper !== null) {
-                testiSwiper.update(); 
-                testiSwiper.slideTo(testiSwiper.slides.length - 1); 
+            // Masukkan ke dalam daftar ulasan Takapedia
+            let wadahUlasan = document.querySelector('.taka-review-list');
+            if(wadahUlasan) {
+                wadahUlasan.insertAdjacentHTML('afterbegin', htmlBaru);
             }
 
-            // --- TAMBAHAN LOCALSTORAGE: SIMPAN KE MEMORI ---
-            let newReviewObj = {
-                nama: nama,
-                teks: teks,
-                inisial: inisial,
-                bgColor: randomColor,
-                txtColor: textColor
-            };
-            let savedReviews = JSON.parse(localStorage.getItem('nullStoreReviews')) || [];
-            savedReviews.push(newReviewObj);
-            localStorage.setItem('nullStoreReviews', JSON.stringify(savedReviews));
-            // -----------------------------------------------
-            
-            // Tutup pop-up, bersihin teks, dan kasih notif sukses
             tutupModalUlasan();
             document.getElementById('ulasan-nama').value = '';
             document.getElementById('ulasan-teks').value = '';
             showToast('success', 'Ulasan kamu berhasil ditambahkan! Makasih ya!');
         }
+        
+                // ==========================================
+        // FITUR TANGGAL ULASAN OTOMATIS
+        // ==========================================
+        function updateTanggalUlasan() {
+            let elemenTanggal = document.querySelectorAll('.tgl-otomatis');
+            let sekarang = new Date();
+            
+            elemenTanggal.forEach(el => {
+                let mundur = parseInt(el.getAttribute('data-mundur')); // Ambil data mundur (0, 1, atau 2 hari)
+                
+                // Bikin tanggal baru berdasarkan hari ini dikurangi 'mundur' hari
+                let tglBaru = new Date(sekarang);
+                tglBaru.setDate(tglBaru.getDate() - mundur);
+                
+                // Format tanggal jadi DD-MM-YYYY
+                let dd = String(tglBaru.getDate()).padStart(2, '0');
+                let mm = String(tglBaru.getMonth() + 1).padStart(2, '0'); // Bulan dimulai dari 0
+                let yyyy = tglBaru.getFullYear();
+                
+                // Format jam (biar kelihatan makin real)
+                let hh = String(Math.floor(Math.random() * 24)).padStart(2, '0');
+                let mnt = String(Math.floor(Math.random() * 60)).padStart(2, '0');
+                let dtk = String(Math.floor(Math.random() * 60)).padStart(2, '0');
+
+                // Gabungin dan masukin ke HTML
+                el.innerText = `${dd}-${mm}-${yyyy} ${hh}:${mnt}:${dtk}`;
+            });
+        }
+        
+        // Panggil fungsinya biar jalan pas web dibuka
+        document.addEventListener('DOMContentLoaded', updateTanggalUlasan);
+
     </script>
 </body>
 </html>
