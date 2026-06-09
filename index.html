@@ -1298,11 +1298,12 @@
             
             // Generate WhatsApp Link dengan format template order
             const targetWaNumber = '6285757568455';
-            const formatPesan = `📋 Format Order\n` +
-                                `Game : ${gameName}\n` +
-                                `User ID (Server) : ${accountData}\n` +
-                                `Nominal Top Up : ${selectedNominal}\n` +
-                                `Payment : ${selectedPayment}`;
+            const formatPesan = `🛒 *NULL STORE | ORDER BARU*\n\n` +
+                                `Game       : ${gameName}\n` +
+                                `ID/Server  : ${accountData}\n` +
+                                `Pesanan    : ${selectedNominal}\n` +
+                                `Pembayaran : ${selectedPayment}\n\n` +
+                                `Halo min, ini detail orderan saya. Ditunggu instruksi pembayarannya ya.`;
                                 
             const encodedText = encodeURIComponent(formatPesan);
             const urlWhatsApp = `https://wa.me/${targetWaNumber}?text=${encodedText}`;
