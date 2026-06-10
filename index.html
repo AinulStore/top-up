@@ -1000,6 +1000,11 @@
                             <input type="number" id="mlbb-server" placeholder="Masukkan Server">
                         </div>
                     </div>
+                    
+                    <!-- FITUR CEK ID ILUSI (MLBB) -->
+                    <button id="btn-cek-mlbb" class="btn-outline" style="width: 100%; margin-top: 15px; padding: 10px; border-radius: 8px; font-size: 0.9rem;" onclick="cekIdIlusi('mlbb')">Cek ID Server</button>
+                    <div id="hasil-cek-mlbb" style="margin-top: 10px; font-size: 0.85rem; font-weight: 600; text-align: center; display: none;"></div>
+
                     <small class="disclaimer-text" style="margin-top: 15px;">
                         <i class="fas fa-shield-alt"></i> Pastikan User ID & Server benar. Kesalahan bukan tanggung jawab kami.
                     </small>
@@ -1087,6 +1092,11 @@
                             <input type="number" id="ff-id" placeholder="Masukkan ID">
                         </div>
                     </div>
+
+                    <!-- FITUR CEK ID ILUSI (FF) -->
+                    <button id="btn-cek-ff" class="btn-outline" style="width: 100%; margin-top: 15px; padding: 10px; border-radius: 8px; font-size: 0.9rem;" onclick="cekIdIlusi('ff')">Cek ID Server</button>
+                    <div id="hasil-cek-ff" style="margin-top: 10px; font-size: 0.85rem; font-weight: 600; text-align: center; display: none;"></div>
+
                     <small class="disclaimer-text" style="margin-top: 15px;">
                         <i class="fas fa-shield-alt"></i> Pastikan User ID benar. Kesalahan bukan tanggung jawab kami.
                     </small>
@@ -2076,6 +2086,54 @@ const items = [
         
         // Panggil juga fungsi muat ulasannya pas web dibuka
         document.addEventListener('DOMContentLoaded', muatUlasanTersimpan);
+
+        // ==========================================
+        // FITUR CEK ID ILUSI (FAKE API)
+        // ==========================================
+        function cekIdIlusi(game) {
+            let btn = document.getElementById('btn-cek-' + game);
+            let hasilBox = document.getElementById('hasil-cek-' + game);
+            let idInput = document.getElementById(game + '-id').value;
+            
+            let isValid = false;
+            
+            // Cek apakah ID udah diisi minimal 5 angka (standar ID game)
+            if(idInput.length >= 5) {
+                // Kalau MLBB, cek juga servernya harus diisi
+                if(game === 'mlbb') {
+                    let serverInput = document.getElementById('mlbb-server').value;
+                    if(serverInput.length >= 3) {
+                        isValid = true;
+                    }
+                } else {
+                    // Kalau FF kan cuma butuh ID aja
+                    isValid = true; 
+                }
+            }
+            
+            // 1. Ubah tombol jadi efek loading muter-muter
+            let teksAsli = btn.innerHTML;
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Memeriksa Server...`;
+            btn.style.pointerEvents = 'none'; // Biar tombol ga bisa dispam klik
+            hasilBox.style.display = 'none'; // Sembunyiin hasil yang lama (kalau ada)
+            
+            // 2. Pura-pura mikir 1.5 detik biar kerasa kayak nge-load server beneran
+            setTimeout(() => {
+                // Kembalikan tombol seperti semula
+                btn.innerHTML = teksAsli;
+                btn.style.pointerEvents = 'auto';
+                hasilBox.style.display = 'block';
+                
+                // 3. Tampilkan Hasilnya
+                if(isValid) {
+                    // Kalau ID Valid
+                    hasilBox.innerHTML = `<span style="color: var(--success);"><i class="fas fa-check-circle"></i> Format ID Valid! Server terhubung.</span>`;
+                } else {
+                    // Kalau masih kosong / kurang
+                    hasilBox.innerHTML = `<span style="color: var(--error);"><i class="fas fa-exclamation-triangle"></i> ID atau Server tidak lengkap / salah!</span>`;
+                }
+            }, 1500); // 1500 ms = 1.5 detik
+        }
 
     </script>
 </body>
