@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Null Store | Top Up Game Premium</title>
+        <!-- PANGGIL FILE MANIFEST APLIKASI -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00E1FF">
+
     
     <!-- === SEO & META TAGS (BIAR SHARE DI WA MUNCUL GAMBAR) === -->
     <meta name="description" content="Layanan Top Up Game Tercepat, Termurah, dan Terpercaya. Proses otomatis 1-5 menit. Jaminan 100% Legal & Aman.">
@@ -870,6 +874,22 @@
 
     <nav>
         <a href="#" class="logo">Null<span>Store.</span></a>
+        
+           <!-- BANNER INSTALL APLIKASI (MUNCUL OTOMATIS) -->
+    <div id="pwa-banner" style="display: none; position: fixed; top: 15px; left: 5%; width: 90%; background: linear-gradient(90deg, #161D2E, #0B0F19); border: 1px solid var(--primary); border-radius: 12px; padding: 12px 15px; z-index: 9999; box-shadow: 0 10px 30px rgba(0, 225, 255, 0.3); justify-content: space-between; align-items: center; animation: slideInDown 0.5s ease forwards;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <img src="logo.png" style="width: 40px; height: 40px; border-radius: 8px;">
+            <div>
+                <div style="color: #fff; font-weight: 700; font-size: 0.95rem; font-family: 'Syne', sans-serif;">Install Null Store</div>
+                <div style="color: var(--text-dim); font-size: 0.75rem;">Akses super cepat dari layar HP</div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <button id="btn-install-pwa" style="background: var(--primary); color: #000; border: none; padding: 8px 18px; border-radius: 20px; font-weight: 800; font-size: 0.8rem; cursor: pointer;">INSTALL</button>
+            <button onclick="document.getElementById('pwa-banner').style.display='none'" style="background: none; border: none; color: var(--text-dim); font-size: 1.2rem; cursor: pointer;"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+
         
                 <!-- Tombol Dark/Light Mode -->
         <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" title="Ganti Tema">
@@ -2132,7 +2152,45 @@ const items = [
                     // Kalau masih kosong / kurang
                     hasilBox.innerHTML = `<span style="color: var(--error);"><i class="fas fa-exclamation-triangle"></i> ID atau Server tidak lengkap / salah!</span>`;
                 }
-            }, 1500); // 1500 ms = 1.5 detik
+            }, 2000); // 2000 ms = 2 detik
+        }
+
+        // ==========================================
+        // FITUR INSTALL APLIKASI (PWA)
+        // ==========================================
+        let deferredPrompt;
+        const pwaBanner = document.getElementById('pwa-banner');
+        const installBtn = document.getElementById('btn-install-pwa');
+
+        // Mencegah prompt bawaan HP dan simpan datanya buat tombol kita
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            // Tampilkan banner estetik kita
+            pwaBanner.style.display = 'flex';
+        });
+
+        // Pas tombol INSTALL diklik
+        if(installBtn) {
+            installBtn.addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt(); // Munculin pop-up install bawaan HP
+                    const { outcome } = await deferredPrompt.userChoice;
+                    if (outcome === 'accepted') {
+                        pwaBanner.style.display = 'none'; // Sembunyiin banner kalau udah di-install
+                    }
+                    deferredPrompt = null;
+                }
+            });
+        }
+
+        // Daftarin Mesin SW-nya
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('Sistem Aplikasi Aktif!'))
+                .catch(err => console.log('Sistem Aplikasi Gagal', err));
+            });
         }
 
     </script>
