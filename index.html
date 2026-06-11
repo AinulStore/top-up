@@ -885,6 +885,12 @@
         @keyframes skeleton-load { 100% { left: 150%; } }
         .skeleton * { opacity: 0; } /* Sembunyiin isi pas loading */
 
+        /* === FITUR PM: ACCORDION PAYMENT & INVOICE === */
+        .taka-pay-body { max-height: 0; overflow: hidden; transition: all 0.4s ease; opacity: 0; }
+        .taka-pay-item.selected .taka-pay-body { max-height: 200px; opacity: 1; margin-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 15px; }
+        .pay-chevron { transition: transform 0.3s ease; color: var(--text-dim); }
+        .taka-pay-item.selected .pay-chevron { transform: rotate(180deg); color: var(--primary); }
+
     </style>
 </head>
 <body>
@@ -1264,28 +1270,38 @@
                 </div>
                 <div class="taka-step-body" style="padding: 15px;">
                     
-                    <!-- QRIS -->
+                    <!-- QRIS (ACCORDION) -->
                     <div class="taka-pay-item" data-method="QRIS">
                         <div class="taka-ribbon">BEST PRICE</div>
-                        <div class="taka-pay-title">QRIS (All Payment Method)</div>
-                        <div class="taka-pay-logos" style="display: flex; align-items: center; gap: 12px;">
-                            <i class="fas fa-qrcode" style="font-size: 1.4rem;"></i>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA" style="height: 16px;">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" alt="GoPay" style="height: 16px;">
-                            <span style="font-weight: 900; font-style: italic; font-size: 0.9rem; letter-spacing: 0.5px;">ShopeePay</span>
-                            <span style="font-weight: 900; font-size: 0.9rem; letter-spacing: 1px;">OVO</span>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div class="taka-pay-title" style="margin-bottom: 0;">QRIS (Semua Payment)</div>
+                            <i class="fas fa-chevron-down pay-chevron"></i>
                         </div>
-                        <div class="taka-pay-desc" style="color: #E11D48; text-align: center; margin-top: 15px; background: rgba(225,29,72,0.1); padding: 5px; border-radius: 5px;">Satu QR Code untuk semua Payment</div>
+                        <div class="taka-pay-body">
+                            <div class="taka-pay-logos" style="display: flex; align-items: center; gap: 12px;">
+                                <i class="fas fa-qrcode" style="font-size: 1.4rem;"></i>
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA" style="height: 16px;">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" alt="GoPay" style="height: 16px;">
+                                <span style="font-weight: 900; font-style: italic; font-size: 0.9rem; letter-spacing: 0.5px;">ShopeePay</span>
+                                <span style="font-weight: 900; font-size: 0.9rem; letter-spacing: 1px;">OVO</span>
+                            </div>
+                            <div class="taka-pay-desc" style="color: #E11D48; text-align: center; margin-top: 15px; background: rgba(225,29,72,0.1); padding: 5px; border-radius: 5px;">Satu QR Code untuk semua Payment</div>
+                        </div>
                     </div>
 
-                    <!-- E-Wallet -->
+                    <!-- E-Wallet (ACCORDION) -->
                     <div class="taka-pay-item" data-method="E-Wallet">
-                        <div class="taka-pay-title">E-Wallet</div>
-                        <div class="taka-pay-logos" style="display: flex; align-items: center; gap: 12px;">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA" style="height: 16px;">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" alt="GoPay" style="height: 16px;">
-                            <span style="font-weight: 900; font-style: italic; font-size: 0.9rem; letter-spacing: 0.5px;">ShopeePay</span>
-                            <span style="font-weight: 900; font-size: 0.9rem; letter-spacing: 1px;">OVO</span>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div class="taka-pay-title" style="margin-bottom: 0;">E-Wallet</div>
+                            <i class="fas fa-chevron-down pay-chevron"></i>
+                        </div>
+                        <div class="taka-pay-body">
+                            <div class="taka-pay-logos" style="display: flex; align-items: center; gap: 12px;">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA" style="height: 16px;">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" alt="GoPay" style="height: 16px;">
+                                <span style="font-weight: 900; font-style: italic; font-size: 0.9rem; letter-spacing: 0.5px;">ShopeePay</span>
+                                <span style="font-weight: 900; font-size: 0.9rem; letter-spacing: 1px;">OVO</span>
+                            </div>
                         </div>
                     </div>
 
@@ -1597,6 +1613,39 @@
         <div class="copyright">&copy; 2026 Null Store By Ainul Riskian. Crafted with <i class="fas fa-heart" style="color:var(--ff)"></i> & Advanced Tech.</div>
     </footer>
 
+    <!-- === MODAL KONFIRMASI PESANAN (INVOICE STRUK) === -->
+    <div class="modal-overlay" id="modal-invoice">
+        <div class="modal-box" style="padding: 0; overflow: hidden; max-width: 380px;">
+            <div style="background: linear-gradient(90deg, #0B0F19, #161D2E); padding: 20px; border-bottom: 1px solid var(--glass-border); text-align: center; position: relative;">
+                <button class="close-modal" onclick="tutupModalInvoice()" style="top: 15px; right: 15px;"><i class="fas fa-times"></i></button>
+                <h3 style="color: #fff; font-family: 'Syne', sans-serif; font-size: 1.2rem; margin: 0;">Konfirmasi Pesanan</h3>
+            </div>
+            <div style="padding: 20px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 10px;">
+                    <span style="color: var(--text-dim); font-size: 0.9rem;">Game</span>
+                    <strong style="color: #fff; font-size: 0.9rem;" id="inv-game">-</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 10px;">
+                    <span style="color: var(--text-dim); font-size: 0.9rem;">ID / Server</span>
+                    <strong style="color: #fff; font-size: 0.9rem;" id="inv-id">-</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 10px;">
+                    <span style="color: var(--text-dim); font-size: 0.9rem;">Item</span>
+                    <strong style="color: var(--primary); font-size: 0.9rem;" id="inv-item">-</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 10px;">
+                    <span style="color: var(--text-dim); font-size: 0.9rem;">Pembayaran</span>
+                    <strong style="color: #fff; font-size: 0.9rem;" id="inv-pay">-</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 20px; background: rgba(0, 225, 255, 0.1); padding: 15px; border-radius: 8px; border: 1px solid var(--primary);">
+                    <span style="color: #fff; font-size: 1rem; font-weight: 600;">Total Harga</span>
+                    <strong style="color: var(--primary); font-size: 1.1rem; font-family: 'Syne', sans-serif;" id="inv-total">-</strong>
+                </div>
+                <button class="btn-submit-review" onclick="lanjutBayarWA()" id="btn-lanjut-wa">Lanjut Bayar <i class="fab fa-whatsapp"></i></button>
+            </div>
+        </div>
+    </div>
+
     <!-- KOTAK POP UP ISI ULASAN (Dipindah ke luar footer) -->
     <div class="modal-overlay" id="modal-ulasan">
         <div class="modal-box">
@@ -1618,7 +1667,7 @@
         let selectedNominal = null;
         let selectedPayment = null;
 
-        // FITUR ANGKA JALAN (Baru Ditambahin Biar Gacor)
+        // FITUR ANGKA JALAN 
         const counters = document.querySelectorAll('.stat-num');
         function startCounter() {
             counters.forEach(counter => {
@@ -1627,12 +1676,8 @@
                 let count = 0;
                 const updateCount = () => {
                     count += inc;
-                    if (count < target) {
-                        counter.innerText = Math.ceil(count);
-                        setTimeout(updateCount, 30);
-                    } else {
-                        counter.innerText = target;
-                    }
+                    if (count < target) { counter.innerText = Math.ceil(count); setTimeout(updateCount, 30); } 
+                    else { counter.innerText = target; }
                 };
                 updateCount();
             });
@@ -1642,33 +1687,29 @@
         function showToast(type, message) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            const isError = type === 'error';
-            const color = isError ? 'var(--error)' : 'var(--primary)';
-            const icon = isError ? 'fa-exclamation-triangle' : 'fa-check-circle';
-            const title = isError ? 'Peringatan Sistem' : 'Berhasil';
+            const color = type === 'error' ? 'var(--error)' : 'var(--primary)';
+            const icon = type === 'error' ? 'fa-exclamation-triangle' : 'fa-check-circle';
+            const title = type === 'error' ? 'Peringatan Sistem' : 'Berhasil';
 
             toast.className = 'live-toast';
             toast.style.borderLeft = `4px solid ${color}`;
             toast.innerHTML = `
                 <div class="toast-icon" style="color: ${color}; background: ${color}22;"><i class="fas ${icon}"></i></div>
-                <div class="toast-text">
-                    <p><b>${title}</b></p>
-                    <span>${message}</span>
-                </div>
+                <div class="toast-text"><p><b>${title}</b></p><span>${message}</span></div>
             `;
             container.appendChild(toast);
             setTimeout(() => { toast.remove(); }, 4000);
         }
 
+        // ==========================================
+        // FITUR PM: BUKA STRUK INVOICE
+        // ==========================================
         function prosesCheckout() {
             let gameName = '';
             let accountData = '';
 
-            // Kalau tombol masih posisi abu-abu tapi dipaksa klik
             let tombolBeli = document.getElementById('btn-master-beli');
-            if(tombolBeli.classList.contains('disabled-btn')) {
-                return showToast('error', 'Selesaikan langkah-langkah di atas terlebih dahulu bosku!');
-            }
+            if(tombolBeli.classList.contains('disabled-btn')) return showToast('error', 'Selesaikan langkah-langkah di atas terlebih dahulu bosku!');
 
             if (currentGame === 'mlbb') {
                 gameName = 'Mobile Legends';
@@ -1690,12 +1731,30 @@
             const wa = document.getElementById('user-wa').value;
             if (!wa) return showToast('error', 'Nomor WhatsApp belum diisi!');
 
-            const teksAsli = tombolBeli.innerHTML;
-            tombolBeli.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Memproses...`;
-            tombolBeli.style.pointerEvents = 'none';
-            tombolBeli.style.opacity = '0.8';
+            // Masukin data ke Struk Modal
+            document.getElementById('inv-game').innerText = gameName;
+            document.getElementById('inv-id').innerText = accountData;
+            document.getElementById('inv-item').innerText = selectedNominal;
+            document.getElementById('inv-pay').innerText = selectedPayment;
+            
+            let activeCard = document.querySelector('.nominal-grid[data-game="'+currentGame+'"] .card.selected');
+            document.getElementById('inv-total').innerText = activeCard ? activeCard.querySelector('.card-price').innerText : '-';
 
-            showToast('success', `Mengarahkan ke WhatsApp Pembayaran...`);
+            // Tampilkan Modal Struk
+            document.getElementById('modal-invoice').style.display = 'flex';
+        }
+
+        // ==========================================
+        // FITUR PM: LANJUT BAYAR KE WHATSAPP
+        // ==========================================
+        window.lanjutBayarWA = function() {
+            let btnWa = document.getElementById('btn-lanjut-wa');
+            let teksAsli = btnWa.innerHTML;
+            btnWa.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Menyiapkan...`;
+            btnWa.style.pointerEvents = 'none';
+
+            let gameName = document.getElementById('inv-game').innerText;
+            let accountData = document.getElementById('inv-id').innerText;
             
             const targetWaNumber = '6285757568455';
             const formatPesan = `🛒 *NULL STORE | ORDER BARU*\n\n` +
@@ -1710,113 +1769,70 @@
             
             setTimeout(() => {
                 window.open(urlWhatsApp, '_blank');
-                setTimeout(() => {
-                    tombolBeli.innerHTML = teksAsli;
-                    tombolBeli.style.pointerEvents = 'auto';
-                    tombolBeli.style.opacity = '1';
-                }, 1000);
+                btnWa.innerHTML = teksAsli;
+                btnWa.style.pointerEvents = 'auto';
+                document.getElementById('modal-invoice').style.display = 'none';
             }, 1500);
         }
 
+        window.tutupModalInvoice = function() {
+            document.getElementById('modal-invoice').style.display = 'none';
+        }
+
+        // Fake Live Purchase
         const toastContainerLive = document.getElementById('toast-container');
-        const items = [
-            '19 Diamond MLBB', '28 Diamond MLBB', '36 Diamond MLBB', '44 Diamond MLBB', 
-            '59 Diamond MLBB', '86 Diamond MLBB', '112 Diamond MLBB', '172 Diamond MLBB', 
-            '1x Weekly Pass MLBB', '3x Weekly Pass MLBB', 'Starlight Member MLBB',
-            '50 Diamond Free Fire', '140 Diamond Free Fire', '355 Diamond Free Fire', 
-            'Booyah Pass FF'
-        ];
-        
+        const items = ['19 Diamond MLBB', '86 Diamond MLBB', '1x Weekly Pass MLBB', '50 Diamond Free Fire', 'Booyah Pass FF'];
         function spawnLiveToast() {
             const phoneStr = '08' + Math.floor(Math.random() * 90 + 10) + '****' + Math.floor(Math.random() * 900 + 100);
             const itemStr = items[Math.floor(Math.random() * items.length)];
-            
             const toast = document.createElement('div');
             toast.className = 'live-toast';
             toast.style.borderLeft = '4px solid var(--primary)';
-            toast.innerHTML = `
-                <div class="toast-icon" style="color: var(--primary); background: rgba(0, 225, 255, 0.1);"><i class="fas fa-shopping-cart"></i></div>
-                <div class="toast-text">
-                    <p><b>${phoneStr}</b> baru saja order</p>
-                    <span>${itemStr} • Beberapa detik lalu</span>
-                </div>
-            `;
+            toast.innerHTML = `<div class="toast-icon" style="color: var(--primary); background: rgba(0, 225, 255, 0.1);"><i class="fas fa-shopping-cart"></i></div><div class="toast-text"><p><b>${phoneStr}</b> baru saja order</p><span>${itemStr} • Beberapa detik lalu</span></div>`;
             toastContainerLive.appendChild(toast);
             setTimeout(() => { toast.remove(); }, 5000);
-            let randomJeda = Math.floor(Math.random() * 45000) + 45000; 
-            setTimeout(spawnLiveToast, randomJeda);
+            setTimeout(spawnLiveToast, Math.floor(Math.random() * 45000) + 45000);
         }
         setTimeout(spawnLiveToast, 30000);
         
         function toggleMenu() { document.getElementById("mobileMenu").classList.toggle("active"); }
-        
         function updateClock() {
             const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
             const clockEl = document.getElementById('live-clock');
-            if(clockEl) clockEl.innerText = `${hours}:${minutes}:${seconds}`;
+            if(clockEl) clockEl.innerText = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
         }
-        setInterval(updateClock, 1000);
-        updateClock();
+        setInterval(updateClock, 1000); updateClock();
         
         function hitungEvent() {
             const type = document.getElementById('calc-type').value;
             const pointsStr = document.getElementById('calc-points').value;
             const resultBox = document.getElementById('calc-result');
             const descEl = document.getElementById('calc-desc');
-            
             if (!pointsStr || pointsStr < 0) return showToast('error', 'Masukkan jumlah poin yang benar!');
             
-            let points = parseInt(pointsStr);
-            let sisaPoin = 0, estDiamond = 0, textOutput = '';
-
+            let points = parseInt(pointsStr), sisaPoin = 0, estDiamond = 0, textOutput = '';
             if (type === 'magic') {
-                if (points >= 200) { textOutput = 'Poin sudah maksimal! Kamu sudah bisa tukar skin Legend.'; }
-                else {
-                    sisaPoin = 200 - points;
-                    estDiamond = (Math.floor(sisaPoin / 5) * 270) + ((sisaPoin % 5) * 60);
-                    textOutput = `Kamu butuh <b>${sisaPoin}</b> poin lagi.<br>Estimasi diamond: <b>~${estDiamond} 💎</b>`;
-                }
+                if (points >= 200) textOutput = 'Poin sudah maksimal!';
+                else { sisaPoin = 200 - points; estDiamond = (Math.floor(sisaPoin / 5) * 270) + ((sisaPoin % 5) * 60); textOutput = `Kamu butuh <b>${sisaPoin}</b> poin lagi.<br>Estimasi diamond: <b>~${estDiamond} 💎</b>`; }
             } else if (type === 'zodiac') {
-                if (points >= 100) { textOutput = 'Poin sudah maksimal! Skin Zodiac sudah di tangan.'; }
-                else {
-                    sisaPoin = 100 - points; estDiamond = sisaPoin * 20;
-                    textOutput = `Kamu butuh <b>${sisaPoin}</b> poin lagi.<br>Estimasi diamond: <b>~${estDiamond} 💎</b>`;
-                }
+                if (points >= 100) textOutput = 'Poin sudah maksimal!';
+                else { sisaPoin = 100 - points; estDiamond = sisaPoin * 20; textOutput = `Kamu butuh <b>${sisaPoin}</b> poin lagi.<br>Estimasi diamond: <b>~${estDiamond} 💎</b>`; }
             }
-            descEl.innerHTML = textOutput;
-            resultBox.style.display = 'block';
+            descEl.innerHTML = textOutput; resultBox.style.display = 'block';
         }
 
         function toggleTheme() {
-            const body = document.body;
-            const themeBtn = document.getElementById('theme-btn');
+            const body = document.body; const themeBtn = document.getElementById('theme-btn');
             body.classList.toggle('light-mode');
-            if (body.classList.contains('light-mode')) {
-                themeBtn.innerHTML = '<i class="fas fa-moon"></i>'; themeBtn.style.color = '#000';
-            } else {
-                themeBtn.innerHTML = '<i class="fas fa-sun"></i>'; themeBtn.style.color = '#fff';
-            }
+            if (body.classList.contains('light-mode')) { themeBtn.innerHTML = '<i class="fas fa-moon"></i>'; themeBtn.style.color = '#000'; } 
+            else { themeBtn.innerHTML = '<i class="fas fa-sun"></i>'; themeBtn.style.color = '#fff'; }
         }
         
-        // ==========================================
-        // FITUR PM: AUTO FOCUS STEP PROGRESS
-        // ==========================================
         function resetFocusStep() {
-            // Matiin Step 2, 3, dan 4 tiap ganti menu
             document.querySelectorAll('.taka-step-container').forEach(step => {
-                
-                // MENCEGAH ULASAN IKUT JADI ABU-ABU
                 if (step.id === 'ulasan') return; 
-
                 let titleNum = step.querySelector('.taka-step-num').innerText;
-                if(titleNum !== "1") {
-                    step.classList.add('step-dimmed');
-                } else {
-                    step.classList.remove('step-dimmed');
-                }
+                if(titleNum !== "1") step.classList.add('step-dimmed'); else step.classList.remove('step-dimmed');
             });
         }
 
@@ -1831,22 +1847,16 @@
         window.bukaGembok = function() {
             if (inputML && inputML.value.length >= 5) {
                 katalogML.classList.remove('katalog-terkunci');
-                // Auto Focus nyalain Step 2
                 katalogML.closest('.taka-step-container').classList.remove('step-dimmed');
-            } else if (inputML) {
-                katalogML.classList.add('katalog-terkunci');
-            }
+            } else if (inputML) katalogML.classList.add('katalog-terkunci');
         };
 
         if (inputFF) {
             inputFF.addEventListener('input', function() {
                 if (this.value.length >= 5) {
                     katalogFF.classList.remove('katalog-terkunci');
-                    // Auto Focus nyalain Step 2
                     katalogFF.closest('.taka-step-container').classList.remove('step-dimmed');
-                } else {
-                    katalogFF.classList.add('katalog-terkunci');
-                }
+                } else katalogFF.classList.add('katalog-terkunci');
             });
         }
 
@@ -1856,7 +1866,7 @@
             if(!gridAktif) return; 
             gridAktif.querySelectorAll('.card').forEach(kartu => {
                 let namaItem = kartu.getAttribute('data-val').toLowerCase();
-                if (namaItem.includes(ketikan)) { kartu.style.display = ''; } else { kartu.style.display = 'none'; }
+                if (namaItem.includes(ketikan)) kartu.style.display = ''; else kartu.style.display = 'none';
             });
         };
 
@@ -1871,7 +1881,6 @@
             selectedNominal = null; selectedPayment = null;
             document.querySelectorAll('.nominal-grid .card, .taka-pay-item').forEach(c => c.classList.remove('selected'));
             
-            // SMART BUTTON MATI PAS GANTI GAME
             let tombolBeli = document.getElementById('btn-master-beli');
             if(tombolBeli) {
                 tombolBeli.classList.add('disabled-btn');
@@ -1902,23 +1911,15 @@
                 
                 if(bgGame) bgGame.style.backgroundImage = `url('bg-${tabId}.png')`;
 
-                // Reset Fokus Layar
                 resetFocusStep();
+                if(tabId === 'mlbb') if (typeof switchMLBBView === 'function') switchMLBBView('topup');
 
-                if(tabId === 'mlbb') {
-                    if (typeof switchMLBBView === 'function') switchMLBBView('topup');
-                }
-
-                // === EFEK SKELETON LOADING (PM LEVEL) ===
                 let gridCards = document.querySelectorAll('.nominal-grid[data-game="'+tabId+'"] .card');
                 gridCards.forEach(card => {
-                    card.classList.add('skeleton'); // Nyalain efek abu-abu
-                    setTimeout(() => {
-                        card.classList.remove('skeleton'); // Matiin setelah 1 detik
-                    }, 800 + Math.random() * 500); // Waktu acak biar natural
+                    card.classList.add('skeleton'); 
+                    setTimeout(() => { card.classList.remove('skeleton'); }, 800 + Math.random() * 500); 
                 });
                 
-                // Reset Tombol Kategori
                 if(document.getElementById('pills-' + tabId)) {
                     let pills = document.getElementById('pills-' + tabId).querySelectorAll('.pill-btn');
                     pills.forEach(p => p.classList.remove('active'));
@@ -1943,14 +1944,29 @@
                 let ctx = new (window.AudioContext || window.webkitAudioContext)();
                 let osc = ctx.createOscillator();
                 let gainNode = ctx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(800, ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(1500, ctx.currentTime + 0.1);
-                gainNode.gain.setValueAtTime(0.15, ctx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+                osc.type = 'sine'; osc.frequency.setValueAtTime(800, ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(1500, ctx.currentTime + 0.1);
+                gainNode.gain.setValueAtTime(0.15, ctx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
                 osc.connect(gainNode); gainNode.connect(ctx.destination);
                 osc.start(); osc.stop(ctx.currentTime + 0.1);
             } catch(e) {}
+        }
+
+        // ==========================================
+        // FITUR PM: ANIMASI ANGKA BERJALAN
+        // ==========================================
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(easeOut * (end - start) + start);
+                
+                obj.innerHTML = `Total: Rp ${current.toLocaleString('id-ID')}`;
+                if (progress < 1) window.requestAnimationFrame(step);
+                else obj.innerHTML = `Total: Rp ${end.toLocaleString('id-ID')}`;
+            };
+            window.requestAnimationFrame(step);
         }
 
         document.querySelectorAll('.nominal-grid .card').forEach(card => {
@@ -1961,24 +1977,26 @@
                 this.classList.add('selected');
                 selectedNominal = this.getAttribute('data-val');
                 
-                // TOMBOL SMART BUTTON NYALA
-                let harga = this.querySelector('.card-price').innerText;
+                // MENGAMBIL ANGKA HARGA DARI TEKS (Misal: "Rp 22.000" jadi 22000)
+                let hargaText = this.querySelector('.card-price').innerText;
+                let hargaNum = parseInt(hargaText.replace(/[^0-9]/g, ''));
+                
                 let tombolBeli = document.getElementById('btn-master-beli');
                 if(tombolBeli) {
                     tombolBeli.classList.remove('disabled-btn');
-                    tombolBeli.innerHTML = `<span style="display: block; line-height: 1.2;">Beli Sekarang <i class="fas fa-arrow-right"></i></span><span style="display: block; font-size: 0.85rem; font-family: 'Inter', sans-serif; font-weight: 500; margin-top: 4px; opacity: 0.9;">Total: ${harga}</span>`;
+                    tombolBeli.innerHTML = `<span style="display: block; line-height: 1.2;">Beli Sekarang <i class="fas fa-arrow-right"></i></span><span style="display: block; font-size: 0.85rem; font-family: 'Inter', sans-serif; font-weight: 500; margin-top: 4px; opacity: 0.9;" id="anim-harga">Total: Rp 0</span>`;
+                    
+                    // JALANKAN ANIMASI ANGKA
+                    let hargaBox = document.getElementById('anim-harga');
+                    animateValue(hargaBox, 0, hargaNum, 800); // Animasi muter 0.8 detik
                 }
                 
-                // AUTO FOKUS STEP 3 NYALA
                 let step3 = document.querySelector('.taka-pay-item').closest('.taka-step-container');
                 if(step3) step3.classList.remove('step-dimmed');
 
                 setTimeout(() => {
                     let sectionPembayaran = document.getElementById('global-steps');
-                    if(sectionPembayaran) {
-                        let y = sectionPembayaran.getBoundingClientRect().top + window.scrollY - 80;
-                        window.scrollTo({top: y, behavior: 'smooth'});
-                    }
+                    if(sectionPembayaran) { window.scrollTo({top: sectionPembayaran.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth'}); }
                 }, 300);
             });
         });
@@ -1990,17 +2008,12 @@
                 this.classList.add('selected');
                 selectedPayment = this.getAttribute('data-method');
                 
-                // AUTO FOKUS STEP 4 NYALA
                 let step4 = document.getElementById('user-wa').closest('.taka-step-container');
                 if(step4) step4.classList.remove('step-dimmed');
 
                 setTimeout(() => {
                     let inputWa = document.getElementById('user-wa');
-                    if(inputWa) {
-                        let y = inputWa.getBoundingClientRect().top + window.scrollY - 200;
-                        window.scrollTo({top: y, behavior: 'smooth'});
-                        inputWa.focus();
-                    }
+                    if(inputWa) { window.scrollTo({top: inputWa.getBoundingClientRect().top + window.scrollY - 200, behavior: 'smooth'}); inputWa.focus(); }
                 }, 300);
             });
         });
@@ -2014,15 +2027,7 @@
             if(!nama || !teks) return showToast('error', 'Nama dan ulasan wajib diisi bosku!');
 
             let sensorNama = nama.substring(0, 3) + "**********";
-            let htmlBaru = `
-                <div class="taka-review-item">
-                    <div class="taka-review-user">
-                        <span class="taka-review-name">${sensorNama}</span>
-                        <span class="taka-review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
-                    </div>
-                    <div class="taka-review-product">Pembeli Terverifikasi • Baru saja</div>
-                    <div class="taka-review-text">“${teks}”</div>
-                </div>`;
+            let htmlBaru = `<div class="taka-review-item"><div class="taka-review-user"><span class="taka-review-name">${sensorNama}</span><span class="taka-review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></div><div class="taka-review-product">Pembeli Terverifikasi • Baru saja</div><div class="taka-review-text">“${teks}”</div></div>`;
 
             let wadahUlasan = document.querySelector('.taka-review-list');
             if(wadahUlasan) wadahUlasan.insertAdjacentHTML('afterbegin', htmlBaru);
@@ -2031,9 +2036,7 @@
             ulasanTersimpan.unshift({ nama: sensorNama, teks: teks });
             localStorage.setItem('ulasan_nullstore', JSON.stringify(ulasanTersimpan));
 
-            tutupModalUlasan();
-            document.getElementById('ulasan-nama').value = '';
-            document.getElementById('ulasan-teks').value = '';
+            tutupModalUlasan(); document.getElementById('ulasan-nama').value = ''; document.getElementById('ulasan-teks').value = '';
             showToast('success', 'Ulasan kamu berhasil ditambahkan! Makasih ya!');
         }
         
@@ -2042,15 +2045,8 @@
             let sekarang = new Date();
             elemenTanggal.forEach(el => {
                 let mundur = parseInt(el.getAttribute('data-mundur')); 
-                let tglBaru = new Date(sekarang);
-                tglBaru.setDate(tglBaru.getDate() - mundur);
-                let dd = String(tglBaru.getDate()).padStart(2, '0');
-                let mm = String(tglBaru.getMonth() + 1).padStart(2, '0'); 
-                let yyyy = tglBaru.getFullYear();
-                let hh = String(Math.floor(Math.random() * 24)).padStart(2, '0');
-                let mnt = String(Math.floor(Math.random() * 60)).padStart(2, '0');
-                let dtk = String(Math.floor(Math.random() * 60)).padStart(2, '0');
-                el.innerText = `${dd}-${mm}-${yyyy} ${hh}:${mnt}:${dtk}`;
+                let tglBaru = new Date(sekarang); tglBaru.setDate(tglBaru.getDate() - mundur);
+                el.innerText = `${String(tglBaru.getDate()).padStart(2, '0')}-${String(tglBaru.getMonth() + 1).padStart(2, '0')}-${tglBaru.getFullYear()} ${String(Math.floor(Math.random() * 24)).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}`;
             });
         }
         document.addEventListener('DOMContentLoaded', updateTanggalUlasan);
@@ -2060,15 +2056,7 @@
             if(ulasanTersimpan && ulasanTersimpan.length > 0) {
                 let wadahUlasan = document.querySelector('.taka-review-list');
                 ulasanTersimpan.reverse().forEach(ulasan => {
-                    let htmlSimpanan = `
-                        <div class="taka-review-item">
-                            <div class="taka-review-user">
-                                <span class="taka-review-name">${ulasan.nama}</span>
-                                <span class="taka-review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
-                            </div>
-                            <div class="taka-review-product">Pembeli Terverifikasi • Baru saja</div>
-                            <div class="taka-review-text">“${ulasan.teks}”</div>
-                        </div>`;
+                    let htmlSimpanan = `<div class="taka-review-item"><div class="taka-review-user"><span class="taka-review-name">${ulasan.nama}</span><span class="taka-review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></div><div class="taka-review-product">Pembeli Terverifikasi • Baru saja</div><div class="taka-review-text">“${ulasan.teks}”</div></div>`;
                     if(wadahUlasan) wadahUlasan.insertAdjacentHTML('afterbegin', htmlSimpanan);
                 });
             }
@@ -2082,151 +2070,79 @@
             let isValid = false;
             
             if(idInput.length >= 5) {
-                if(game === 'mlbb') {
-                    let serverInput = document.getElementById('mlbb-server').value;
-                    if(serverInput.length >= 3) isValid = true;
-                } else {
-                    isValid = true; 
-                }
+                if(game === 'mlbb') { let serverInput = document.getElementById('mlbb-server').value; if(serverInput.length >= 3) isValid = true; } 
+                else { isValid = true; }
             }
             
             let teksAsli = btn.innerHTML;
-            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Memeriksa Server...`;
-            btn.style.pointerEvents = 'none'; 
-            hasilBox.style.display = 'none'; 
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Memeriksa Server...`; btn.style.pointerEvents = 'none'; hasilBox.style.display = 'none'; 
             
             setTimeout(() => {
-                btn.innerHTML = teksAsli;
-                btn.style.pointerEvents = 'auto';
-                hasilBox.style.display = 'block';
+                btn.innerHTML = teksAsli; btn.style.pointerEvents = 'auto'; hasilBox.style.display = 'block';
                 if(isValid) {
                     hasilBox.innerHTML = `<span style="color: var(--success);"><i class="fas fa-check-circle"></i> Format ID Valid! Server terhubung.</span>`;
-                    // AUTO FOKUS NYALAIN STEP 2 JUGA
                     if(game === 'mlbb') document.querySelector('.nominal-grid[data-game="mlbb"]').closest('.taka-step-container').classList.remove('step-dimmed');
                     if(game === 'ff') document.querySelector('.nominal-grid[data-game="ff"]').closest('.taka-step-container').classList.remove('step-dimmed');
-                } else {
-                    hasilBox.innerHTML = `<span style="color: var(--error);"><i class="fas fa-exclamation-triangle"></i> ID atau Server tidak lengkap / salah!</span>`;
-                }
+                } else { hasilBox.innerHTML = `<span style="color: var(--error);"><i class="fas fa-exclamation-triangle"></i> ID atau Server tidak lengkap / salah!</span>`; }
             }, 2000); 
         }
 
-        let deferredPrompt;
-        const pwaBanner = document.getElementById('pwa-banner');
-        const installBtn = document.getElementById('btn-install-pwa');
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault(); deferredPrompt = e; pwaBanner.style.display = 'flex';
-        });
-
+        let deferredPrompt; const pwaBanner = document.getElementById('pwa-banner'); const installBtn = document.getElementById('btn-install-pwa');
+        window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; pwaBanner.style.display = 'flex'; });
         if(installBtn) {
             installBtn.addEventListener('click', async () => {
-                if (deferredPrompt) {
-                    deferredPrompt.prompt();
-                    const { outcome } = await deferredPrompt.userChoice;
-                    if (outcome === 'accepted') pwaBanner.style.display = 'none';
-                    deferredPrompt = null;
-                }
+                if (deferredPrompt) { deferredPrompt.prompt(); const { outcome } = await deferredPrompt.userChoice; if (outcome === 'accepted') pwaBanner.style.display = 'none'; deferredPrompt = null; }
             });
         }
-
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                .then(reg => console.log('Sistem Aplikasi Aktif!'))
-                .catch(err => console.log('Sistem Aplikasi Gagal', err));
-            });
-        }
+        if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').then(reg => console.log('PWA Aktif')).catch(err => console.log('PWA Gagal', err)); }); }
 
         function updateSapaanCerdas() {
-            const jam = new Date().getHours();
-            let sapaan = "";
+            const jam = new Date().getHours(); let sapaan = "";
             if (jam >= 4 && jam <= 10) sapaan = "🌅 Pagi bosku! Top up dulu yuk biar mabar jadi makin percaya diri.";
             else if (jam > 10 && jam <= 14) sapaan = "☀️ Siang bosku! Istirahat dulu sambil push rank.";
             else if (jam > 14 && jam <= 18) sapaan = "🌇 Sore bosku! Waktunya bantai-bantai di Land of Dawn.";
             else sapaan = "🌙 Malam bosku! Begadang push rank? Gas top up dulu!";
-            
-            const elemenSapaan = document.getElementById('sapaan-cerdas');
-            if(elemenSapaan) elemenSapaan.innerText = sapaan;
+            const elemenSapaan = document.getElementById('sapaan-cerdas'); if(elemenSapaan) elemenSapaan.innerText = sapaan;
         }
         document.addEventListener('DOMContentLoaded', updateSapaanCerdas);
 
         function hitungWR() {
-            let totalMatch = parseFloat(document.getElementById('wr-total-match').value);
-            let wrSekarang = parseFloat(document.getElementById('wr-current').value);
-            let wrTarget = parseFloat(document.getElementById('wr-target').value);
-            let resultBox = document.getElementById('wr-result');
-            let descEl = document.getElementById('wr-desc');
-
-            if (!totalMatch || !wrSekarang || !wrTarget) return showToast('error', 'Isi semua kolom dengan benar bosku!');
-            if (wrSekarang < 0 || wrSekarang > 100 || wrTarget < 0 || wrTarget > 100) return showToast('error', 'Winrate harus di antara 0 sampai 100%!');
-            if (wrTarget === 100) return showToast('error', 'Winrate 100% tidak mungkin dicapai jika kamu sudah pernah kalah!');
-            if (wrTarget <= wrSekarang) {
-                descEl.innerHTML = `<span style="color: var(--error);">Target WinRate harus lebih besar dari WinRate saat ini bosku!</span>`;
-                resultBox.style.display = 'block'; return;
-            }
-
-            let totalWinSaatIni = (totalMatch * wrSekarang) / 100;
-            let butuhWin = (totalMatch * wrTarget - 100 * totalWinSaatIni) / (100 - wrTarget);
-            let hasilAkhir = Math.ceil(butuhWin);
-
-            descEl.innerHTML = `Kamu butuh <b>${hasilAkhir}</b> kemenangan berturut-turut (tanpa kalah) untuk mencapai WinRate <b>${wrTarget}%</b>. Semangat bosku! 🔥`;
-            resultBox.style.display = 'block';
+            let totalMatch = parseFloat(document.getElementById('wr-total-match').value); let wrSekarang = parseFloat(document.getElementById('wr-current').value); let wrTarget = parseFloat(document.getElementById('wr-target').value);
+            let resultBox = document.getElementById('wr-result'); let descEl = document.getElementById('wr-desc');
+            if (!totalMatch || !wrSekarang || !wrTarget) return showToast('error', 'Isi semua kolom bosku!');
+            if (wrSekarang < 0 || wrSekarang > 100 || wrTarget < 0 || wrTarget > 100) return showToast('error', 'Winrate harus 0-100%!');
+            if (wrTarget === 100) return showToast('error', 'Winrate 100% tidak mungkin dicapai!');
+            if (wrTarget <= wrSekarang) { descEl.innerHTML = `<span style="color: var(--error);">Target WinRate harus lebih besar!</span>`; resultBox.style.display = 'block'; return; }
+            let totalWinSaatIni = (totalMatch * wrSekarang) / 100; let butuhWin = (totalMatch * wrTarget - 100 * totalWinSaatIni) / (100 - wrTarget); let hasilAkhir = Math.ceil(butuhWin);
+            descEl.innerHTML = `Kamu butuh <b>${hasilAkhir}</b> kemenangan berturut-turut untuk capai WinRate <b>${wrTarget}%</b>.`; resultBox.style.display = 'block';
         }
 
         window.switchMLBBView = function(view) {
-            let btnTopup = document.getElementById('btn-tab-topup');
-            let btnFitur = document.getElementById('btn-tab-fitur');
-            let viewTopup = document.getElementById('mlbb-topup-view');
-            let viewFitur = document.getElementById('mlbb-features-view');
-            let globalSteps = document.getElementById('global-steps');
-            let searchBox = document.getElementById('liveSearchBox');
-
+            let btnTopup = document.getElementById('btn-tab-topup'); let btnFitur = document.getElementById('btn-tab-fitur');
+            let viewTopup = document.getElementById('mlbb-topup-view'); let viewFitur = document.getElementById('mlbb-features-view');
+            let globalSteps = document.getElementById('global-steps'); let searchBox = document.getElementById('liveSearchBox');
             if(view === 'topup') {
                 btnTopup.classList.add('active'); btnFitur.classList.remove('active');
                 viewTopup.style.display = 'block'; viewFitur.style.display = 'none';
-                if(globalSteps) globalSteps.style.display = 'block';
-                if(searchBox) searchBox.style.display = 'block';
+                if(globalSteps) globalSteps.style.display = 'block'; if(searchBox) searchBox.style.display = 'block';
             } else {
                 btnTopup.classList.remove('active'); btnFitur.classList.add('active');
                 viewTopup.style.display = 'none'; viewFitur.style.display = 'block';
-                if(globalSteps) globalSteps.style.display = 'none';
-                if(searchBox) searchBox.style.display = 'none';
+                if(globalSteps) globalSteps.style.display = 'none'; if(searchBox) searchBox.style.display = 'none';
             }
         };
         
-                // ==========================================
-        // FITUR PM: FILTER KATEGORI NOMINAL (PILLS)
-        // ==========================================
         window.filterKategori = function(game, kategori, btn) {
-            // Ubah warna tombol pill yang diklik
             let pills = document.getElementById('pills-' + game).querySelectorAll('.pill-btn');
-            pills.forEach(p => p.classList.remove('active'));
-            btn.classList.add('active');
-
-            // Filter tampilannya
-            let grid = document.querySelector('.nominal-grid[data-game="' + game + '"]');
-            let cards = grid.querySelectorAll('.card');
-            
+            pills.forEach(p => p.classList.remove('active')); btn.classList.add('active');
+            let grid = document.querySelector('.nominal-grid[data-game="' + game + '"]'); let cards = grid.querySelectorAll('.card');
             cards.forEach(card => {
-                let namaItem = card.getAttribute('data-val').toLowerCase();
-                let isMatch = false;
-                
-                // Logika pemisahnya
-                if(kategori === 'semua') {
-                    isMatch = true;
-                } else if(kategori === 'pass') {
-                    if(namaItem.includes('pass') || namaItem.includes('member')) isMatch = true;
-                } else if(kategori === 'diamond') {
-                    if(!namaItem.includes('pass') && !namaItem.includes('member')) isMatch = true;
-                }
-                
-                if(isMatch) {
-                    card.style.display = '';
-                    // Kasih loading bentar pas diklik biar kerasa mahal
-                    card.classList.add('skeleton');
-                    setTimeout(() => card.classList.remove('skeleton'), 400);
-                } else {
-                    card.style.display = 'none';
-                }
+                let namaItem = card.getAttribute('data-val').toLowerCase(); let isMatch = false;
+                if(kategori === 'semua') isMatch = true;
+                else if(kategori === 'pass') { if(namaItem.includes('pass') || namaItem.includes('member')) isMatch = true; } 
+                else if(kategori === 'diamond') { if(!namaItem.includes('pass') && !namaItem.includes('member')) isMatch = true; }
+                if(isMatch) { card.style.display = ''; card.classList.add('skeleton'); setTimeout(() => card.classList.remove('skeleton'), 400); } 
+                else card.style.display = 'none';
             });
         };
     </script>
