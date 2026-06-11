@@ -997,18 +997,19 @@
                 </div>
             </div>
 
-            <!-- === SUB-TAB MENU (TOP UP & FITUR) === -->
-            <div class="sub-tabs">
-                <button class="sub-tab-btn active" id="btn-tab-topup" onclick="switchMLBBView('topup')"><i class="fas fa-shopping-cart"></i> Top Up</button>
-                <button class="sub-tab-btn" id="btn-tab-fitur" onclick="switchMLBBView('features')"><i class="fas fa-magic"></i> Fitur Menarik</button>
-            </div>
-
             <!-- BUNGKUSAN MENU TOP UP -->
             <div id="mlbb-topup-view">
 
             <!-- STEP 1: AKUN MLBB -->
             <div class="taka-step-container">
-                <div class="taka-step-header">
+                
+                <!-- === SUB-TAB MENU (TOP UP & FITUR) === DIPINDAH KE DALAM KOTAK -->
+                <div class="sub-tabs" style="border-radius: 0; margin-bottom: 0; border-bottom: 1px solid var(--glass-border); border-left: none; border-right: none; border-top: none;">
+                    <button class="sub-tab-btn active" id="btn-tab-topup" onclick="switchMLBBView('topup')"><i class="fas fa-shopping-cart"></i> Top Up</button>
+                    <button class="sub-tab-btn" id="btn-tab-fitur" onclick="switchMLBBView('features')"><i class="fas fa-magic"></i> Fitur Menarik</button>
+                </div>
+
+                <div class="taka-step-header" style="border-top: 1px solid var(--glass-border);">
                     <div class="taka-step-num">1</div>
                     <div class="taka-step-title">Masukkan Data Akun</div>
                 </div>
