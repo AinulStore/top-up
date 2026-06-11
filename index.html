@@ -983,19 +983,19 @@
                 </div>
             </div>
             
-            <!-- Card Dummy 1 (Biar kelihatan penuh kayak Takapedia) -->
-            <div class="game-card" style="opacity: 0.5; cursor: not-allowed;" onclick="showToast('error', 'Nantikan produk ini segera! Kami sedang menyiapkannya buat kamu.')">
+            <!-- Card PUBG -->
+            <div class="game-card" onclick="switchTab('pubg', this)">
                 <img src="bg-pubg.png" alt="PUBG" class="game-card-img">
-                <div class="game-card-info" style="background: #ccc;">
+                <div class="game-card-info">
                     <h3>PUBG Mobile</h3>
                     <p>Tencent Games</p>
                 </div>
             </div>
             
-            <!-- Card Dummy 2 -->
-            <div class="game-card" style="opacity: 0.5; cursor: not-allowed;" onclick="showToast('error', 'Nantikan produk ini segera! Kami sedang menyiapkannya buat kamu.')">
+            <!-- Card Valorant -->
+            <div class="game-card" onclick="switchTab('valo', this)">
                 <img src="bg-valo.png" alt="Valorant" class="game-card-img">
-                <div class="game-card-info" style="background: #ccc;">
+                <div class="game-card-info">
                     <h3>Valorant</h3>
                     <p>Riot Games</p>
                 </div>
@@ -1079,12 +1079,13 @@
                     </div>
 
                     <div class="grid nominal-grid" data-game="mlbb">
+    <div class="card tilt-card" data-val="3 💎 (Rp 1.500)"><div class="inner"><div class="card-title">3 💎</div><div class="card-price">Rp 1.500</div></div></div>                    
     <div class="card tilt-card" data-val="5 💎 (Rp 2.000)"><div class="inner"><div class="card-title">5 💎</div><div class="card-price">Rp 2.000</div></div></div>
     <div class="card tilt-card" data-val="12 💎 (Rp 4.000)"><div class="inner"><div class="card-title">12 💎</div><div class="card-price">Rp 4.000</div></div></div>
-    <div class="card tilt-card" data-val="19 💎 (Rp 5.700)"><div class="inner"><div class="card-title">19 💎</div><div class="card-price">Rp 5.700</div></div></div>
-    <div class="card tilt-card" data-val="28 💎 (Rp 8.000)"><div class="inner"><div class="card-title">28 💎</div><div class="card-price">Rp 8.000</div></div></div>
-    <div class="card tilt-card" data-val="36 💎 (Rp 10.500)"><div class="inner"><div class="card-title">36 💎</div><div class="card-price">Rp 10.500</div></div></div>
-    <div class="card tilt-card" data-val="44 💎 (Rp 11.800)"><div class="inner"><div class="card-title">44 💎</div><div class="card-price">Rp 11.800</div></div></div>
+    <div class="card tilt-card" data-val="19 💎 (Rp 5.500)"><div class="inner"><div class="card-title">19 💎</div><div class="card-price">Rp 5.500</div></div></div>
+    <div class="card tilt-card" data-val="28 💎 (Rp 7.500)"><div class="inner"><div class="card-title">28 💎</div><div class="card-price">Rp 7.500</div></div></div>
+    <div class="card tilt-card" data-val="36 💎 (Rp 10.000)"><div class="inner"><div class="card-title">36 💎</div><div class="card-price">Rp 10.000</div></div></div>
+    <div class="card tilt-card" data-val="44 💎 (Rp 11.500)"><div class="inner"><div class="card-title">44 💎</div><div class="card-price">Rp 11.500</div></div></div>
     <div class="card tilt-card" data-val="56 💎 (Rp 15.000)"><div class="inner"><div class="card-title">56 💎</div><div class="card-price">Rp 15.000</div></div></div>
     <div class="card tilt-card" data-val="59 💎 (Rp 15.500)"><div class="inner"><div class="card-title">59 💎</div><div class="card-price">Rp 15.500</div></div></div>
     <div class="card tilt-card" data-val="86 💎 (Rp 22.000)"><div class="inner"><div class="card-title">86 💎</div><div class="card-price">Rp 22.000</div></div></div>
@@ -1106,9 +1107,9 @@
     <div class="card tilt-card" data-val="2195 💎 (Rp 536.000)"><div class="inner"><div class="card-title">2195 💎</div><div class="card-price">Rp 536.000</div></div></div>
     
     <!-- Membership & Pass -->
-    <div class="card tilt-card" data-val="1x Weekly Pass (Rp 28.250)">
+    <div class="card tilt-card" data-val="1x Weekly Pass (Rp 28.000)">
         <div class="badge-hot"><i class="fas fa-fire"></i> Paling Laris</div>
-        <div class="inner"><div class="card-title">1x Weekly Pass</div><div class="card-price">Rp 28.250</div></div>
+        <div class="inner"><div class="card-title">1x Weekly Pass</div><div class="card-price">Rp 28.000</div></div>
     </div>
         <div class="card tilt-card" data-val="2x Weekly Pass (Rp 55.500)"><div class="inner"><div class="card-title">2x Weekly Pass</div><div class="card-price">Rp 55.500</div></div></div>
     <div class="card tilt-card" data-val="3x Weekly Pass (Rp 83.000)"><div class="inner"><div class="card-title">3x Weekly Pass</div><div class="card-price">Rp 83.000</div></div></div>        
@@ -1251,13 +1252,81 @@
     <div class="card tilt-card" data-val="7290 💎 (Rp 890.000)"><div class="inner"><div class="card-title">7290 💎</div><div class="card-price">Rp 890.000</div></div></div>
     
     <!-- Membership & Pass -->
-    <div class="card tilt-card" data-val="Membership Mingguan (Rp 28.000)"><div class="inner"><div class="card-title">Membership Mingguan</div><div class="card-price">Rp 28.000</div></div></div>
-    <div class="card tilt-card" data-val="Membership Bulanan (Rp 82.00)"><div class="inner"><div class="card-title">Membership Bulanan</div><div class="card-price">Rp 82.000</div></div></div>
+    <div class="card tilt-card" data-val="Membership Mingguan (Rp 27.500)"><div class="inner"><div class="card-title">Membership Mingguan</div><div class="card-price">Rp 27.500</div></div></div>
+    <div class="card tilt-card" data-val="Membership Bulanan (Rp 79.800)"><div class="inner"><div class="card-title">Membership Bulanan</div><div class="card-price">Rp 79.800</div></div></div>
     <div class="card tilt-card" data-val="Booyah Pass (Rp 41.000)"><div class="inner"><div class="card-title">Booyah Pass</div><div class="card-price">Rp 41.000</div></div></div>
                     </div>
                 </div>
             </div>
         </div> <!-- Ini penutup kardus FF -->
+
+        <!-- ==================== PUBG CONTENT ==================== -->
+        <div id="content-pubg" class="tab-content">
+            <div class="taka-banner" id="game-banner-pubg" style="display: none;">
+                <div class="taka-banner-top">
+                    <img src="bg-pubg.png" alt="PUBG" class="taka-banner-logo">
+                    <div class="taka-banner-text"><h2>PUBG Mobile</h2><p>Tencent Games</p></div>
+                </div>
+                <div class="taka-banner-features"><span><i class="fas fa-bolt"></i> Proses Otomatis</span><span><i class="fas fa-headset"></i> CS 24 Jam</span></div>
+            </div>
+
+            <div class="taka-step-container">
+                <div class="taka-step-header"><div class="taka-step-num">1</div><div class="taka-step-title">Masukkan Data Akun</div></div>
+                <div class="taka-step-body">
+                    <div class="taka-input-row">
+                        <div class="taka-input-group"><label>Player ID</label><input type="number" id="pubg-id" placeholder="Masukkan ID PUBG"></div>
+                    </div>
+                    <button id="btn-cek-pubg" class="btn-outline" style="width: 100%; margin-top: 15px; padding: 10px; border-radius: 8px;" onclick="cekIdIlusi('pubg')">Cek ID Server</button>
+                    <div id="hasil-cek-pubg" style="margin-top: 10px; font-size: 0.85rem; font-weight: 600; text-align: center; display: none;"></div>
+                </div>
+            </div>
+
+            <div class="taka-step-container step-dimmed">
+                <div class="taka-step-header"><div class="taka-step-num">2</div><div class="taka-step-title">Pilih Nominal</div></div>
+                <div class="taka-step-body">    
+                    <div class="grid nominal-grid" data-game="pubg">
+                        <div class="card tilt-card" data-val="60 UC"><div class="inner"><div class="card-title">60 UC</div><div class="card-price">Rp 14.500</div></div></div>
+                        <div class="card tilt-card" data-val="325 UC"><div class="inner"><div class="card-title">325 UC</div><div class="card-price">Rp 72.000</div></div></div>
+                        <div class="card tilt-card" data-val="660 UC"><div class="inner"><div class="card-title">660 UC</div><div class="card-price">Rp 145.000</div></div></div>
+                        <div class="card tilt-card" data-val="1800 UC"><div class="inner"><div class="card-title">1800 UC</div><div class="card-price">Rp 365.000</div></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== VALORANT CONTENT ==================== -->
+        <div id="content-valo" class="tab-content">
+            <div class="taka-banner" id="game-banner-valo" style="display: none;">
+                <div class="taka-banner-top">
+                    <img src="bg-valo.png" alt="Valorant" class="taka-banner-logo">
+                    <div class="taka-banner-text"><h2>Valorant</h2><p>Riot Games</p></div>
+                </div>
+                <div class="taka-banner-features"><span><i class="fas fa-bolt"></i> Proses Otomatis</span><span><i class="fas fa-headset"></i> CS 24 Jam</span></div>
+            </div>
+
+            <div class="taka-step-container">
+                <div class="taka-step-header"><div class="taka-step-num">1</div><div class="taka-step-title">Masukkan Data Akun</div></div>
+                <div class="taka-step-body">
+                    <div class="taka-input-row">
+                        <div class="taka-input-group"><label>Riot ID (Contoh: Jett#1234)</label><input type="text" id="valo-id" placeholder="Masukkan Riot ID"></div>
+                    </div>
+                    <button id="btn-cek-valo" class="btn-outline" style="width: 100%; margin-top: 15px; padding: 10px; border-radius: 8px;" onclick="cekIdIlusi('valo')">Cek Riot ID</button>
+                    <div id="hasil-cek-valo" style="margin-top: 10px; font-size: 0.85rem; font-weight: 600; text-align: center; display: none;"></div>
+                </div>
+            </div>
+
+            <div class="taka-step-container step-dimmed">
+                <div class="taka-step-header"><div class="taka-step-num">2</div><div class="taka-step-title">Pilih Nominal</div></div>
+                <div class="taka-step-body">    
+                    <div class="grid nominal-grid" data-game="valo">
+                        <div class="card tilt-card" data-val="125 VP"><div class="inner"><div class="card-title">125 VP</div><div class="card-price">Rp 14.500</div></div></div>
+                        <div class="card tilt-card" data-val="420 VP"><div class="inner"><div class="card-title">420 VP</div><div class="card-price">Rp 48.000</div></div></div>
+                        <div class="card tilt-card" data-val="700 VP"><div class="inner"><div class="card-title">700 VP</div><div class="card-price">Rp 78.000</div></div></div>
+                        <div class="card tilt-card" data-val="1375 VP"><div class="inner"><div class="card-title">1375 VP</div><div class="card-price">Rp 149.000</div></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- ==================== GLOBAL STEPS 3 & 4 ==================== -->
         <div class="global-steps" id="global-steps" style="display: none;">
@@ -1729,6 +1798,16 @@
                 const id = document.getElementById('ff-id').value;
                 if (!id) return showToast('error', 'User ID Free Fire belum diisi!');
                 accountData = `${id}`;
+            } else if (currentGame === 'pubg') {
+                gameName = 'PUBG Mobile';
+                const id = document.getElementById('pubg-id').value;
+                if (!id) return showToast('error', 'Player ID PUBG belum diisi!');
+                accountData = `${id}`;
+            } else if (currentGame === 'valo') {
+                gameName = 'Valorant';
+                const id = document.getElementById('valo-id').value;
+                if (!id) return showToast('error', 'Riot ID Valorant belum diisi!');
+                accountData = `${id}`;
             }
 
             if (!selectedNominal) return showToast('error', 'Pilih nominal top up terlebih dahulu!');
@@ -1850,11 +1929,18 @@
 
         let katalogML = document.querySelector('.nominal-grid[data-game="mlbb"]');
         let katalogFF = document.querySelector('.nominal-grid[data-game="ff"]');
+        let katalogPUBG = document.querySelector('.nominal-grid[data-game="pubg"]');
+        let katalogValo = document.querySelector('.nominal-grid[data-game="valo"]');
+        
         let inputML = document.getElementById('mlbb-id');
         let inputFF = document.getElementById('ff-id');
+        let inputPUBG = document.getElementById('pubg-id');
+        let inputValo = document.getElementById('valo-id');
 
         if(katalogML) katalogML.classList.add('katalog-terkunci');
         if(katalogFF) katalogFF.classList.add('katalog-terkunci');
+        if(katalogPUBG) katalogPUBG.classList.add('katalog-terkunci');
+        if(katalogValo) katalogValo.classList.add('katalog-terkunci');
 
         window.bukaGembok = function() {
             if (inputML && inputML.value.length >= 5) {
@@ -1869,22 +1955,41 @@
                     katalogFF.classList.remove('katalog-terkunci');
                     katalogFF.closest('.taka-step-container').classList.remove('step-dimmed');
                 } else katalogFF.classList.add('katalog-terkunci');
-                
-                // AUTO CEK ID FF (Nge-cek sendiri pas udah ngetik 8 angka)
                 if (this.value.length >= 8) {
-                    clearTimeout(window.ffTimer);
-                    window.ffTimer = setTimeout(() => { cekIdIlusi('ff'); }, 800);
+                    clearTimeout(window.ffTimer); window.ffTimer = setTimeout(() => { cekIdIlusi('ff'); }, 800);
                 }
             });
         }
 
-        // AUTO CEK ID MLBB (Nge-cek sendiri pas kolom Server selesai diketik)
+        if (inputPUBG) {
+            inputPUBG.addEventListener('input', function() {
+                if (this.value.length >= 5) {
+                    katalogPUBG.classList.remove('katalog-terkunci');
+                    katalogPUBG.closest('.taka-step-container').classList.remove('step-dimmed');
+                } else katalogPUBG.classList.add('katalog-terkunci');
+                if (this.value.length >= 8) {
+                    clearTimeout(window.pubgTimer); window.pubgTimer = setTimeout(() => { cekIdIlusi('pubg'); }, 800);
+                }
+            });
+        }
+
+        if (inputValo) {
+            inputValo.addEventListener('input', function() {
+                if (this.value.length >= 5) {
+                    katalogValo.classList.remove('katalog-terkunci');
+                    katalogValo.closest('.taka-step-container').classList.remove('step-dimmed');
+                } else katalogValo.classList.add('katalog-terkunci');
+                if (this.value.includes('#')) {
+                    clearTimeout(window.valoTimer); window.valoTimer = setTimeout(() => { cekIdIlusi('valo'); }, 800);
+                }
+            });
+        }
+
         let inputMLServer = document.getElementById('mlbb-server');
         if(inputMLServer) {
             inputMLServer.addEventListener('input', function() {
                 if(this.value.length >= 4 && inputML && inputML.value.length >= 5) {
-                    clearTimeout(window.mlTimer);
-                    window.mlTimer = setTimeout(() => { cekIdIlusi('mlbb'); }, 800);
+                    clearTimeout(window.mlTimer); window.mlTimer = setTimeout(() => { cekIdIlusi('mlbb'); }, 800);
                 }
             });
         }
