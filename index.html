@@ -1621,6 +1621,12 @@
                 <h3 style="color: #fff; font-family: 'Syne', sans-serif; font-size: 1.2rem; margin: 0;">Konfirmasi Pesanan</h3>
             </div>
             <div style="padding: 20px;">
+                <!-- Tambahan Baris Nomor Resi -->
+                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 10px;">
+                    <span style="color: var(--text-dim); font-size: 0.9rem;">No. Pesanan</span>
+                    <strong style="color: var(--success); font-size: 0.9rem;" id="inv-resi">-</strong>
+                </div>
+
                 <div style="display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 10px;">
                     <span style="color: var(--text-dim); font-size: 0.9rem;">Game</span>
                     <strong style="color: #fff; font-size: 0.9rem;" id="inv-game">-</strong>
@@ -1731,6 +1737,10 @@
             const wa = document.getElementById('user-wa').value;
             if (!wa) return showToast('error', 'Nomor WhatsApp belum diisi!');
 
+            // Generate Resi Otomatis (Format: INV-Random)
+            let resi = "INV-" + Math.floor(Math.random() * 900000 + 100000);
+            document.getElementById('inv-resi').innerText = resi;
+
             // Masukin data ke Struk Modal
             document.getElementById('inv-game').innerText = gameName;
             document.getElementById('inv-id').innerText = accountData;
@@ -1753,11 +1763,13 @@
             btnWa.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Menyiapkan...`;
             btnWa.style.pointerEvents = 'none';
 
+            let resiBaru = document.getElementById('inv-resi').innerText;
             let gameName = document.getElementById('inv-game').innerText;
             let accountData = document.getElementById('inv-id').innerText;
             
             const targetWaNumber = '6285757568455';
-            const formatPesan = `🛒 *NULL STORE | ORDER BARU*\n\n` +
+            const formatPesan = `🛒 *NULL STORE | ORDER BARU*\n` +
+                                `🧾 *Resi: ${resiBaru}*\n\n` +
                                 `Game       : ${gameName}\n` +
                                 `ID/Server  : ${accountData}\n` +
                                 `Pesanan    : ${selectedNominal}\n` +
@@ -1857,6 +1869,23 @@
                     katalogFF.classList.remove('katalog-terkunci');
                     katalogFF.closest('.taka-step-container').classList.remove('step-dimmed');
                 } else katalogFF.classList.add('katalog-terkunci');
+                
+                // AUTO CEK ID FF (Nge-cek sendiri pas udah ngetik 8 angka)
+                if (this.value.length >= 8) {
+                    clearTimeout(window.ffTimer);
+                    window.ffTimer = setTimeout(() => { cekIdIlusi('ff'); }, 800);
+                }
+            });
+        }
+
+        // AUTO CEK ID MLBB (Nge-cek sendiri pas kolom Server selesai diketik)
+        let inputMLServer = document.getElementById('mlbb-server');
+        if(inputMLServer) {
+            inputMLServer.addEventListener('input', function() {
+                if(this.value.length >= 4 && inputML && inputML.value.length >= 5) {
+                    clearTimeout(window.mlTimer);
+                    window.mlTimer = setTimeout(() => { cekIdIlusi('mlbb'); }, 800);
+                }
             });
         }
 
