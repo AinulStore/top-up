@@ -862,6 +862,29 @@
         .sub-tab-btn.active { background: rgba(0, 225, 255, 0.1); color: var(--primary); border-bottom: 3px solid var(--primary); }
         .sub-tab-btn:hover:not(.active) { background: rgba(255,255,255,0.1); color: #fff; }
 
+        /* === FITUR PM: SMART BUTTON & FOKUS PROGRESS === */
+        .taka-step-container { transition: all 0.5s ease; }
+        .step-dimmed { opacity: 0.3 !important; filter: grayscale(100%) !important; pointer-events: none !important; }
+        .btn-checkout.disabled-btn {
+            background: #2A303C !important;
+            color: #64748B !important;
+            box-shadow: none !important;
+            animation: none !important;
+            transform: none !important;
+        }
+
+        /* === FITUR PM: KATEGORI PILLS & SKELETON LOADING === */
+        .category-pills { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 15px; scrollbar-width: none; }
+        .category-pills::-webkit-scrollbar { display: none; }
+        .pill-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--text-dim); padding: 8px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: 0.3s; }
+        .pill-btn.active { background: rgba(0, 225, 255, 0.1); color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px rgba(0,225,255,0.2); }
+        .pill-btn:hover:not(.active) { background: rgba(255,255,255,0.1); color: #fff; }
+
+        .skeleton { position: relative; overflow: hidden; background: rgba(255,255,255,0.05) !important; border-color: transparent !important; pointer-events: none; }
+        .skeleton::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); animation: skeleton-load 1s infinite; }
+        @keyframes skeleton-load { 100% { left: 150%; } }
+        .skeleton * { opacity: 0; } /* Sembunyiin isi pas loading */
+
     </style>
 </head>
 <body>
@@ -1036,12 +1059,20 @@
             </div>
 
             <!-- STEP 2: NOMINAL MLBB -->
-            <div class="taka-step-container">
+            <div class="taka-step-container step-dimmed">
                 <div class="taka-step-header">
                     <div class="taka-step-num">2</div>
                     <div class="taka-step-title">Pilih Nominal</div>
                 </div>
-                <div class="taka-step-body">                    
+                <div class="taka-step-body">    
+
+                    <!-- KATEGORI PILLS (MLBB) -->
+                    <div class="category-pills" id="pills-mlbb">
+                        <button class="pill-btn active" onclick="filterKategori('mlbb', 'semua', this)">Semua</button>
+                        <button class="pill-btn" onclick="filterKategori('mlbb', 'diamond', this)">💎 Diamond</button>
+                        <button class="pill-btn" onclick="filterKategori('mlbb', 'pass', this)">🎟️ Pass & Member</button>
+                    </div>
+
                     <div class="grid nominal-grid" data-game="mlbb">
     <div class="card tilt-card" data-val="5 💎 (Rp 2.000)"><div class="inner"><div class="card-title">5 💎</div><div class="card-price">Rp 2.000</div></div></div>
     <div class="card tilt-card" data-val="12 💎 (Rp 4.000)"><div class="inner"><div class="card-title">12 💎</div><div class="card-price">Rp 4.000</div></div></div>
@@ -1183,12 +1214,20 @@
             </div>
 
             <!-- STEP 2: NOMINAL FF -->
-            <div class="taka-step-container">
+            <div class="taka-step-container step-dimmed">
                 <div class="taka-step-header">
                     <div class="taka-step-num">2</div>
                     <div class="taka-step-title">Pilih Nominal</div>
                 </div>
                 <div class="taka-step-body">    
+
+                    <!-- KATEGORI PILLS (FF) -->
+                    <div class="category-pills" id="pills-ff">
+                        <button class="pill-btn active" onclick="filterKategori('ff', 'semua', this)">Semua</button>
+                        <button class="pill-btn" onclick="filterKategori('ff', 'diamond', this)">💎 Diamond</button>
+                        <button class="pill-btn" onclick="filterKategori('ff', 'pass', this)">🎟️ Pass & Member</button>
+                    </div>
+
                     <div class="grid nominal-grid" data-game="ff">
     <div class="card tilt-card" data-val="5 💎 (Rp 1.000)"><div class="inner"><div class="card-title">5 💎</div><div class="card-price">Rp 1.000</div></div></div>
     <div class="card tilt-card" data-val="12 💎 (Rp 2.000)"><div class="inner"><div class="card-title">12 💎</div><div class="card-price">Rp 2.000</div></div></div>
@@ -1289,7 +1328,7 @@
                 </div>
             </div>
             <div class="checkout-wrapper">
-                <button class="btn-checkout" onclick="prosesCheckout()">Beli Sekarang <i class="fas fa-arrow-right"></i></button>
+                <button class="btn-checkout disabled-btn" id="btn-master-beli" onclick="prosesCheckout()">Pilih Nominal Dulu</button>
             </div>
             
         </div> <!-- Ini penutup buat global-steps -->
@@ -1574,14 +1613,12 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT MAHA DEWA -->
     <script>
         // State Management
         let currentGame = 'mlbb';
         let selectedNominal = null;
         let selectedPayment = null;
 
-  
         // FITUR ANGKA JALAN (Baru Ditambahin Biar Gacor)
         const counters = document.querySelectorAll('.stat-num');
         function startCounter() {
@@ -1601,13 +1638,11 @@
                 updateCount();
             });
         }
-        setTimeout(startCounter, 500); // Muter otomatis setengah detik pas web dibuka
+        setTimeout(startCounter, 500);
 
-        // 5. Logic Sistem Notifikasi (Custom Alert)
         function showToast(type, message) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            
             const isError = type === 'error';
             const color = isError ? 'var(--error)' : 'var(--primary)';
             const icon = isError ? 'fa-exclamation-triangle' : 'fa-check-circle';
@@ -1622,17 +1657,20 @@
                     <span>${message}</span>
                 </div>
             `;
-            
             container.appendChild(toast);
             setTimeout(() => { toast.remove(); }, 4000);
         }
 
-        // 6. Logic Checkout Validation & WA Redirection
         function prosesCheckout() {
             let gameName = '';
             let accountData = '';
 
-            // Validasi Data Akun
+            // Kalau tombol masih posisi abu-abu tapi dipaksa klik
+            let tombolBeli = document.getElementById('btn-master-beli');
+            if(tombolBeli.classList.contains('disabled-btn')) {
+                return showToast('error', 'Selesaikan langkah-langkah di atas terlebih dahulu bosku!');
+            }
+
             if (currentGame === 'mlbb') {
                 gameName = 'Mobile Legends';
                 const id = document.getElementById('mlbb-id').value;
@@ -1647,29 +1685,19 @@
                 accountData = `${id}`;
             }
 
-            // Validasi Nominal
             if (!selectedNominal) return showToast('error', 'Pilih nominal top up terlebih dahulu!');
-
-            // Validasi Payment
             if (!selectedPayment) return showToast('error', 'Metode pembayaran belum dipilih!');
 
-            // Validasi Kontak
             const wa = document.getElementById('user-wa').value;
-            
             if (!wa) return showToast('error', 'Nomor WhatsApp belum diisi!');
 
-            // Jika lolos semua validasi
-            
-            // === EFEK LOADING TOMBOL CHECKOUT ===
-            const tombolBeli = document.querySelector('.btn-checkout');
-            const teksAsli = tombolBeli.innerHTML; // Simpan teks aslinya
+            const teksAsli = tombolBeli.innerHTML;
             tombolBeli.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Memproses...`;
-            tombolBeli.style.pointerEvents = 'none'; // Biar tombolnya gak bisa di-spam klik
+            tombolBeli.style.pointerEvents = 'none';
             tombolBeli.style.opacity = '0.8';
 
             showToast('success', `Mengarahkan ke WhatsApp Pembayaran...`);
             
-            // Generate WhatsApp Link dengan format template order
             const targetWaNumber = '6285757568455';
             const formatPesan = `🛒 *NULL STORE | ORDER BARU*\n\n` +
                                 `Game       : ${gameName}\n` +
@@ -1681,31 +1709,24 @@
             const encodedText = encodeURIComponent(formatPesan);
             const urlWhatsApp = `https://wa.me/${targetWaNumber}?text=${encodedText}`;
             
-            // Redirect ke WhatsApp dengan jeda efek loading
             setTimeout(() => {
                 window.open(urlWhatsApp, '_blank');
-                
-                // Kembalikan tombol seperti semula setelah 1 detik (Buat jaga-jaga kalau pembeli buka tab lama)
                 setTimeout(() => {
                     tombolBeli.innerHTML = teksAsli;
                     tombolBeli.style.pointerEvents = 'auto';
                     tombolBeli.style.opacity = '1';
                 }, 1000);
-                
-            }, 1500); // Waktu loading muternya 1.5 detik
+            }, 1500);
         }
-        // 7. Logic Fake Live Purchase Toast (Notifikasi Pembelian) - MUNCUL 10 SAMPAI 15 DETIK
+
         const toastContainerLive = document.getElementById('toast-container');
-const items = [
-    '19 Diamond MLBB', '28 Diamond MLBB', '36 Diamond MLBB', '44 Diamond MLBB', 
-    '59 Diamond MLBB', '86 Diamond MLBB', '112 Diamond MLBB', '172 Diamond MLBB', 
-    '257 Diamond MLBB', '296 Diamond MLBB', '344 Diamond MLBB',
-    '1x Weekly Pass MLBB', '2x Weekly Pass MLBB', '3x Weekly Pass MLBB', 'Starlight Member MLBB',
-    '50 Diamond Free Fire', '70 Diamond Free Fire', '100 Diamond Free Fire', 
-    '140 Diamond Free Fire', '210 Diamond Free Fire', '355 Diamond Free Fire', 
-    '500 Diamond Free Fire', '720 Diamond Free Fire',
-    'Member Mingguan FF', 'Member Bulanan FF', 'Booyah Pass FF'
-];
+        const items = [
+            '19 Diamond MLBB', '28 Diamond MLBB', '36 Diamond MLBB', '44 Diamond MLBB', 
+            '59 Diamond MLBB', '86 Diamond MLBB', '112 Diamond MLBB', '172 Diamond MLBB', 
+            '1x Weekly Pass MLBB', '3x Weekly Pass MLBB', 'Starlight Member MLBB',
+            '50 Diamond Free Fire', '140 Diamond Free Fire', '355 Diamond Free Fire', 
+            'Booyah Pass FF'
+        ];
         
         function spawnLiveToast() {
             const phoneStr = '08' + Math.floor(Math.random() * 90 + 10) + '****' + Math.floor(Math.random() * 900 + 100);
@@ -1721,178 +1742,146 @@ const items = [
                     <span>${itemStr} • Beberapa detik lalu</span>
                 </div>
             `;
-            
             toastContainerLive.appendChild(toast);
-            
-            // Hapus pop-up dari layar setelah 5 detik
             setTimeout(() => { toast.remove(); }, 5000);
-            
-            // Atur pop-up selanjutnya muncul random antara 45 sampai 90 detik (Lebih natural)
             let randomJeda = Math.floor(Math.random() * 45000) + 45000; 
             setTimeout(spawnLiveToast, randomJeda);
         }
-        
-        // Pancingan pertama: Pop-up muncul 30 detik setelah web baru dibuka biar pembeli liat-liat dulu
         setTimeout(spawnLiveToast, 30000);
         
-        // Fungsi Buka Tutup Menu Garis 3 di HP
-        function toggleMenu() {
-            document.getElementById("mobileMenu").classList.toggle("active");
-        }
+        function toggleMenu() { document.getElementById("mobileMenu").classList.toggle("active"); }
         
-                // 8. Logic Live Jam Server
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
             const clockEl = document.getElementById('live-clock');
-            if(clockEl) {
-                clockEl.innerText = `${hours}:${minutes}:${seconds}`;
-            }
+            if(clockEl) clockEl.innerText = `${hours}:${minutes}:${seconds}`;
         }
-        setInterval(updateClock, 1000); // Update setiap 1 detik
-        updateClock(); // Jalankan langsung pas web dibuka
+        setInterval(updateClock, 1000);
+        updateClock();
         
-                // 9. Logic Kalkulator Event MLBB
         function hitungEvent() {
             const type = document.getElementById('calc-type').value;
             const pointsStr = document.getElementById('calc-points').value;
             const resultBox = document.getElementById('calc-result');
             const descEl = document.getElementById('calc-desc');
             
-            if (!pointsStr || pointsStr < 0) {
-                showToast('error', 'Masukkan jumlah poin yang benar!');
-                return;
-            }
+            if (!pointsStr || pointsStr < 0) return showToast('error', 'Masukkan jumlah poin yang benar!');
             
             let points = parseInt(pointsStr);
-            let sisaPoin = 0;
-            let estDiamond = 0;
-            let textOutput = '';
+            let sisaPoin = 0, estDiamond = 0, textOutput = '';
 
             if (type === 'magic') {
                 if (points >= 200) { textOutput = 'Poin sudah maksimal! Kamu sudah bisa tukar skin Legend.'; }
                 else {
                     sisaPoin = 200 - points;
-                    let spin5x = Math.floor(sisaPoin / 5);
-                    let spin1x = sisaPoin % 5;
-                    estDiamond = (spin5x * 270) + (spin1x * 60);
-                    textOutput = `Kamu butuh <b>${sisaPoin}</b> poin lagi.<br>Estimasi diamond yang dibutuhkan: <b>~${estDiamond} 💎</b><br><span style="font-size:0.85rem;color:var(--text-dim);">(Asumsi putaran 5x = 270 DM)</span>`;
+                    estDiamond = (Math.floor(sisaPoin / 5) * 270) + ((sisaPoin % 5) * 60);
+                    textOutput = `Kamu butuh <b>${sisaPoin}</b> poin lagi.<br>Estimasi diamond: <b>~${estDiamond} 💎</b>`;
                 }
             } else if (type === 'zodiac') {
                 if (points >= 100) { textOutput = 'Poin sudah maksimal! Skin Zodiac sudah di tangan.'; }
                 else {
-                    sisaPoin = 100 - points;
-                    estDiamond = sisaPoin * 20; // Estimasi kasar 20 DM per poin
-                    textOutput = `Kamu butuh <b>${sisaPoin}</b> poin lagi.<br>Estimasi diamond yang dibutuhkan: <b>~${estDiamond} 💎</b><br><span style="font-size:0.85rem;color:var(--text-dim);">(Bisa lebih murah tergantung hoki/diskon)</span>`;
+                    sisaPoin = 100 - points; estDiamond = sisaPoin * 20;
+                    textOutput = `Kamu butuh <b>${sisaPoin}</b> poin lagi.<br>Estimasi diamond: <b>~${estDiamond} 💎</b>`;
                 }
             }
-            
             descEl.innerHTML = textOutput;
             resultBox.style.display = 'block';
         }
 
-        // 10. Logic Dark/Light Mode Toggle
         function toggleTheme() {
             const body = document.body;
             const themeBtn = document.getElementById('theme-btn');
-            
             body.classList.toggle('light-mode');
-            
             if (body.classList.contains('light-mode')) {
-                themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
-                themeBtn.style.color = '#000'; // Biar ikon bulannya hitam pas terang
+                themeBtn.innerHTML = '<i class="fas fa-moon"></i>'; themeBtn.style.color = '#000';
             } else {
-                themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
-                themeBtn.style.color = '#fff'; // Biar ikon mataharinya putih pas gelap
+                themeBtn.innerHTML = '<i class="fas fa-sun"></i>'; themeBtn.style.color = '#fff';
             }
         }
         
-        // === FITUR GEMBOK KATALOG OTOMATIS (OPSI 3) ===
-        // 1. Cari area katalog diamondnya
+        // ==========================================
+        // FITUR PM: AUTO FOCUS STEP PROGRESS
+        // ==========================================
+        function resetFocusStep() {
+            // Matiin Step 2, 3, dan 4 tiap ganti menu
+            document.querySelectorAll('.taka-step-container').forEach(step => {
+                let titleNum = step.querySelector('.taka-step-num').innerText;
+                if(titleNum !== "1") {
+                    step.classList.add('step-dimmed');
+                } else {
+                    step.classList.remove('step-dimmed');
+                }
+            });
+        }
+
         let katalogML = document.querySelector('.nominal-grid[data-game="mlbb"]');
         let katalogFF = document.querySelector('.nominal-grid[data-game="ff"]');
-        
-        // 2. Pasang gembok dari awal web dibuka
-        if(katalogML) katalogML.classList.add('katalog-terkunci');
-        if(katalogFF) katalogFF.classList.add('katalog-terkunci');
-
-        // 3. Cari kotak inputnya
         let inputML = document.getElementById('mlbb-id');
         let inputFF = document.getElementById('ff-id');
 
-        // 4. Fungsi Buka Gembok (Bisa dipakai buat MLBB maupun FF)
-        // Kita timpa fungsi bukaGembok() yang ada di HTML kamu biar lebih canggih
+        if(katalogML) katalogML.classList.add('katalog-terkunci');
+        if(katalogFF) katalogFF.classList.add('katalog-terkunci');
+
         window.bukaGembok = function() {
-            // Cek MLBB
             if (inputML && inputML.value.length >= 5) {
                 katalogML.classList.remove('katalog-terkunci');
+                // Auto Focus nyalain Step 2
+                katalogML.closest('.taka-step-container').classList.remove('step-dimmed');
             } else if (inputML) {
                 katalogML.classList.add('katalog-terkunci');
             }
         };
 
-        // Otomatis jalan juga kalau FF diketik
         if (inputFF) {
             inputFF.addEventListener('input', function() {
                 if (this.value.length >= 5) {
                     katalogFF.classList.remove('katalog-terkunci');
+                    // Auto Focus nyalain Step 2
+                    katalogFF.closest('.taka-step-container').classList.remove('step-dimmed');
                 } else {
                     katalogFF.classList.add('katalog-terkunci');
                 }
             });
         }
 
-        // === FITUR LIVE SEARCH (OPSI 1) ===
         window.cariItemLive = function() {
             let ketikan = document.getElementById('inputCariItem').value.toLowerCase();
             let gridAktif = document.querySelector('.tab-content.active .nominal-grid');
             if(!gridAktif) return; 
-            let semuaKartu = gridAktif.querySelectorAll('.card');
-            semuaKartu.forEach(kartu => {
+            gridAktif.querySelectorAll('.card').forEach(kartu => {
                 let namaItem = kartu.getAttribute('data-val').toLowerCase();
-                if (namaItem.includes(ketikan)) {
-                    kartu.style.display = ''; 
-                } else {
-                    kartu.style.display = 'none'; 
-                }
+                if (namaItem.includes(ketikan)) { kartu.style.display = ''; } else { kartu.style.display = 'none'; }
             });
         };
 
-        // === MASTER FUNGSI SWITCH TAB (GABUNGAN SEMUA FITUR) ===
         function switchTab(tabId, element) {
             currentGame = tabId;
-            
-            // 1. Atur efek nyala di tombol tab
             document.querySelectorAll('.game-card').forEach(b => b.classList.remove('active'));
             if(element) element.classList.add('active');
             
-            // 2. Sembunyikan semua katalog game & banner
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.taka-banner').forEach(b => b.style.display = 'none');
             
-            // 3. Reset pilihan diamond & metode pembayaran
-            selectedNominal = null;
-            selectedPayment = null;
+            selectedNominal = null; selectedPayment = null;
             document.querySelectorAll('.nominal-grid .card, .taka-pay-item').forEach(c => c.classList.remove('selected'));
             
-            // Reset tulisan tombol Beli Sekarang
-            let tombolBeli = document.querySelector('.btn-checkout');
+            // SMART BUTTON MATI PAS GANTI GAME
+            let tombolBeli = document.getElementById('btn-master-beli');
             if(tombolBeli) {
-                tombolBeli.innerHTML = `Beli Sekarang <i class="fas fa-arrow-right"></i>`;
+                tombolBeli.classList.add('disabled-btn');
+                tombolBeli.innerHTML = `Pilih Nominal Dulu`;
             }
             
-            // 4. Tangkap elemen-elemen penting
             let globalSteps = document.getElementById('global-steps');
             let searchBox = document.getElementById('liveSearchBox');
             let bgGame = document.getElementById('game-bg');
-            let calcSection = document.getElementById('calc-section');
             
             if(tabId === 'beranda') {
                 if(globalSteps) globalSteps.style.display = 'none';
                 if(searchBox) searchBox.style.display = 'none';
-                if(calcSection) calcSection.style.display = 'none';
                 if(bgGame) bgGame.style.backgroundImage = 'none'; 
             } else {
                 let contentGame = document.getElementById('content-' + tabId);
@@ -1910,141 +1899,118 @@ const items = [
                 
                 if(bgGame) bgGame.style.backgroundImage = `url('bg-${tabId}.png')`;
 
+                // Reset Fokus Layar
+                resetFocusStep();
+
                 if(tabId === 'mlbb') {
-                    if (typeof switchMLBBView === 'function') {
-                        switchMLBBView('topup');
-                    }
+                    if (typeof switchMLBBView === 'function') switchMLBBView('topup');
+                }
+
+                // === EFEK SKELETON LOADING (PM LEVEL) ===
+                let gridCards = document.querySelectorAll('.nominal-grid[data-game="'+tabId+'"] .card');
+                gridCards.forEach(card => {
+                    card.classList.add('skeleton'); // Nyalain efek abu-abu
+                    setTimeout(() => {
+                        card.classList.remove('skeleton'); // Matiin setelah 1 detik
+                    }, 800 + Math.random() * 500); // Waktu acak biar natural
+                });
+                
+                // Reset Tombol Kategori
+                if(document.getElementById('pills-' + tabId)) {
+                    let pills = document.getElementById('pills-' + tabId).querySelectorAll('.pill-btn');
+                    pills.forEach(p => p.classList.remove('active'));
+                    pills[0].classList.add('active'); 
                 }
             }
         }
 
-        // Pas web pertama kali dibuka
-        document.addEventListener('DOMContentLoaded', () => {
-            // Posisikan di mode "Beranda" (Tidak ada game yang terpilih dari awal)
-            switchTab('beranda');
-        });
+        document.addEventListener('DOMContentLoaded', () => { switchTab('beranda'); });
 
-         // ==========================================
-        // FITUR FAQ BUKA TUTUP
-        // ==========================================
         const faqQuestions = document.querySelectorAll('.faq-question');
         faqQuestions.forEach(question => {
             question.addEventListener('click', () => {
                 const parent = question.parentElement;
-                
-                // Tutup FAQ lain yang lagi kebuka
-                document.querySelectorAll('.faq-item').forEach(item => {
-                    if(item !== parent) item.classList.remove('active');
-                });
-                
-                // Buka/Tutup FAQ yang diklik
+                document.querySelectorAll('.faq-item').forEach(item => { if(item !== parent) item.classList.remove('active'); });
                 parent.classList.toggle('active');
             });
         });
         
-        // ==========================================
-        // MESIN EFEK SUARA (AUDIO WEB API)
-        // ==========================================
         function playClickSound() {
             try {
                 let ctx = new (window.AudioContext || window.webkitAudioContext)();
                 let osc = ctx.createOscillator();
                 let gainNode = ctx.createGain();
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(800, ctx.currentTime); // Nada dasar
-                osc.frequency.exponentialRampToValueAtTime(1500, ctx.currentTime + 0.1); // Nada naik cepat (Ting!)
-                gainNode.gain.setValueAtTime(0.15, ctx.currentTime); // Volume (0.15 biar halus, gak bikin budeg)
-                gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1); // Suara menghilang
-                osc.connect(gainNode);
-                gainNode.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + 0.1);
-            } catch(e) { console.log("Browser gak support audio"); }
+                osc.frequency.setValueAtTime(800, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1500, ctx.currentTime + 0.1);
+                gainNode.gain.setValueAtTime(0.15, ctx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+                osc.connect(gainNode); gainNode.connect(ctx.destination);
+                osc.start(); osc.stop(ctx.currentTime + 0.1);
+            } catch(e) {}
         }
 
-        // ==========================================
-        // FITUR KLIK KARTU DIAMOND & PEMBAYARAN
-        // ==========================================
         document.querySelectorAll('.nominal-grid .card').forEach(card => {
             card.addEventListener('click', function() {
-                playClickSound(); // Keluarin suara Ting!
-                
-                // Cari area grid dari kartu yg dipencet (biar gak bentrok MLBB vs FF)
+                playClickSound(); 
                 const parentGrid = this.closest('.nominal-grid');
-                // Hapus warna dari semua kartu di grid itu
                 parentGrid.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
-                // Kasih warna nyala ke kartu yg dipencet
                 this.classList.add('selected');
-                // Simpan data orderan
                 selectedNominal = this.getAttribute('data-val');
                 
-                // === FITUR OPSI 1: UBAH TEKS TOMBOL ===
+                // TOMBOL SMART BUTTON NYALA
                 let harga = this.querySelector('.card-price').innerText;
-                let tombolBeli = document.querySelector('.btn-checkout');
+                let tombolBeli = document.getElementById('btn-master-beli');
                 if(tombolBeli) {
+                    tombolBeli.classList.remove('disabled-btn');
                     tombolBeli.innerHTML = `<span style="display: block; line-height: 1.2;">Beli Sekarang <i class="fas fa-arrow-right"></i></span><span style="display: block; font-size: 0.85rem; font-family: 'Inter', sans-serif; font-weight: 500; margin-top: 4px; opacity: 0.9;">Total: ${harga}</span>`;
                 }
                 
-                // === AUTO-SCROLL KE MENU PEMBAYARAN ===
+                // AUTO FOKUS STEP 3 NYALA
+                let step3 = document.querySelector('.taka-pay-item').closest('.taka-step-container');
+                if(step3) step3.classList.remove('step-dimmed');
+
                 setTimeout(() => {
                     let sectionPembayaran = document.getElementById('global-steps');
                     if(sectionPembayaran) {
                         let y = sectionPembayaran.getBoundingClientRect().top + window.scrollY - 80;
                         window.scrollTo({top: y, behavior: 'smooth'});
                     }
-                }, 300); // Jeda 0.3 detik biar suaranya kedengaran dulu
+                }, 300);
             });
         });
 
-        // ==========================================
-        // FITUR KLIK PAYMENT TAKAPEDIA
-        // ==========================================
         document.querySelectorAll('.taka-pay-item').forEach(card => {
             card.addEventListener('click', function() {
-                playClickSound(); // Keluarin suara Ting!
-
-                // Hapus warna dari semua payment
+                playClickSound();
                 document.querySelectorAll('.taka-pay-item').forEach(c => c.classList.remove('selected'));
-                // Kasih warna nyala ke payment yg dipencet
                 this.classList.add('selected');
-                // Simpan data orderan
                 selectedPayment = this.getAttribute('data-method');
                 
-                // === AUTO-SCROLL KE MENU DETAIL KONTAK ===
+                // AUTO FOKUS STEP 4 NYALA
+                let step4 = document.getElementById('user-wa').closest('.taka-step-container');
+                if(step4) step4.classList.remove('step-dimmed');
+
                 setTimeout(() => {
                     let inputWa = document.getElementById('user-wa');
                     if(inputWa) {
                         let y = inputWa.getBoundingClientRect().top + window.scrollY - 200;
                         window.scrollTo({top: y, behavior: 'smooth'});
-                        inputWa.focus(); // Kursor otomatis ngetik di kolom WA
+                        inputWa.focus();
                     }
                 }, 300);
             });
         });
         
-                // ==========================================
-        // FITUR TAMBAH ULASAN PELANGGAN
-        // ==========================================
-        function bukaModalUlasan() { 
-            document.getElementById('modal-ulasan').style.display = 'flex'; 
-        }
-        
-        function tutupModalUlasan() { 
-            document.getElementById('modal-ulasan').style.display = 'none'; 
-        }
+        function bukaModalUlasan() { document.getElementById('modal-ulasan').style.display = 'flex'; }
+        function tutupModalUlasan() { document.getElementById('modal-ulasan').style.display = 'none'; }
 
         function kirimUlasan() {
             let nama = document.getElementById('ulasan-nama').value;
             let teks = document.getElementById('ulasan-teks').value;
+            if(!nama || !teks) return showToast('error', 'Nama dan ulasan wajib diisi bosku!');
 
-            if(!nama || !teks) {
-                showToast('error', 'Nama dan ulasan wajib diisi bosku!');
-                return;
-            }
-
-            // Bikin struktur teks ulasan baru ala Takapedia
             let sensorNama = nama.substring(0, 3) + "**********";
-            
             let htmlBaru = `
                 <div class="taka-review-item">
                     <div class="taka-review-user">
@@ -2053,23 +2019,14 @@ const items = [
                     </div>
                     <div class="taka-review-product">Pembeli Terverifikasi • Baru saja</div>
                     <div class="taka-review-text">“${teks}”</div>
-                </div>
-            `;
+                </div>`;
 
-            // Masukkan ke dalam daftar ulasan Takapedia
             let wadahUlasan = document.querySelector('.taka-review-list');
-            if(wadahUlasan) {
-                wadahUlasan.insertAdjacentHTML('afterbegin', htmlBaru);
-            }
+            if(wadahUlasan) wadahUlasan.insertAdjacentHTML('afterbegin', htmlBaru);
             
-            // === SIMPAN ULASAN KE MEMORI HP (LOCAL STORAGE) ===
             let ulasanTersimpan = JSON.parse(localStorage.getItem('ulasan_nullstore')) || [];
-            ulasanTersimpan.unshift({
-                nama: sensorNama,
-                teks: teks
-            });
+            ulasanTersimpan.unshift({ nama: sensorNama, teks: teks });
             localStorage.setItem('ulasan_nullstore', JSON.stringify(ulasanTersimpan));
-            // =================================================
 
             tutupModalUlasan();
             document.getElementById('ulasan-nama').value = '';
@@ -2077,48 +2034,28 @@ const items = [
             showToast('success', 'Ulasan kamu berhasil ditambahkan! Makasih ya!');
         }
         
-                // ==========================================
-        // FITUR TANGGAL ULASAN OTOMATIS
-        // ==========================================
         function updateTanggalUlasan() {
             let elemenTanggal = document.querySelectorAll('.tgl-otomatis');
             let sekarang = new Date();
-            
             elemenTanggal.forEach(el => {
-                let mundur = parseInt(el.getAttribute('data-mundur')); // Ambil data mundur (0, 1, atau 2 hari)
-                
-                // Bikin tanggal baru berdasarkan hari ini dikurangi 'mundur' hari
+                let mundur = parseInt(el.getAttribute('data-mundur')); 
                 let tglBaru = new Date(sekarang);
                 tglBaru.setDate(tglBaru.getDate() - mundur);
-                
-                // Format tanggal jadi DD-MM-YYYY
                 let dd = String(tglBaru.getDate()).padStart(2, '0');
-                let mm = String(tglBaru.getMonth() + 1).padStart(2, '0'); // Bulan dimulai dari 0
+                let mm = String(tglBaru.getMonth() + 1).padStart(2, '0'); 
                 let yyyy = tglBaru.getFullYear();
-                
-                // Format jam (biar kelihatan makin real)
                 let hh = String(Math.floor(Math.random() * 24)).padStart(2, '0');
                 let mnt = String(Math.floor(Math.random() * 60)).padStart(2, '0');
                 let dtk = String(Math.floor(Math.random() * 60)).padStart(2, '0');
-
-                // Gabungin dan masukin ke HTML
                 el.innerText = `${dd}-${mm}-${yyyy} ${hh}:${mnt}:${dtk}`;
             });
         }
-        
-        // Panggil fungsinya biar jalan pas web dibuka
         document.addEventListener('DOMContentLoaded', updateTanggalUlasan);
 
-        // ==========================================
-        // FITUR MUNCULIN ULASAN YANG TERSIMPAN PAS WEB DIBUKA
-        // ==========================================
         function muatUlasanTersimpan() {
             let ulasanTersimpan = JSON.parse(localStorage.getItem('ulasan_nullstore'));
             if(ulasanTersimpan && ulasanTersimpan.length > 0) {
                 let wadahUlasan = document.querySelector('.taka-review-list');
-                
-                // Looping buat nampilin semua ulasan yang disimpen orang itu
-                // Kita pake method reverse() biar urutannya bener (yang paling baru di atas)
                 ulasanTersimpan.reverse().forEach(ulasan => {
                     let htmlSimpanan = `
                         <div class="taka-review-item">
@@ -2128,96 +2065,66 @@ const items = [
                             </div>
                             <div class="taka-review-product">Pembeli Terverifikasi • Baru saja</div>
                             <div class="taka-review-text">“${ulasan.teks}”</div>
-                        </div>
-                    `;
-                    if(wadahUlasan) {
-                        wadahUlasan.insertAdjacentHTML('afterbegin', htmlSimpanan);
-                    }
+                        </div>`;
+                    if(wadahUlasan) wadahUlasan.insertAdjacentHTML('afterbegin', htmlSimpanan);
                 });
             }
         }
-        
-        // Panggil juga fungsi muat ulasannya pas web dibuka
         document.addEventListener('DOMContentLoaded', muatUlasanTersimpan);
 
-        // ==========================================
-        // FITUR CEK ID ILUSI (FAKE API)
-        // ==========================================
         function cekIdIlusi(game) {
             let btn = document.getElementById('btn-cek-' + game);
             let hasilBox = document.getElementById('hasil-cek-' + game);
             let idInput = document.getElementById(game + '-id').value;
-            
             let isValid = false;
             
-            // Cek apakah ID udah diisi minimal 5 angka (standar ID game)
             if(idInput.length >= 5) {
-                // Kalau MLBB, cek juga servernya harus diisi
                 if(game === 'mlbb') {
                     let serverInput = document.getElementById('mlbb-server').value;
-                    if(serverInput.length >= 3) {
-                        isValid = true;
-                    }
+                    if(serverInput.length >= 3) isValid = true;
                 } else {
-                    // Kalau FF kan cuma butuh ID aja
                     isValid = true; 
                 }
             }
             
-            // 1. Ubah tombol jadi efek loading muter-muter
             let teksAsli = btn.innerHTML;
             btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Memeriksa Server...`;
-            btn.style.pointerEvents = 'none'; // Biar tombol ga bisa dispam klik
-            hasilBox.style.display = 'none'; // Sembunyiin hasil yang lama (kalau ada)
+            btn.style.pointerEvents = 'none'; 
+            hasilBox.style.display = 'none'; 
             
-            // 2. Pura-pura mikir 1.5 detik biar kerasa kayak nge-load server beneran
             setTimeout(() => {
-                // Kembalikan tombol seperti semula
                 btn.innerHTML = teksAsli;
                 btn.style.pointerEvents = 'auto';
                 hasilBox.style.display = 'block';
-                
-                // 3. Tampilkan Hasilnya
                 if(isValid) {
-                    // Kalau ID Valid
                     hasilBox.innerHTML = `<span style="color: var(--success);"><i class="fas fa-check-circle"></i> Format ID Valid! Server terhubung.</span>`;
+                    // AUTO FOKUS NYALAIN STEP 2 JUGA
+                    if(game === 'mlbb') document.querySelector('.nominal-grid[data-game="mlbb"]').closest('.taka-step-container').classList.remove('step-dimmed');
+                    if(game === 'ff') document.querySelector('.nominal-grid[data-game="ff"]').closest('.taka-step-container').classList.remove('step-dimmed');
                 } else {
-                    // Kalau masih kosong / kurang
                     hasilBox.innerHTML = `<span style="color: var(--error);"><i class="fas fa-exclamation-triangle"></i> ID atau Server tidak lengkap / salah!</span>`;
                 }
-            }, 2000); // 2000 ms = 2 detik
+            }, 2000); 
         }
 
-        // ==========================================
-        // FITUR INSTALL APLIKASI (PWA)
-        // ==========================================
         let deferredPrompt;
         const pwaBanner = document.getElementById('pwa-banner');
         const installBtn = document.getElementById('btn-install-pwa');
-
-        // Mencegah prompt bawaan HP dan simpan datanya buat tombol kita
         window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            // Tampilkan banner estetik kita
-            pwaBanner.style.display = 'flex';
+            e.preventDefault(); deferredPrompt = e; pwaBanner.style.display = 'flex';
         });
 
-        // Pas tombol INSTALL diklik
         if(installBtn) {
             installBtn.addEventListener('click', async () => {
                 if (deferredPrompt) {
-                    deferredPrompt.prompt(); // Munculin pop-up install bawaan HP
+                    deferredPrompt.prompt();
                     const { outcome } = await deferredPrompt.userChoice;
-                    if (outcome === 'accepted') {
-                        pwaBanner.style.display = 'none'; // Sembunyiin banner kalau udah di-install
-                    }
+                    if (outcome === 'accepted') pwaBanner.style.display = 'none';
                     deferredPrompt = null;
                 }
             });
         }
 
-        // Daftarin Mesin SW-nya
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js')
@@ -2226,33 +2133,19 @@ const items = [
             });
         }
 
-        // ==========================================
-        // FITUR SAPAAN CERDAS BERDASARKAN WAKTU
-        // ==========================================
         function updateSapaanCerdas() {
             const jam = new Date().getHours();
             let sapaan = "";
-            
-            if (jam >= 4 && jam <= 10) {
-                sapaan = "🌅 Pagi bosku! Top up dulu yuk biar mabar jadi makin percaya diri.";
-            } else if (jam > 10 && jam <= 14) {
-                sapaan = "☀️ Siang bosku! Istirahat dulu sambil push rank.";
-            } else if (jam > 14 && jam <= 18) {
-                sapaan = "🌇 Sore bosku! Waktunya bantai-bantai di Land of Dawn.";
-            } else {
-                sapaan = "🌙 Malam bosku! Begadang push rank? Gas top up dulu!";
-            }
+            if (jam >= 4 && jam <= 10) sapaan = "🌅 Pagi bosku! Top up dulu yuk biar mabar jadi makin percaya diri.";
+            else if (jam > 10 && jam <= 14) sapaan = "☀️ Siang bosku! Istirahat dulu sambil push rank.";
+            else if (jam > 14 && jam <= 18) sapaan = "🌇 Sore bosku! Waktunya bantai-bantai di Land of Dawn.";
+            else sapaan = "🌙 Malam bosku! Begadang push rank? Gas top up dulu!";
             
             const elemenSapaan = document.getElementById('sapaan-cerdas');
-            if(elemenSapaan) {
-                elemenSapaan.innerText = sapaan;
-            }
+            if(elemenSapaan) elemenSapaan.innerText = sapaan;
         }
         document.addEventListener('DOMContentLoaded', updateSapaanCerdas);
 
-        // ==========================================
-        // FITUR KALKULATOR WINRATE (WR) MLBB
-        // ==========================================
         function hitungWR() {
             let totalMatch = parseFloat(document.getElementById('wr-total-match').value);
             let wrSekarang = parseFloat(document.getElementById('wr-current').value);
@@ -2260,35 +2153,22 @@ const items = [
             let resultBox = document.getElementById('wr-result');
             let descEl = document.getElementById('wr-desc');
 
-            // Validasi Input
-            if (!totalMatch || !wrSekarang || !wrTarget) {
-                return showToast('error', 'Isi semua kolom dengan benar bosku!');
-            }
-            if (wrSekarang < 0 || wrSekarang > 100 || wrTarget < 0 || wrTarget > 100) {
-                return showToast('error', 'Winrate harus di antara 0 sampai 100%!');
-            }
-            if (wrTarget === 100) {
-                return showToast('error', 'Winrate 100% tidak mungkin dicapai jika kamu sudah pernah kalah!');
-            }
+            if (!totalMatch || !wrSekarang || !wrTarget) return showToast('error', 'Isi semua kolom dengan benar bosku!');
+            if (wrSekarang < 0 || wrSekarang > 100 || wrTarget < 0 || wrTarget > 100) return showToast('error', 'Winrate harus di antara 0 sampai 100%!');
+            if (wrTarget === 100) return showToast('error', 'Winrate 100% tidak mungkin dicapai jika kamu sudah pernah kalah!');
             if (wrTarget <= wrSekarang) {
                 descEl.innerHTML = `<span style="color: var(--error);">Target WinRate harus lebih besar dari WinRate saat ini bosku!</span>`;
-                resultBox.style.display = 'block';
-                return;
+                resultBox.style.display = 'block'; return;
             }
 
-            // Rumus rahasia hitung WR
             let totalWinSaatIni = (totalMatch * wrSekarang) / 100;
             let butuhWin = (totalMatch * wrTarget - 100 * totalWinSaatIni) / (100 - wrTarget);
             let hasilAkhir = Math.ceil(butuhWin);
 
-            // Tampilkan Hasil
             descEl.innerHTML = `Kamu butuh <b>${hasilAkhir}</b> kemenangan berturut-turut (tanpa kalah) untuk mencapai WinRate <b>${wrTarget}%</b>. Semangat bosku! 🔥`;
             resultBox.style.display = 'block';
         }
 
-        // ==========================================
-        // FITUR SUB-TAB MLBB (TOP UP VS FITUR MENARIK)
-        // ==========================================
         window.switchMLBBView = function(view) {
             let btnTopup = document.getElementById('btn-tab-topup');
             let btnFitur = document.getElementById('btn-tab-fitur');
@@ -2298,22 +2178,55 @@ const items = [
             let searchBox = document.getElementById('liveSearchBox');
 
             if(view === 'topup') {
-                btnTopup.classList.add('active');
-                btnFitur.classList.remove('active');
-                viewTopup.style.display = 'block';
-                viewFitur.style.display = 'none';
+                btnTopup.classList.add('active'); btnFitur.classList.remove('active');
+                viewTopup.style.display = 'block'; viewFitur.style.display = 'none';
                 if(globalSteps) globalSteps.style.display = 'block';
                 if(searchBox) searchBox.style.display = 'block';
             } else {
-                btnTopup.classList.remove('active');
-                btnFitur.classList.add('active');
-                viewTopup.style.display = 'none';
-                viewFitur.style.display = 'block';
+                btnTopup.classList.remove('active'); btnFitur.classList.add('active');
+                viewTopup.style.display = 'none'; viewFitur.style.display = 'block';
                 if(globalSteps) globalSteps.style.display = 'none';
                 if(searchBox) searchBox.style.display = 'none';
             }
         };
+        
+                // ==========================================
+        // FITUR PM: FILTER KATEGORI NOMINAL (PILLS)
+        // ==========================================
+        window.filterKategori = function(game, kategori, btn) {
+            // Ubah warna tombol pill yang diklik
+            let pills = document.getElementById('pills-' + game).querySelectorAll('.pill-btn');
+            pills.forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
 
+            // Filter tampilannya
+            let grid = document.querySelector('.nominal-grid[data-game="' + game + '"]');
+            let cards = grid.querySelectorAll('.card');
+            
+            cards.forEach(card => {
+                let namaItem = card.getAttribute('data-val').toLowerCase();
+                let isMatch = false;
+                
+                // Logika pemisahnya
+                if(kategori === 'semua') {
+                    isMatch = true;
+                } else if(kategori === 'pass') {
+                    if(namaItem.includes('pass') || namaItem.includes('member')) isMatch = true;
+                } else if(kategori === 'diamond') {
+                    if(!namaItem.includes('pass') && !namaItem.includes('member')) isMatch = true;
+                }
+                
+                if(isMatch) {
+                    card.style.display = '';
+                    // Kasih loading bentar pas diklik biar kerasa mahal
+                    card.classList.add('skeleton');
+                    setTimeout(() => card.classList.remove('skeleton'), 400);
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        };
     </script>
+
 </body>
 </html>
