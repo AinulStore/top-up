@@ -1267,7 +1267,11 @@
                     <img src="bg-pubg.png" alt="PUBG" class="taka-banner-logo">
                     <div class="taka-banner-text"><h2>PUBG Mobile</h2><p>Tencent Games</p></div>
                 </div>
-                <div class="taka-banner-features"><span><i class="fas fa-bolt"></i> Proses Otomatis</span><span><i class="fas fa-headset"></i> CS 24 Jam</span></div>
+                <div class="taka-banner-features">
+                    <span><i class="fas fa-bolt"></i> Proses Otomatis</span>
+                    <span><i class="fas fa-headset"></i> CS 08:00 - 22:00</span>
+                    <span><i class="fas fa-check-circle"></i> 100% Aman & Legal</span>
+                </div>
             </div>
 
             <div class="taka-step-container">
@@ -1301,7 +1305,11 @@
                     <img src="bg-valo.png" alt="Valorant" class="taka-banner-logo">
                     <div class="taka-banner-text"><h2>Valorant</h2><p>Riot Games</p></div>
                 </div>
-                <div class="taka-banner-features"><span><i class="fas fa-bolt"></i> Proses Otomatis</span><span><i class="fas fa-headset"></i> CS 24 Jam</span></div>
+                <div class="taka-banner-features">
+                    <span><i class="fas fa-bolt"></i> Proses Otomatis</span>
+                    <span><i class="fas fa-headset"></i> CS 08:00 - 22:00</span>
+                    <span><i class="fas fa-check-circle"></i> 100% Aman & Legal</span>
+                </div>
             </div>
 
             <div class="taka-step-container">
@@ -1683,40 +1691,71 @@
     </footer>
 
     <!-- === MODAL KONFIRMASI PESANAN (INVOICE STRUK) === -->
-    <div class="modal-overlay" id="modal-invoice">
-        <div class="modal-box" style="padding: 0; overflow: hidden; max-width: 380px;">
+    <div class="modal-overlay" id="modal-invoice" style="overflow-y: auto; padding: 20px 0;">
+        <div class="modal-box" style="padding: 0; overflow: hidden; max-width: 380px; margin: auto;">
             <div style="background: linear-gradient(90deg, #0B0F19, #161D2E); padding: 20px; border-bottom: 1px solid var(--glass-border); text-align: center; position: relative;">
                 <button class="close-modal" onclick="tutupModalInvoice()" style="top: 15px; right: 15px;"><i class="fas fa-times"></i></button>
                 <h3 style="color: #fff; font-family: 'Syne', sans-serif; font-size: 1.2rem; margin: 0;">Konfirmasi Pesanan</h3>
             </div>
+            
             <div style="padding: 20px;">
-                <!-- Tambahan Baris Nomor Resi -->
-                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 10px;">
-                    <span style="color: var(--text-dim); font-size: 0.9rem;">No. Pesanan</span>
-                    <strong style="color: var(--success); font-size: 0.9rem;" id="inv-resi">-</strong>
+                <!-- Detail Pesanan -->
+                <div style="display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 8px;">
+                    <span style="color: var(--text-dim); font-size: 0.85rem;">No. Pesanan</span>
+                    <strong style="color: var(--success); font-size: 0.85rem;" id="inv-resi">-</strong>
                 </div>
-
-                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 10px;">
-                    <span style="color: var(--text-dim); font-size: 0.9rem;">Game</span>
-                    <strong style="color: #fff; font-size: 0.9rem;" id="inv-game">-</strong>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 8px;">
+                    <span style="color: var(--text-dim); font-size: 0.85rem;">Game</span>
+                    <strong style="color: #fff; font-size: 0.85rem;" id="inv-game">-</strong>
                 </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 10px;">
-                    <span style="color: var(--text-dim); font-size: 0.9rem;">ID / Server</span>
-                    <strong style="color: #fff; font-size: 0.9rem;" id="inv-id">-</strong>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 8px;">
+                    <span style="color: var(--text-dim); font-size: 0.85rem;">ID / Server</span>
+                    <strong style="color: #fff; font-size: 0.85rem;" id="inv-id">-</strong>
                 </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 10px;">
-                    <span style="color: var(--text-dim); font-size: 0.9rem;">Item</span>
-                    <strong style="color: var(--primary); font-size: 0.9rem;" id="inv-item">-</strong>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 8px;">
+                    <span style="color: var(--text-dim); font-size: 0.85rem;">Item</span>
+                    <strong style="color: var(--primary); font-size: 0.85rem;" id="inv-item">-</strong>
                 </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 10px;">
-                    <span style="color: var(--text-dim); font-size: 0.9rem;">Pembayaran</span>
-                    <strong style="color: #fff; font-size: 0.9rem;" id="inv-pay">-</strong>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 8px;">
+                    <span style="color: var(--text-dim); font-size: 0.85rem;">Pembayaran</span>
+                    <strong style="color: #fff; font-size: 0.85rem;" id="inv-pay">-</strong>
                 </div>
+                
+                <!-- Total Harga -->
                 <div style="display: flex; justify-content: space-between; margin-bottom: 20px; background: rgba(0, 225, 255, 0.1); padding: 15px; border-radius: 8px; border: 1px solid var(--primary);">
-                    <span style="color: #fff; font-size: 1rem; font-weight: 600;">Total Harga</span>
+                    <span style="color: #fff; font-size: 1rem; font-weight: 600;">Total Bayar</span>
                     <strong style="color: var(--primary); font-size: 1.1rem; font-family: 'Syne', sans-serif;" id="inv-total">-</strong>
                 </div>
-                <button class="btn-submit-review" onclick="lanjutBayarWA()" id="btn-lanjut-wa">Lanjut Bayar <i class="fab fa-whatsapp"></i></button>
+
+                <!-- WADAH INSTRUKSI PEMBAYARAN (Berubah Otomatis) -->
+                <div id="payment-instruction-box" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: center;">
+                    
+                    <!-- Ini yang muncul kalau pilih QRIS -->
+                    <div id="instruksi-qris" style="display: none;">
+                        <p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 10px;">Mohon lakukan pembayaran dengan scan QRIS di bawah ini dengan nominal <strong style="color: var(--primary);" id="text-nominal-qris"></strong></p>
+                        <img src="Qris.png" alt="QRIS Null Store" style="width: 100%; max-width: 250px; border-radius: 8px; border: 2px solid var(--primary); margin-bottom: 10px;">
+                        <a href="Qris.png" download="QRIS_NullStore.jpg" style="display: block; background: rgba(255,255,255,0.1); color: #fff; text-decoration: none; padding: 8px; border-radius: 20px; font-size: 0.85rem; width: 80%; margin: 0 auto; transition: 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'"><i class="fas fa-download"></i> Download QRIS</a>
+                    </div>
+
+                    <!-- Ini yang muncul kalau pilih E-Wallet -->
+                    <div id="instruksi-ewallet" style="display: none;">
+                        <p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 10px;">Mohon transfer senilai <strong style="color: var(--primary);" id="text-nominal-ewallet"></strong> ke nomor E-Wallet di bawah ini:</p>
+                        <div style="background: rgba(0, 0, 0, 0.5); padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                            <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 10px;">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA" style="height: 18px;">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" alt="GoPay" style="height: 18px;">
+                                <span style="font-weight: 900; font-size: 0.9rem; letter-spacing: 1px; color:#fff;">OVO</span>
+                            </div>
+                            <strong style="color: #fff; font-size: 1.2rem; letter-spacing: 1px; user-select: all;" id="nomor-ewallet">085757568455</strong>
+                            <p style="color: var(--text-dim); font-size: 0.8rem; margin-top: 5px;">a.n. Ainul Riskian</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <p style="color: var(--error); font-size: 0.8rem; text-align: center; margin-bottom: 15px; font-style: italic;">*Jika sudah bayar, wajib klik tombol di bawah untuk konfirmasi ke Admin.</p>
+
+                <button class="btn-submit-review" onclick="lanjutBayarWA()" id="btn-lanjut-wa">Kirim Bukti Transfer <i class="fab fa-whatsapp"></i></button>
             </div>
         </div>
     </div>
@@ -1827,7 +1866,22 @@
             document.getElementById('inv-pay').innerText = selectedPayment;
             
             let activeCard = document.querySelector('.nominal-grid[data-game="'+currentGame+'"] .card.selected');
-            document.getElementById('inv-total').innerText = activeCard ? activeCard.querySelector('.card-price').innerText : '-';
+            let hargaTotal = activeCard ? activeCard.querySelector('.card-price').innerText : '-';
+            document.getElementById('inv-total').innerText = hargaTotal;
+
+            // Logika Menampilkan Instruksi Pembayaran (QRIS / E-Wallet)
+            let boxQris = document.getElementById('instruksi-qris');
+            let boxEwallet = document.getElementById('instruksi-ewallet');
+            
+            if (selectedPayment === 'QRIS') {
+                boxQris.style.display = 'block';
+                boxEwallet.style.display = 'none';
+                document.getElementById('text-nominal-qris').innerText = hargaTotal;
+            } else {
+                boxQris.style.display = 'none';
+                boxEwallet.style.display = 'block';
+                document.getElementById('text-nominal-ewallet').innerText = hargaTotal;
+            }
 
             // Tampilkan Modal Struk
             document.getElementById('modal-invoice').style.display = 'flex';
