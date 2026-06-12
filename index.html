@@ -1396,10 +1396,22 @@
                     <div class="grid nominal-grid" data-game="valo">
                         <!-- Nominal Kecil - Menengah -->
                         <div class="card tilt-card" data-val="475 VP (Rp 54.500)"><div class="inner"><div class="card-title">475 VP</div><div class="card-price">Rp 54.500</div></div></div>
-                        <div class="card tilt-card" data-val="1000 VP (Rp 107.500)"><div class="inner"><div class="card-title">1000 VP</div><div class="card-price">Rp 107.500</div></div></div>
+                        
+                        <!-- INI YANG DIKASIH BADGE TERLARIS (BATTLEPASS) -->
+                        <div class="card tilt-card" data-val="1000 VP (Rp 107.500)">
+                            <div class="badge-hot"><i class="fas fa-fire"></i> Paling Laris</div>
+                            <div class="inner"><div class="card-title">1000 VP</div><div class="card-price">Rp 107.500</div></div>
+                        </div>
+                        
                         <div class="card tilt-card" data-val="1475 VP (Rp 160.000)"><div class="inner"><div class="card-title">1475 VP</div><div class="card-price">Rp 160.000</div></div></div>
                         <div class="card tilt-card" data-val="2050 VP (Rp 213.000)"><div class="inner"><div class="card-title">2050 VP</div><div class="card-price">Rp 213.000</div></div></div>
-                        <div class="card tilt-card" data-val="2525 VP (Rp 266.000)"><div class="inner"><div class="card-title">2525 VP</div><div class="card-price">Rp 266.000</div></div></div>
+                        
+                        <!-- INI YANG DIKASIH BADGE TERLARIS (SKIN SENJATA) -->
+                        <div class="card tilt-card" data-val="2525 VP (Rp 266.000)">
+                            <div class="badge-hot"><i class="fas fa-fire"></i> Paling Laris</div>
+                            <div class="inner"><div class="card-title">2525 VP</div><div class="card-price">Rp 266.000</div></div>
+                        </div>
+                        
                         <div class="card tilt-card" data-val="3050 VP (Rp 318.500)"><div class="inner"><div class="card-title">3050 VP</div><div class="card-price">Rp 318.500</div></div></div>
                         <div class="card tilt-card" data-val="3650 VP (Rp 368.500)"><div class="inner"><div class="card-title">3650 VP</div><div class="card-price">Rp 368.500</div></div></div>
                         
@@ -1740,21 +1752,21 @@
         <div class="marquee-container">
             <div class="marquee-track">
                 <!-- SET PERTAMA (5 Item Murni E-Wallet & QRIS) -->
-                <div class="partner-item"><i class="fas fa-qrcode"></i> QRIS ALL</div>
+                <div class="partner-item"><i class="fas fa-qrcode"></i> QRIS ALL PAYMENT</div>
                 <div class="partner-item"><i class="fas fa-wallet" style="color: #118EEA;"></i> DANA</div>
                 <div class="partner-item"><i class="fas fa-wallet" style="color: #00AED6;"></i> GoPay</div>
                 <div class="partner-item"><i class="fas fa-wallet" style="color: #4C3494;"></i> OVO</div>
                 <div class="partner-item"><i class="fas fa-shopping-bag" style="color: #EE4D2D;"></i> ShopeePay</div>
                 
                 <!-- SET KEDUA (Duplikat) -->
-                <div class="partner-item"><i class="fas fa-qrcode"></i> QRIS ALL</div>
+                <div class="partner-item"><i class="fas fa-qrcode"></i> QRIS ALL PAYMENT</div>
                 <div class="partner-item"><i class="fas fa-wallet" style="color: #118EEA;"></i> DANA</div>
                 <div class="partner-item"><i class="fas fa-wallet" style="color: #00AED6;"></i> GoPay</div>
                 <div class="partner-item"><i class="fas fa-wallet" style="color: #4C3494;"></i> OVO</div>
                 <div class="partner-item"><i class="fas fa-shopping-bag" style="color: #EE4D2D;"></i> ShopeePay</div>
 
                 <!-- SET KETIGA (Biar putarannya panjang dan gak putus) -->
-                <div class="partner-item"><i class="fas fa-qrcode"></i> QRIS ALL</div>
+                <div class="partner-item"><i class="fas fa-qrcode"></i> QRIS ALL PAYMENT</div>
                 <div class="partner-item"><i class="fas fa-wallet" style="color: #118EEA;"></i> DANA</div>
                 <div class="partner-item"><i class="fas fa-wallet" style="color: #00AED6;"></i> GoPay</div>
                 <div class="partner-item"><i class="fas fa-wallet" style="color: #4C3494;"></i> OVO</div>
@@ -2019,9 +2031,37 @@
             document.getElementById('modal-invoice').style.display = 'none';
         }
 
-        // Fake Live Purchase
+        // Fake Live Purchase (Random Natural)
         const toastContainerLive = document.getElementById('toast-container');
-        const items = ['19 Diamond MLBB', '86 Diamond MLBB', '1x Weekly Pass MLBB', '50 Diamond Free Fire', 'Booyah Pass FF'];
+        const items = [
+            // Variasi MLBB (Paling rame)
+            '5 Diamond MLBB', '12 Diamond MLBB', '19 Diamond MLBB', '28 Diamond MLBB', '36 Diamond MLBB', 
+            '44 Diamond MLBB', '59 Diamond MLBB', '86 Diamond MLBB', '86 Diamond MLBB', '86 Diamond MLBB', 
+            '112 Diamond MLBB', '172 Diamond MLBB', '185 Diamond MLBB', '257 Diamond MLBB', '344 Diamond MLBB',
+            '1x Weekly Pass MLBB', '3x Weekly Pass MLBB', '4x Weekly Pass MLBB', '2x Weekly Pass MLBB', 
+            'Starlight Membership MLBB',
+            '706 Diamond MLBB', '1050 Diamond MLBB', '2195 Diamond MLBB', // Sultan MLBB
+
+            // Variasi Free Fire
+            '12 Diamond Free Fire', '50 Diamond Free Fire', '70 Diamond Free Fire', '70 Diamond Free Fire', 
+            '100 Diamond Free Fire', '140 Diamond Free Fire', '140 Diamond Free Fire', '210 Diamond Free Fire', 
+            '355 Diamond Free Fire', '500 Diamond Free Fire', 
+            'Membership Mingguan FF', 'Membership Mingguan FF', 'Booyah Pass FF', 'Membership Bulanan FF',
+            '720 Diamond Free Fire', '1450 Diamond Free Fire', '3640 Diamond Free Fire', // Sultan FF
+
+            // Variasi PUBG Mobile
+            '25 UC PUBG Mobile', '35 UC PUBG Mobile', '60 UC PUBG Mobile', '60 UC PUBG Mobile', 
+            '100 UC PUBG Mobile', '125 UC PUBG Mobile', '200 UC PUBG Mobile', '250 UC PUBG Mobile', 
+            '300 UC PUBG Mobile', '350 UC PUBG Mobile', '500 UC PUBG Mobile', 
+            'Elite Pass+ PUBG',
+            '700 UC PUBG Mobile', '1500 UC PUBG Mobile', '2500 UC PUBG Mobile', // Sultan PUBG
+
+            // Variasi Valorant
+            '475 VP Valorant', '475 VP Valorant', '1000 VP Valorant', '1000 VP Valorant', '1000 VP Valorant', 
+            '1475 VP Valorant', '2050 VP Valorant', '2525 VP Valorant', '2525 VP Valorant', '3050 VP Valorant', 
+            '3650 VP Valorant',
+            '4125 VP Valorant', '5350 VP Valorant', '7400 VP Valorant' // Sultan Valo
+        ];
         function spawnLiveToast() {
             const phoneStr = '08' + Math.floor(Math.random() * 90 + 10) + '****' + Math.floor(Math.random() * 900 + 100);
             const itemStr = items[Math.floor(Math.random() * items.length)];
@@ -2031,9 +2071,11 @@
             toast.innerHTML = `<div class="toast-icon" style="color: var(--primary); background: rgba(0, 225, 255, 0.1);"><i class="fas fa-shopping-cart"></i></div><div class="toast-text"><p><b>${phoneStr}</b> baru saja order</p><span>${itemStr} • Beberapa detik lalu</span></div>`;
             toastContainerLive.appendChild(toast);
             setTimeout(() => { toast.remove(); }, 5000);
-            setTimeout(spawnLiveToast, Math.floor(Math.random() * 45000) + 45000);
+            
+            // Waktu munculnya dibikin random antara 20 sampai 60 detik biar natural
+            setTimeout(spawnLiveToast, Math.floor(Math.random() * 40000) + 20000);
         }
-        setTimeout(spawnLiveToast, 30000);
+        setTimeout(spawnLiveToast, 15000);
         
         function toggleMenu() { document.getElementById("mobileMenu").classList.toggle("active"); }
         function updateClock() {
