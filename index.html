@@ -733,6 +733,30 @@
             gap: 5px; 
         }
         .disclaimer-text i { font-size: 0.7rem; color: #D4AF37; } 
+
+        /* === FITUR SEMBUNYIKAN ULASAN === */
+        .taka-review-list.collapsed .taka-review-item:nth-child(n+6) {
+            display: none; /* Sembunyiin ulasan ke-6 dan seterusnya */
+        }
+        .btn-more-reviews {
+            background: transparent;
+            color: var(--text-dim);
+            border: none;
+            width: 100%;
+            padding: 15px 10px 5px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-more-reviews:hover {
+            color: #fff;
+        }
         
                         /* === REVISI 1: MENU PILIH GAME ALA TAKAPEDIA === */
         .populer-title { font-family: 'Syne', sans-serif; font-size: 1.5rem; color: #fff; margin-bottom: 5px; display: flex; align-items: center; gap: 10px; }
@@ -1289,10 +1313,33 @@
                 <div class="taka-step-header"><div class="taka-step-num">2</div><div class="taka-step-title">Pilih Nominal</div></div>
                 <div class="taka-step-body">    
                     <div class="grid nominal-grid" data-game="pubg">
-                        <div class="card tilt-card" data-val="60 UC"><div class="inner"><div class="card-title">60 UC</div><div class="card-price">Rp 14.500</div></div></div>
-                        <div class="card tilt-card" data-val="325 UC"><div class="inner"><div class="card-title">325 UC</div><div class="card-price">Rp 72.000</div></div></div>
-                        <div class="card tilt-card" data-val="660 UC"><div class="inner"><div class="card-title">660 UC</div><div class="card-price">Rp 145.000</div></div></div>
-                        <div class="card tilt-card" data-val="1800 UC"><div class="inner"><div class="card-title">1800 UC</div><div class="card-price">Rp 365.000</div></div></div>
+                    <div class="grid nominal-grid" data-game="pubg">
+                        <div class="card tilt-card" data-val="15 UC (Rp 8.500)"><div class="inner"><div class="card-title">15 UC</div><div class="card-price">Rp 8.500</div></div></div>
+                        <div class="card tilt-card" data-val="25 UC (Rp 16.000)"><div class="inner"><div class="card-title">25 UC</div><div class="card-price">Rp 16.000</div></div></div>
+                        <div class="card tilt-card" data-val="35 UC (Rp 16.500)"><div class="inner"><div class="card-title">35 UC</div><div class="card-price">Rp 16.500</div></div></div>
+                        <div class="card tilt-card" data-val="50 UC (Rp 17.000)"><div class="inner"><div class="card-title">50 UC</div><div class="card-price">Rp 17.000</div></div></div>
+                        <div class="card tilt-card" data-val="60 UC (Rp 17.500)"><div class="inner"><div class="card-title">60 UC</div><div class="card-price">Rp 17.500</div></div></div>
+                        <div class="card tilt-card" data-val="70 UC (Rp 31.500)"><div class="inner"><div class="card-title">70 UC</div><div class="card-price">Rp 31.500</div></div></div>
+                        <div class="card tilt-card" data-val="100 UC (Rp 32.000)"><div class="inner"><div class="card-title">100 UC</div><div class="card-price">Rp 32.000</div></div></div>
+                        <div class="card tilt-card" data-val="125 UC (Rp 47.000)"><div class="inner"><div class="card-title">125 UC</div><div class="card-price">Rp 47.000</div></div></div>
+                        <div class="card tilt-card" data-val="150 UC (Rp 47.500)"><div class="inner"><div class="card-title">150 UC</div><div class="card-price">Rp 47.500</div></div></div>
+                        <div class="card tilt-card" data-val="200 UC (Rp 61.500)"><div class="inner"><div class="card-title">200 UC</div><div class="card-price">Rp 61.500</div></div></div>
+                        <div class="card tilt-card" data-val="210 UC (Rp 62.500)"><div class="inner"><div class="card-title">210 UC</div><div class="card-price">Rp 62.500</div></div></div>
+                        <div class="card tilt-card" data-val="250 UC (Rp 82.000)"><div class="inner"><div class="card-title">250 UC</div><div class="card-price">Rp 82.000</div></div></div>
+                        <div class="card tilt-card" data-val="300 UC (Rp 80.500)"><div class="inner"><div class="card-title">300 UC</div><div class="card-price">Rp 80.500</div></div></div>
+                        <div class="card tilt-card" data-val="350 UC (Rp 95.500)"><div class="inner"><div class="card-title">350 UC</div><div class="card-price">Rp 95.500</div></div></div>
+                        <div class="card tilt-card" data-val="375 UC (Rp 95.500)"><div class="inner"><div class="card-title">375 UC</div><div class="card-price">Rp 95.500</div></div></div>
+                        <div class="card tilt-card" data-val="500 UC (Rp 127.000)"><div class="inner"><div class="card-title">500 UC</div><div class="card-price">Rp 127.000</div></div></div>
+                        <div class="card tilt-card" data-val="525 UC (Rp 145.500)"><div class="inner"><div class="card-title">525 UC</div><div class="card-price">Rp 145.500</div></div></div>
+                        <div class="card tilt-card" data-val="700 UC (Rp 176.000)"><div class="inner"><div class="card-title">700 UC</div><div class="card-price">Rp 176.000</div></div></div>
+                        <div class="card tilt-card" data-val="750 UC (Rp 193.500)"><div class="inner"><div class="card-title">750 UC</div><div class="card-price">Rp 193.500</div></div></div>
+                        <div class="card tilt-card" data-val="1000 UC (Rp 254.500)"><div class="inner"><div class="card-title">1000 UC</div><div class="card-price">Rp 254.500</div></div></div>
+                        <div class="card tilt-card" data-val="1100 UC (Rp 267.500)"><div class="inner"><div class="card-title">1100 UC</div><div class="card-price">Rp 267.500</div></div></div>
+                        <div class="card tilt-card" data-val="1250 UC (Rp 315.500)"><div class="inner"><div class="card-title">1250 UC</div><div class="card-price">Rp 315.500</div></div></div>
+                        <div class="card tilt-card" data-val="1500 UC (Rp 348.500)"><div class="inner"><div class="card-title">1500 UC</div><div class="card-price">Rp 348.500</div></div></div>
+                        <div class="card tilt-card" data-val="1750 UC (Rp 424.000)"><div class="inner"><div class="card-title">1750 UC</div><div class="card-price">Rp 424.000</div></div></div>
+                        <div class="card tilt-card" data-val="Elite Pass Plus (Rp 420.000)"><div class="badge-hot"><i class="fas fa-star"></i> Pass</div><div class="inner"><div class="card-title">Elite Pass+</div><div class="card-price">Rp 420.000</div></div></div>
+                        <div class="card tilt-card" data-val="2500 UC (Rp 575..000)"><div class="inner"><div class="card-title">2500 UC</div><div class="card-price">Rp 575.000</div></div></div>
                     </div>
                 </div>
             </div>
@@ -1327,10 +1374,34 @@
                 <div class="taka-step-header"><div class="taka-step-num">2</div><div class="taka-step-title">Pilih Nominal</div></div>
                 <div class="taka-step-body">    
                     <div class="grid nominal-grid" data-game="valo">
-                        <div class="card tilt-card" data-val="125 VP"><div class="inner"><div class="card-title">125 VP</div><div class="card-price">Rp 14.500</div></div></div>
-                        <div class="card tilt-card" data-val="420 VP"><div class="inner"><div class="card-title">420 VP</div><div class="card-price">Rp 48.000</div></div></div>
-                        <div class="card tilt-card" data-val="700 VP"><div class="inner"><div class="card-title">700 VP</div><div class="card-price">Rp 78.000</div></div></div>
-                        <div class="card tilt-card" data-val="1375 VP"><div class="inner"><div class="card-title">1375 VP</div><div class="card-price">Rp 149.000</div></div></div>
+                    <div class="grid nominal-grid" data-game="valo">
+                        <!-- Nominal Kecil - Menengah -->
+                        <div class="card tilt-card" data-val="475 VP (Rp 54.500)"><div class="inner"><div class="card-title">475 VP</div><div class="card-price">Rp 54.500</div></div></div>
+                        <div class="card tilt-card" data-val="1000 VP (Rp 107.500)"><div class="inner"><div class="card-title">1000 VP</div><div class="card-price">Rp 107.500</div></div></div>
+                        <div class="card tilt-card" data-val="1475 VP (Rp 160.000)"><div class="inner"><div class="card-title">1475 VP</div><div class="card-price">Rp 160.000</div></div></div>
+                        <div class="card tilt-card" data-val="2050 VP (Rp 213.000)"><div class="inner"><div class="card-title">2050 VP</div><div class="card-price">Rp 213.000</div></div></div>
+                        <div class="card tilt-card" data-val="2525 VP (Rp 266.000)"><div class="inner"><div class="card-title">2525 VP</div><div class="card-price">Rp 266.000</div></div></div>
+                        <div class="card tilt-card" data-val="3050 VP (Rp 318.500)"><div class="inner"><div class="card-title">3050 VP</div><div class="card-price">Rp 318.500</div></div></div>
+                        <div class="card tilt-card" data-val="3650 VP (Rp 368.500)"><div class="inner"><div class="card-title">3650 VP</div><div class="card-price">Rp 368.500</div></div></div>
+                        
+                        <!-- Nominal Gede (Sultan) -->
+                        <div class="card tilt-card" data-val="4125 VP (Rp 421.500)"><div class="inner"><div class="card-title">4125 VP</div><div class="card-price">Rp 421.500</div></div></div>
+                        <div class="card tilt-card" data-val="4650 VP (Rp 474.000)"><div class="inner"><div class="card-title">4650 VP</div><div class="card-price">Rp 474.000</div></div></div>
+                        <div class="card tilt-card" data-val="5350 VP (Rp 529.000)"><div class="inner"><div class="card-title">5350 VP</div><div class="card-price">Rp 529.000</div></div></div>
+                        <div class="card tilt-card" data-val="5700 VP (Rp 579.500)"><div class="inner"><div class="card-title">5700 VP</div><div class="card-price">Rp 579.500</div></div></div>
+                        <div class="card tilt-card" data-val="5825 VP (Rp 581.500)"><div class="inner"><div class="card-title">5825 VP</div><div class="card-price">Rp 581.500</div></div></div>
+                        <div class="card tilt-card" data-val="6350 VP (Rp 634.500)"><div class="inner"><div class="card-title">6350 VP</div><div class="card-price">Rp 634.500</div></div></div>
+                        <div class="card tilt-card" data-val="7400 VP (Rp 740.000)"><div class="inner"><div class="card-title">7400 VP</div><div class="card-price">Rp 740.000</div></div></div>
+                        <div class="card tilt-card" data-val="9000 VP (Rp 895.000)"><div class="inner"><div class="card-title">9000 VP</div><div class="card-price">Rp 895.000</div></div></div>
+                        
+                        <!-- Nominal Super Sultan -->
+                        <div class="card tilt-card" data-val="11000 VP (Rp 1.037.000)"><div class="inner"><div class="card-title">11000 VP</div><div class="card-price">Rp 1.037.000</div></div></div>
+                        <div class="card tilt-card" data-val="11475 VP (Rp 1.089.500)"><div class="inner"><div class="card-title">11475 VP</div><div class="card-price">Rp 1.089.500</div></div></div>
+                        <div class="card tilt-card" data-val="12000 VP (Rp 1.142.000)"><div class="inner"><div class="card-title">12000 VP</div><div class="card-price">Rp 1.142.000</div></div></div>
+                        <div class="card tilt-card" data-val="13050 VP (Rp 1.248.000)"><div class="inner"><div class="card-title">13050 VP</div><div class="card-price">Rp 1.248.000</div></div></div>
+                        <div class="card tilt-card" data-val="14650 VP (Rp 1.402.000)"><div class="inner"><div class="card-title">14650 VP</div><div class="card-price">Rp 1.402.000</div></div></div>
+                        <div class="card tilt-card" data-val="16350 VP (Rp 1.562.000)"><div class="inner"><div class="card-title">16350 VP</div><div class="card-price">Rp 1.562.000</div></div></div>
+                        <div class="card tilt-card" data-val="22000 VP (Rp 2.068.000)"><div class="inner"><div class="card-title">22000 VP</div><div class="card-price">Rp 2.068.000</div></div></div>
                     </div>
                 </div>
             </div>
@@ -1473,7 +1544,7 @@
             <p style="color: var(--text-dim); text-align: center; margin-bottom: 20px; font-size: 0.9rem;">Apakah kamu menyukai produk ini? Beri tahu kami dan calon pembeli lainnya tentang pengalamanmu.</p>
 
             <!-- List Komentar Teks (Tanpa Avatar) -->
-            <div class="taka-review-list">
+            <div class="taka-review-list collapsed" id="ulasan-list">
                 <div class="taka-review-item">
                     <div class="taka-review-user">
                         <span class="taka-review-name">ran***</span>
@@ -1600,6 +1671,11 @@
                     <div class="taka-review-text">“Beliin buat adek main ff, order lgsg diproses. Sukses terus min.”</div>
                 </div>
             </div>
+            
+            <!-- TOMBOL LIHAT LEBIH BANYAK -->
+            <button class="btn-more-reviews" id="btn-toggle-ulasan" onclick="toggleUlasan()">
+                Lihat semua ulasan lainnya <i class="fas fa-chevron-down"></i>
+            </button>
             
             <button class="btn-outline" style="width: 100%; margin-top: 15px;" onclick="bukaModalUlasan()">Tulis Ulasan Kamu</button>
         </div>
@@ -2333,6 +2409,20 @@
                 else card.style.display = 'none';
             });
         };
+
+        // FITUR BUKA/TUTUP ULASAN
+        function toggleUlasan() {
+            let list = document.getElementById('ulasan-list');
+            let btn = document.getElementById('btn-toggle-ulasan');
+            
+            list.classList.toggle('collapsed');
+            
+            if (list.classList.contains('collapsed')) {
+                btn.innerHTML = 'Lihat semua ulasan lainnya <i class="fas fa-chevron-down"></i>';
+            } else {
+                btn.innerHTML = 'Sembunyikan ulasan <i class="fas fa-chevron-up"></i>';
+            }
+        }
     </script>
 
 </body>
