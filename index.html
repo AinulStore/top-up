@@ -1817,10 +1817,11 @@
 
                 <div class="sheet-action-box">
                     <div>
-                        <div style="font-weight: 700; font-size: 0.85rem;">WHATSAPP</div>
+                        <div style="font-weight: 700; font-size: 0.85rem;">⚠️WHATSAPP (WAJIB)</div>
                         <div class="wa-wrapper">
                             <i class="fas fa-address-book"></i>
-                            <input type="text" id="sheet-wa" class="sheet-wa-input" placeholder="08xxxx" autocomplete="off"> 
+                            <!-- Ubah type jadi 'tel', tambahin maxlength, dan panggil sihir oninput -->
+                            <input type="tel" id="sheet-wa" class="sheet-wa-input" placeholder="08xx-xxxx-xxxx" autocomplete="off" oninput="formatWA(this)" maxlength="15"> 
                         </div>
                     </div>
                 </div>
@@ -3240,6 +3241,20 @@
             document.getElementById('modal-invoice').style.display = 'flex'; // Munculin struk qris
             startQrisTimer();
         }
+        
+        // ==========================================
+        // FITUR AUTO-FORMAT NOMOR WA (XXXX-XXXX-XXXX)
+        // ==========================================
+        window.formatWA = function(input) {
+            // 1. Hapus semua karakter yang BUKAN angka (kalau misal ada yang iseng ngetik huruf)
+            let value = input.value.replace(/\D/g, '');
+            
+            // 2. Pasang sihir Regex: Tambahin strip (-) setiap kelipatan 4 angka
+            let formattedValue = value.replace(/(\d{4})(?=\d)/g, '$1-');
+            
+            // 3. Kembalikan nilainya ke kotak input
+            input.value = formattedValue;
+        }        
     </script>
 
 </body>
