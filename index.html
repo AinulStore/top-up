@@ -1358,7 +1358,7 @@
                         <div class="card tilt-card" data-val="1500 UC (Rp 348.500)"><div class="inner"><div class="card-title">1500 UC</div><div class="card-price">Rp 348.500</div></div></div>
                         <div class="card tilt-card" data-val="1750 UC (Rp 424.000)"><div class="inner"><div class="card-title">1750 UC</div><div class="card-price">Rp 424.000</div></div></div>
                         <div class="card tilt-card" data-val="Elite Pass Plus (Rp 420.000)"><div class="badge-hot"><i class="fas fa-star"></i> Pass</div><div class="inner"><div class="card-title">Elite Pass+</div><div class="card-price">Rp 420.000</div></div></div>
-                        <div class="card tilt-card" data-val="2500 UC (Rp 575..000)"><div class="inner"><div class="card-title">2500 UC</div><div class="card-price">Rp 575.000</div></div></div>
+                        <div class="card tilt-card" data-val="2500 UC (Rp 575.000)"><div class="inner"><div class="card-title">2500 UC</div><div class="card-price">Rp 575.000</div></div></div>
                     </div>
                 </div>
             </div>
@@ -2001,8 +2001,8 @@
                 document.getElementById('qris-canvas').innerHTML = ""; // Bersihin QR lama
                 new QRCode(document.getElementById("qris-canvas"), {
                     text: qrisDinamis,
-                    width: 200,
-                    height: 200,
+                    width: 256,
+                    height: 256,
                     colorDark : "#000000",
                     colorLight : "#ffffff",
                     correctLevel : QRCode.CorrectLevel.M
@@ -2542,12 +2542,28 @@
             return qrisBase + crcBaru;
         }
 
-        // Tombol Download Canvas QRIS
+        // Tombol Download Canvas QRIS (Dengan Bingkai Putih HD)
         window.downloadQR = function() {
-            let canvas = document.querySelector('#qris-canvas canvas');
-            if(canvas) {
+            let originalCanvas = document.querySelector('#qris-canvas canvas');
+            if(originalCanvas) {
+                // Kita buat kanvas baru khusus buat nyetak gambar
+                let padding = 30; // Lebar bingkai putih (Quiet Zone)
+                let newCanvas = document.createElement('canvas');
+                newCanvas.width = originalCanvas.width + (padding * 2);
+                newCanvas.height = originalCanvas.height + (padding * 2);
+                
+                let ctx = newCanvas.getContext('2d');
+                
+                // 1. Kasih warna dasar putih full
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, newCanvas.width, newCanvas.height);
+                
+                // 2. Tempel QR Code di tengah-tengah warna putih
+                ctx.drawImage(originalCanvas, padding, padding);
+                
+                // 3. Download hasil akhirnya
                 let a = document.createElement('a');
-                a.href = canvas.toDataURL("image/png");
+                a.href = newCanvas.toDataURL("image/png");
                 a.download = "QRIS_NullStore_Otomatis.png";
                 a.click();
             }
