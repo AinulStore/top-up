@@ -929,29 +929,37 @@
             height: auto !important;
         }
 
-        /* === DESAIN APP PREMIUM ALA E-COMMERCE === */
-        .app-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 10px 0; }
+        /* === DESAIN APP PREMIUM ALA E-COMMERCE (PERBAIKAN SIMETRIS) === */
+        .app-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 10px 0; } 
         @media (min-width: 768px) { .app-grid { grid-template-columns: repeat(4, 1fr); } }
         
-        .app-card { background: #ffffff; border-radius: 20px; padding: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); cursor: pointer; position: relative; transition: 0.3s; }
-        body:not(.light-mode) .app-card { background: var(--bg-card); box-shadow: 0 10px 20px rgba(0,0,0,0.4); border: 1px solid var(--glass-border); }
+        .app-card { 
+            background: #ffffff; border-radius: 16px; padding: 10px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; position: relative; transition: 0.3s; 
+            display: flex; flex-direction: column; /* Bikin flex column biar bisa sejajar bawahnya */
+            height: 100%; /* Pastiin tingginya ngisi grid */
+        }
+        body:not(.light-mode) .app-card { background: var(--bg-card); box-shadow: 0 5px 15px rgba(0,0,0,0.4); border: 1px solid var(--glass-border); }
         .app-card:hover { transform: translateY(-5px); }
-        .app-img-box { position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 15px; overflow: hidden; margin-bottom: 15px; }
+        
+        .app-img-box { position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 12px; overflow: hidden; margin-bottom: 12px; background: #fff; } 
         .app-img-box img { width: 100%; height: 100%; object-fit: cover; }
         
-        .app-tags { position: absolute; bottom: 8px; left: 8px; right: 8px; display: flex; justify-content: space-between; align-items: center; }
-        .app-tag-merk { background: rgba(255,255,255,0.9); color: #000; font-size: 0.65rem; font-weight: 800; padding: 4px 8px; border-radius: 10px; }
-        .app-tag-sold { background: rgba(0,0,0,0.7); color: #FACC15; font-size: 0.65rem; font-weight: 700; padding: 4px 8px; border-radius: 10px; }
+        .app-tags { position: absolute; bottom: 6px; left: 6px; right: 6px; display: flex; justify-content: space-between; align-items: center; gap: 5px; }
+        .app-tag-merk { background: rgba(255,255,255,0.95); color: #000; font-size: 0.6rem; font-weight: 800; padding: 3px 6px; border-radius: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 50%; }
+        .app-tag-sold { background: rgba(0,0,0,0.75); color: #FACC15; font-size: 0.6rem; font-weight: 700; padding: 3px 6px; border-radius: 8px; white-space: nowrap; }
         
-        .app-title { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.95rem; color: #000; margin-bottom: 5px; line-height: 1.3; }
+        .app-title { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.85rem; color: #000; margin-bottom: 5px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; } 
         body:not(.light-mode) .app-title { color: #fff; }
-        .app-sisa { display: inline-block; background: #F1F5F9; color: #475569; font-size: 0.7rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; margin-bottom: 10px; }
+        
+        .app-sisa { display: inline-flex; align-items: center; gap: 4px; background: #F1F5F9; color: #475569; font-size: 0.65rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; margin-bottom: 12px; width: fit-content; }
         body:not(.light-mode) .app-sisa { background: rgba(255,255,255,0.1); color: var(--text-dim); }
         
-        .app-bottom { display: flex; justify-content: space-between; align-items: center; }
-        .app-price { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: #000; }
+        .app-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: auto; /* INI KUNCI BIAR SEJAJAR DI BAWAH SEMUA */ }
+        .app-price { font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 800; color: #000; letter-spacing: -0.5px; } 
         body:not(.light-mode) .app-price { color: #fff; }
-        .app-cart-btn { background: #8B5CF6; color: #fff; width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 0.9rem; border: none; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4); }
+        
+        .app-cart-btn { background: #8B5CF6; color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 0.85rem; border: none; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4); flex-shrink: 0; /* INI KUNCI BIAR KERANJANG BULAT SEMPURNA */ }
 
         /* === BOTTOM SHEET MODAL (APP PREMIUM) === */
         .sheet-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); z-index: 2000; display: none; align-items: flex-end; animation: fadeInModal 0.3s forwards; }
@@ -1064,20 +1072,20 @@
             <div class="populer-title"><i class="fas fa-layer-group" style="color: var(--primary);"></i> PILIH KATEGORI</div>
             <p class="populer-subtitle">Mau top up Game atau beli Aplikasi Premium? Pilih di bawah ini.</p>
             
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px; max-width: 800px; margin-left: auto; margin-right: auto;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 40px; max-width: 800px; margin-left: auto; margin-right: auto; align-items: stretch;">
                 
                 <!-- KOTAK GAME -->
-                <div onclick="bukaKategoriUtama('game')" style="background: linear-gradient(135deg, rgba(0,225,255,0.1), rgba(0,0,0,0.5)); border: 2px solid var(--primary); border-radius: 16px; padding: 30px 20px; text-align: center; cursor: pointer; transition: 0.3s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(0,225,255,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-                    <i class="fas fa-gamepad" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 15px;"></i>
-                    <h2 style="font-family: 'Syne', sans-serif; font-size: 1.5rem; color: #fff; margin-bottom: 5px;">TOP UP GAME</h2>
-                    <p style="color: var(--text-dim); font-size: 0.85rem;">Mobile Legends, Free Fire, dll</p>
+                <div onclick="bukaKategoriUtama('game')" style="background: linear-gradient(135deg, rgba(0,225,255,0.1), rgba(0,0,0,0.5)); border: 2px solid var(--primary); border-radius: 16px; padding: 25px 10px; text-align: center; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; box-sizing: border-box;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(0,225,255,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <i class="fas fa-gamepad" style="font-size: 3rem; color: var(--primary); margin-bottom: 12px;"></i>
+                    <h2 style="font-family: 'Syne', sans-serif; font-size: 1.25rem; color: #fff; margin-bottom: 5px; line-height: 1.2;">TOP UP GAME</h2>
+                    <p style="color: var(--text-dim); font-size: 0.75rem; margin: 0; line-height: 1.4;">Mobile Legends, Free Fire</p>
                 </div>
 
                 <!-- KOTAK APP PREMIUM -->
-                <div onclick="bukaKategoriUtama('app-premium')" style="background: linear-gradient(135deg, rgba(184,0,255,0.1), rgba(0,0,0,0.5)); border: 2px solid #B800FF; border-radius: 16px; padding: 30px 20px; text-align: center; cursor: pointer; transition: 0.3s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(184,0,255,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-                    <i class="fas fa-crown" style="font-size: 3.5rem; color: #B800FF; margin-bottom: 15px;"></i>
-                    <h2 style="font-family: 'Syne', sans-serif; font-size: 1.5rem; color: #fff; margin-bottom: 5px;">APP PREMIUM</h2>
-                    <p style="color: var(--text-dim); font-size: 0.85rem;">Netflix, Canva, CapCut, dll</p>
+                <div onclick="bukaKategoriUtama('app-premium')" style="background: linear-gradient(135deg, rgba(184,0,255,0.1), rgba(0,0,0,0.5)); border: 2px solid #B800FF; border-radius: 16px; padding: 25px 10px; text-align: center; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; box-sizing: border-box;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(184,0,255,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                    <i class="fas fa-crown" style="font-size: 3rem; color: #B800FF; margin-bottom: 12px;"></i>
+                    <h2 style="font-family: 'Syne', sans-serif; font-size: 1.25rem; color: #fff; margin-bottom: 5px; line-height: 1.2;">APP PREMIUM</h2>
+                    <p style="color: var(--text-dim); font-size: 0.75rem; margin: 0; line-height: 1.4;">Netflix, Canva, CapCut</p>
                 </div>
             </div>
         </div>
