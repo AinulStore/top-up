@@ -1578,6 +1578,15 @@
                 <div class="populer-title" style="margin: 0;"><i class="fas fa-crown" style="color: #B800FF;"></i> APP PREMIUM</div>
             </div>
 
+            <!-- BANNER PERINGATAN JAM OPERASIONAL APP PREMIUM -->
+            <div id="banner-app-tutup" style="display: none; background: rgba(239, 68, 68, 0.1); border: 1px solid var(--error); border-radius: 12px; padding: 15px; margin-bottom: 20px; align-items: center; gap: 15px; animation: fadeIn 0.5s;">
+                <i class="fas fa-clock" style="font-size: 2rem; color: var(--error);"></i>
+                <div>
+                    <strong style="color: var(--error); display: block; font-size: 1rem; margin-bottom: 4px;">Katalog Sedang Tutup!</strong>
+                    <span style="color: #fff; font-size: 0.85rem; line-height: 1.4;">Admin sedang Offline. Jadwal Buka:<br><b>Senin-Jumat: 13:00 - 21:00 WITA</b><br><b>Sabtu-Minggu: 08:00 - 21:00 WITA</b></span>
+                </div>
+            </div>
+
             <div class="app-grid">
                 <!-- CANVA -->
                 <div class="app-card" onclick="bukaSheetApp('Canva Premium', 2000, 71590, 318, 'CANVA', '• Masa aktif 1 Bulan\n• Fitur otomatis premium & bebas desain pakai elemen pro\n• Tidak bisa mengelola tim\n• Bisa membuat brand kit (simpan logo, font, & palet warna tokomu)', 'Canva.png')">
@@ -3251,20 +3260,20 @@
             let globalSteps = document.getElementById('global-steps');
             let contentApp = document.getElementById('content-app');
             let contentGame = document.getElementById('sub-menu-game');
-            let wrapperCheckout = document.querySelector('.checkout-wrapper'); // Tombol checkout game yang melayang
+            let wrapperCheckout = document.querySelector('.checkout-wrapper'); 
 
             if(kategori === 'game') {
                 contentGame.style.display = 'block';
                 contentApp.style.display = 'none';
                 if(globalSteps) globalSteps.style.display = 'block';
-                if(wrapperCheckout) wrapperCheckout.style.display = 'flex'; // Munculin lg tombol game
+                if(wrapperCheckout) wrapperCheckout.style.display = 'flex'; 
                 switchTab('mlbb', document.querySelector('.game-card')); 
             } else if (kategori === 'app-premium') {
                 contentGame.style.display = 'none';
                 contentApp.style.display = 'block';
-                contentApp.classList.add('active'); // Biar animasinya jalan
+                contentApp.classList.add('active'); 
                 
-                // HILANGIN SEMUA ELEMEN BAWAH (Step 3, 4, sama tombol checkout mengambang)
+                // HILANGIN SEMUA ELEMEN BAWAH
                 if(globalSteps) globalSteps.style.display = 'none';
                 if(wrapperCheckout) wrapperCheckout.style.display = 'none';
                 
@@ -3273,6 +3282,46 @@
                     if(c.id !== 'content-app') c.classList.remove('active');
                 });
                 currentGame = 'app';
+
+                // === FITUR PENGUNCI JAM OTOMATIS (DETEKSI HARI) ===
+                let now = new Date();
+                let jamSekarang = now.getHours();
+                let hariIni = now.getDay(); // 0 = Minggu, 1 = Senin, ..., 6 = Sabtu
+
+                // Tentukan jam buka berdasarkan hari
+                // Kalau hari Minggu (0) atau Sabtu (6), buka jam 08:00. Kalau Senin-Jumat, buka jam 13:00.
+                let jamBuka = (hariIni === 0 || hariIni === 6) ? 8 : 13;
+                let jamTutup = 21; // Jam 9 malam (21:00)
+
+                let isOpen = (jamSekarang >= jamBuka && jamSekarang < jamTutup);
+
+                let bannerTutup = document.getElementById('banner-app-tutup');
+                let semuaAppCards = document.querySelectorAll('.app-card');
+
+                if(!isOpen) {
+                    // Kalau lagi TUTUP
+                    if(bannerTutup) bannerTutup.style.display = 'flex';
+                    semuaAppCards.forEach(card => {
+                        card.style.opacity = '0.5'; // Dibikin agak pudar
+                        card.style.filter = 'grayscale(80%)'; 
+                        
+                        // Ganti tombol keranjang jadi logo gembok/tutup
+                        let btnCart = card.querySelector('.app-cart-btn');
+                        if(btnCart) {
+                            btnCart.innerHTML = '<i class="fas fa-lock"></i>';
+                            btnCart.style.background = '#475569'; 
+                            btnCart.style.boxShadow = 'none';
+                        }
+
+                        // Timpa fungsi kliknya (Biar gak bisa buka pop-up)
+                        card.onclick = function() {
+                            showToast('error', 'Admin sedang Offline. Jadwal Buka: Senin-Jumat (13:00-21:00) & Sabtu-Minggu (08:00-21:00) WITA.');
+                        };
+                    });
+                } else {
+                    // Kalau BUKA (Normalin lagi jaga-jaga kalau dia refresh pas jam buka)
+                    if(bannerTutup) bannerTutup.style.display = 'none';
+                }
             }
         }
         
