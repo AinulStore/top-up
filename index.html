@@ -929,6 +929,67 @@
             height: auto !important;
         }
 
+        /* === DESAIN APP PREMIUM ALA E-COMMERCE === */
+        .app-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 10px 0; }
+        @media (min-width: 768px) { .app-grid { grid-template-columns: repeat(4, 1fr); } }
+        
+        .app-card { background: #ffffff; border-radius: 20px; padding: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); cursor: pointer; position: relative; transition: 0.3s; }
+        body:not(.light-mode) .app-card { background: var(--bg-card); box-shadow: 0 10px 20px rgba(0,0,0,0.4); border: 1px solid var(--glass-border); }
+        .app-card:hover { transform: translateY(-5px); }
+        .app-img-box { position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 15px; overflow: hidden; margin-bottom: 15px; }
+        .app-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .app-tags { position: absolute; bottom: 8px; left: 8px; right: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .app-tag-merk { background: rgba(255,255,255,0.9); color: #000; font-size: 0.65rem; font-weight: 800; padding: 4px 8px; border-radius: 10px; }
+        .app-tag-sold { background: rgba(0,0,0,0.7); color: #FACC15; font-size: 0.65rem; font-weight: 700; padding: 4px 8px; border-radius: 10px; }
+        
+        .app-title { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.95rem; color: #000; margin-bottom: 5px; line-height: 1.3; }
+        body:not(.light-mode) .app-title { color: #fff; }
+        .app-sisa { display: inline-block; background: #F1F5F9; color: #475569; font-size: 0.7rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; margin-bottom: 10px; }
+        body:not(.light-mode) .app-sisa { background: rgba(255,255,255,0.1); color: var(--text-dim); }
+        
+        .app-bottom { display: flex; justify-content: space-between; align-items: center; }
+        .app-price { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: #000; }
+        body:not(.light-mode) .app-price { color: #fff; }
+        .app-cart-btn { background: #8B5CF6; color: #fff; width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 0.9rem; border: none; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4); }
+
+        /* === BOTTOM SHEET MODAL (APP PREMIUM) === */
+        .sheet-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); z-index: 2000; display: none; align-items: flex-end; animation: fadeInModal 0.3s forwards; }
+        .sheet-box { background: #fff; width: 100%; max-width: 600px; margin: 0 auto; border-radius: 30px 30px 0 0; padding: 25px; position: relative; animation: slideUpSheet 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; color: #000; max-height: 90vh; overflow-y: auto;}
+        body:not(.light-mode) .sheet-box { background: #0F172A; color: #fff; border-top: 1px solid var(--glass-border); }
+        
+        @keyframes slideUpSheet { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        
+        .sheet-close { position: absolute; top: 20px; right: 20px; background: #F1F5F9; border: none; width: 30px; height: 30px; border-radius: 50%; font-size: 1rem; color: #475569; cursor: pointer; }
+        body:not(.light-mode) .sheet-close { background: rgba(255,255,255,0.1); color: #fff; }
+        
+        .sheet-header { display: flex; gap: 15px; align-items: center; margin-bottom: 25px; padding-right: 30px;}
+        .sheet-icon { width: 70px; height: 70px; border-radius: 16px; object-fit: cover; }
+        .sheet-tag { background: #E0E7FF; color: #4338CA; font-size: 0.65rem; font-weight: 800; padding: 4px 8px; border-radius: 6px; display: inline-block; margin-bottom: 5px; text-transform: uppercase;}
+        body:not(.light-mode) .sheet-tag { background: rgba(67, 56, 202, 0.3); color: #818CF8; }
+        
+        .sheet-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .stat-box { border: 1px solid #E2E8F0; border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; }
+        body:not(.light-mode) .stat-box { border-color: rgba(255,255,255,0.1); }
+        .stat-box i { font-size: 1.2rem; color: #8B5CF6; }
+        
+        .sheet-desc-box { border: 1px solid #E2E8F0; border-radius: 12px; padding: 15px; margin-bottom: 25px; }
+        body:not(.light-mode) .sheet-desc-box { border-color: rgba(255,255,255,0.1); }
+        
+        .sheet-action-box { background: #0F172A; border-radius: 20px; padding: 20px; margin-bottom: 20px; color: #fff; }
+        .qty-control { display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 50px; }
+        .qty-btn { background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; padding: 5px; }
+        .qty-input { background: none; border: none; color: #fff; width: 30px; text-align: center; font-weight: bold; font-size: 1.1rem; }
+        
+        .sheet-wa-input { width: 100%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 15px 20px 15px 45px; border-radius: 12px; color: #fff; font-size: 1rem; outline: none; margin-top: 10px; }
+        .wa-wrapper { position: relative; }
+        .wa-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #94A3B8; }
+        
+        .sheet-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid #E2E8F0; }
+        body:not(.light-mode) .sheet-footer { border-color: rgba(255,255,255,0.1); }
+        .btn-bayar-sekarang { background: #0F172A; color: #fff; padding: 15px 30px; border-radius: 15px; font-weight: 700; border: none; cursor: pointer; transition: 0.3s; width: 100%; max-width: 250px; font-size: 1rem; }
+        body:not(.light-mode) .btn-bayar-sekarang { background: var(--primary); color: #000; box-shadow: 0 5px 15px rgba(0,225,255,0.3);}
+
     </style>
 </head>
 <body>
@@ -1452,58 +1513,132 @@
             </div>
         </div>
 
-        <!-- ==================== APP PREMIUM CONTENT ==================== -->
+        <!-- ==================== APP PREMIUM CONTENT (NEW) ==================== -->
         <div id="content-app" class="tab-content">
-            <div class="taka-banner" id="game-banner-app" style="display: none;">
-                <div class="taka-banner-top">
-                    <div class="taka-banner-logo" style="background: linear-gradient(135deg, #111, #222); display: flex; justify-content: center; align-items: center; font-size: 2rem; color: #FACC15;">
-                        <i class="fas fa-crown"></i>
-                    </div>
-                    <div class="taka-banner-text"><h2>Aplikasi Premium</h2><p>Legal & Bergaransi</p></div>
-                </div>
-                <div class="taka-banner-features">
-                    <span><i class="fas fa-bolt"></i> Proses Cepat</span>
-                    <span><i class="fas fa-shield-alt" style="color: #10B981;"></i> 100% Legal</span>
-                    <span><i class="fas fa-check-circle"></i> Private / Family</span>
-                </div>
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                <button onclick="kembaliKeKategori()" style="background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); color: #fff; padding: 8px 15px; border-radius: 8px; cursor: pointer; transition: 0.3s;"><i class="fas fa-arrow-left"></i> Kembali</button>
+                <div class="populer-title" style="margin: 0;"><i class="fas fa-crown" style="color: #B800FF;"></i> APP PREMIUM</div>
             </div>
 
-            <div class="taka-step-container">
-                <div class="taka-step-header"><div class="taka-step-num">1</div><div class="taka-step-title">Masukkan Email Anda</div></div>
-                <div class="taka-step-body">
-                    <div class="taka-input-row">
-                        <div class="taka-input-group">
-                            <label>Alamat Email</label>
-                            <input type="email" id="app-email" placeholder="Contoh: nama@gmail.com">
+            <div class="app-grid">
+                
+                <!-- CANVA -->
+                <div class="app-card" onclick="bukaSheetApp('Canva Edu Selamanya', 25000, 36, 10477, 'CANVA', 'Masa aktif Selamanya\nFitur Pro Terbuka Semua\nGaransi Anti Kicked', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Canva_icon_2021.svg/600px-Canva_icon_2021.svg.png')">
+                    <div class="app-img-box">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Canva_icon_2021.svg/600px-Canva_icon_2021.svg.png">
+                        <div class="app-tags">
+                            <span class="app-tag-merk">CANVA</span>
+                            <span class="app-tag-sold"><i class="fas fa-fire"></i> 10.4K Terjual</span>
                         </div>
                     </div>
-                    <small class="disclaimer-text" style="margin-top: 15px;">
-                        <i class="fas fa-info-circle"></i> Pastikan email aktif karena link invite akan dikirim ke email tersebut.
-                    </small>
-                </div>
-            </div>
-
-            <div class="taka-step-container step-dimmed">
-                <div class="taka-step-header"><div class="taka-step-num">2</div><div class="taka-step-title">Pilih Aplikasi</div></div>
-                <div class="taka-step-body">    
-                    <div class="grid nominal-grid" data-game="app">
-                        <!-- Canva -->
-                        <div class="card tilt-card" data-val="Canva Pro - 1 Bulan (Rp 15.000)"><div class="badge-hot"><i class="fas fa-fire"></i> Best Seller</div><div class="inner"><div class="card-title">Canva Pro 1Bln</div><div class="card-price">Rp 15.000</div></div></div>
-                        <div class="card tilt-card" data-val="Canva Pro - 1 Tahun (Rp 35.000)"><div class="inner"><div class="card-title">Canva Pro 1Thn</div><div class="card-price">Rp 35.000</div></div></div>
-                        
-                        <!-- Netflix -->
-                        <div class="card tilt-card" data-val="Netflix Sharing - 1 Bulan (Rp 30.000)"><div class="inner"><div class="card-title">Netflix Share 1Bln</div><div class="card-price">Rp 30.000</div></div></div>
-                        <div class="card tilt-card" data-val="Netflix Private - 1 Bulan (Rp 120.000)"><div class="inner"><div class="card-title">Netflix Private 1Bln</div><div class="card-price">Rp 120.000</div></div></div>
-                        
-                        <!-- CapCut -->
-                        <div class="card tilt-card" data-val="CapCut Pro - 1 Bulan (Rp 20.000)"><div class="inner"><div class="card-title">CapCut Pro 1Bln</div><div class="card-price">Rp 20.000</div></div></div>
-                        <div class="card tilt-card" data-val="CapCut Pro - 1 Tahun (Rp 150.000)"><div class="inner"><div class="card-title">CapCut Pro 1Thn</div><div class="card-price">Rp 150.000</div></div></div>
+                    <div class="app-title">Canva Edu Selamanya</div>
+                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 36</div>
+                    <div class="app-bottom">
+                        <div class="app-price">Rp 25.000</div>
+                        <button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button>
                     </div>
+                </div>
+
+                <!-- NETFLIX -->
+                <div class="app-card" onclick="bukaSheetApp('Netflix Sharing 1 Bulan', 35000, 12, 5420, 'NETFLIX', '1 Profil untuk 1 Orang\nResolusi 4K Ultra HD\nGaransi Full 1 Bulan\nDilarang ubah password!', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/799px-Netflix_2015_logo.svg.png')">
+                    <div class="app-img-box">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/799px-Netflix_2015_logo.svg.png" style="object-fit: contain; background:#000; padding:10px;">
+                        <div class="app-tags">
+                            <span class="app-tag-merk">NETFLIX</span>
+                            <span class="app-tag-sold"><i class="fas fa-fire"></i> 5.4K Terjual</span>
+                        </div>
+                    </div>
+                    <div class="app-title">Netflix Share 1 Bulan</div>
+                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 12</div>
+                    <div class="app-bottom">
+                        <div class="app-price">Rp 35.000</div>
+                        <button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button>
+                    </div>
+                </div>
+
+                <!-- CAPCUT -->
+                <div class="app-card" onclick="bukaSheetApp('CapCut Pro 1 Bulan', 20000, 50, 8930, 'CAPCUT', 'Unlock Semua Efek Pro\nEkspor tanpa Watermark\nSistem Invite (Legal)\nBisa di HP & PC', 'https://play-lh.googleusercontent.com/1-xZaxgL2XkP3B1U898uU_Y3xM_Uu8A77V-m3Wv9z2_1OQ1e8p_Z1-x9m8R4_P_m6-w=w240-h480-rw')">
+                    <div class="app-img-box">
+                        <img src="https://play-lh.googleusercontent.com/1-xZaxgL2XkP3B1U898uU_Y3xM_Uu8A77V-m3Wv9z2_1OQ1e8p_Z1-x9m8R4_P_m6-w=w240-h480-rw" style="background:#000;">
+                        <div class="app-tags">
+                            <span class="app-tag-merk">CAPCUT</span>
+                            <span class="app-tag-sold"><i class="fas fa-fire"></i> 8.9K Terjual</span>
+                        </div>
+                    </div>
+                    <div class="app-title">CapCut Pro 1 Bulan</div>
+                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 50</div>
+                    <div class="app-bottom">
+                        <div class="app-price">Rp 20.000</div>
+                        <button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================== MODAL BOTTOM SHEET APP PREMIUM ==================== -->
+        <div class="sheet-overlay" id="modal-app-sheet">
+            <div class="sheet-box">
+                <button class="sheet-close" onclick="tutupSheetApp()"><i class="fas fa-times"></i></button>
+                
+                <div class="sheet-header">
+                    <img src="" id="sheet-img" class="sheet-icon">
+                    <div>
+                        <div class="sheet-tag" id="sheet-tag">CANVA</div>
+                        <h2 style="font-family: 'Syne', sans-serif; font-size: 1.2rem; margin-bottom: 5px;" id="sheet-title">Judul App</h2>
+                        <div style="color: #10B981; font-weight: 800; font-size: 1.3rem;" id="sheet-price">Rp 0</div>
+                    </div>
+                </div>
+
+                <div class="sheet-stats">
+                    <div class="stat-box">
+                        <i class="fas fa-box-open"></i>
+                        <div><div style="font-size:0.7rem; color:var(--text-dim); font-weight:700;">STOK</div><strong id="sheet-stock">0</strong></div>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fas fa-fire" style="color: #FF4B2B;"></i>
+                        <div><div style="font-size:0.7rem; color:var(--text-dim); font-weight:700;">TERJUAL</div><strong id="sheet-sold">0</strong></div>
+                    </div>
+                </div>
+
+                <div class="sheet-desc-box">
+                    <div style="font-size:0.75rem; color:var(--text-dim); font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:8px;"><i class="fas fa-align-left"></i> DESKRIPSI PRODUK</div>
+                    <p style="font-size: 0.9rem; line-height: 1.6; white-space: pre-line;" id="sheet-desc">Deskripsi disini</p>
+                </div>
+
+                <div class="sheet-action-box">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                        <div>
+                            <div style="font-weight: 700; font-size: 0.85rem; margin-bottom: 3px;">JUMLAH BELI</div>
+                            <div style="font-size: 0.7rem; color: #94A3B8;">Minimal pembelian 1</div>
+                        </div>
+                        <div class="qty-control">
+                            <button class="qty-btn" onclick="ubahQty(-1)"><i class="fas fa-minus"></i></button>
+                            <input type="number" class="qty-input" id="sheet-qty" value="1" readonly>
+                            <button class="qty-btn" onclick="ubahQty(1)"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div style="font-weight: 700; font-size: 0.85rem;">WHATSAPP / TELEGRAM</div>
+                        <div class="wa-wrapper">
+                            <i class="fas fa-address-book"></i>
+                            <input type="number" id="sheet-wa" class="sheet-wa-input" placeholder="08xxxx / @username">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sheet-footer">
+                    <div>
+                        <div style="font-size:0.7rem; color:var(--text-dim); font-weight:700;">TOTAL PEMBAYARAN</div>
+                        <strong style="font-family: 'Syne', sans-serif; font-size: 1.4rem;" id="sheet-total-price">Rp 0</strong>
+                    </div>
+                    <button class="btn-bayar-sekarang" onclick="prosesBeliApp()"><i class="fas fa-wallet"></i> BAYAR SEKARANG</button>
                 </div>
             </div>
         </div>
 
-        <!-- ==================== GLOBAL STEPS 3 & 4 ==================== -->
+        <!-- ==================== GLOBAL STEPS 3 & 4 (Hanya untuk Game) ==================== -->
         <div class="global-steps" id="global-steps" style="display: none;">
             
             <!-- STEP 3: PEMBAYARAN -->
@@ -2826,6 +2961,94 @@
                     katalogApp.closest('.taka-step-container').classList.remove('step-dimmed');
                 } else katalogApp.classList.add('katalog-terkunci');
             });
+        }
+        
+                // ==========================================
+        // FITUR APP PREMIUM & BOTTOM SHEET
+        // ==========================================
+        let appDataTemp = {}; // Nyimpen data sementara pas di klik
+        
+        window.bukaSheetApp = function(title, price, stock, sold, tag, desc, img) {
+            appDataTemp = { title, price, qty: 1 };
+            
+            document.getElementById('sheet-title').innerText = title;
+            document.getElementById('sheet-price').innerText = 'Rp ' + price.toLocaleString('id-ID');
+            document.getElementById('sheet-stock').innerText = stock;
+            document.getElementById('sheet-sold').innerText = sold.toLocaleString('id-ID');
+            document.getElementById('sheet-tag').innerText = tag;
+            document.getElementById('sheet-desc').innerText = desc;
+            document.getElementById('sheet-img').src = img;
+            
+            document.getElementById('sheet-qty').value = 1;
+            document.getElementById('sheet-total-price').innerText = 'Rp ' + price.toLocaleString('id-ID');
+            
+            document.getElementById('modal-app-sheet').style.display = 'flex';
+        }
+
+        window.tutupSheetApp = function() {
+            document.getElementById('modal-app-sheet').style.display = 'none';
+        }
+
+        window.ubahQty = function(val) {
+            let qtyInput = document.getElementById('sheet-qty');
+            let qty = parseInt(qtyInput.value) + val;
+            if(qty >= 1 && qty <= 10) { // Maksimal beli 10
+                qtyInput.value = qty;
+                appDataTemp.qty = qty;
+                let total = appDataTemp.price * qty;
+                document.getElementById('sheet-total-price').innerText = 'Rp ' + total.toLocaleString('id-ID');
+            }
+        }
+
+        // ==========================================
+        // PROSES BAYAR APP (PAKAI QRIS DANA PRIBADI LU)
+        // ==========================================
+        window.prosesBeliApp = function() {
+            let waApp = document.getElementById('sheet-wa').value;
+            if(!waApp) return showToast('error', 'Nomor WA/Telegram wajib diisi bosku!');
+
+            let totalBelanja = appDataTemp.price * appDataTemp.qty;
+            let formatTotal = 'Rp ' + totalBelanja.toLocaleString('id-ID');
+            let resiBaru = "INV-APP-" + Math.floor(Math.random() * 900000 + 100000);
+
+            // GANTI TEXT DI INVOICE
+            document.getElementById('inv-resi').innerText = resiBaru;
+            document.getElementById('inv-game').innerText = "Aplikasi Premium";
+            document.getElementById('inv-id').innerText = waApp;
+            document.getElementById('inv-item').innerText = `${appDataTemp.title} (x${appDataTemp.qty})`;
+            document.getElementById('inv-pay').innerText = "QRIS Otomatis";
+            document.getElementById('inv-total').innerText = formatTotal;
+
+            // MUNCULIN QRIS AJA, MATIIN E-WALLET
+            document.getElementById('instruksi-qris').style.display = 'block';
+            document.getElementById('instruksi-ewallet').style.display = 'none';
+            document.getElementById('text-nominal-qris').innerText = formatTotal;
+
+            // ⚠️ GANTI TEKS DI BAWAH INI DENGAN TEKS MENTAH QRIS DANA PRIBADI LU NANTI ⚠️
+            let myPersonalQRIS = "00020101021126570011ID.DANA.WWW011893600915303264378902090326437890303UMI51440014ID.CO.QRIS.WWW0215ID10265327541770303UMI5204654053033605802ID5910Null Store6015Kota Banjarmasi6105702396304C29E"; 
+            
+            // Generate QRIS Otomatis
+            let qrisDinamisPersonal = buatQRISDinamis(myPersonalQRIS, totalBelanja);
+            document.getElementById('qris-canvas').innerHTML = ""; 
+            new QRCode(document.getElementById("qris-canvas"), {
+                text: qrisDinamisPersonal, width: 256, height: 256, colorDark: "#000000", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M
+            });
+
+            // Kirim ke Telegram
+            const botToken = "8919249232:AAFwEw7aeK0SzWUhzRTg84CC93fm-hWqQbI";
+            const chatId = "8670802727";
+            const telePesan = `🚨 *ORDER APP PREMIUM!* 🚨\n\n🧾 *Resi:* ${resiBaru}\n💎 *Produk:* ${appDataTemp.title} (x${appDataTemp.qty})\n💰 *Total:* ${formatTotal}\n📱 *Kontak Pembeli:* ${waApp}\n\n⚠️ _Silakan cek saldo DANA. Jika masuk, hubungi kontak di atas!_`;
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ chat_id: chatId, text: telePesan, parse_mode: "Markdown" })
+            });
+
+            simpanRiwayatLokal(resiBaru, "App Premium", appDataTemp.title, formatTotal);
+
+            tutupSheetApp();
+            document.getElementById('modal-invoice').style.display = 'flex';
+            startQrisTimer();
         }
     </script>
 
