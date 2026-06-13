@@ -984,6 +984,7 @@
                             <a href="#">Beranda</a>
                             <a href="#katalog">Katalog</a>
                             <a href="#faq">Bantuan</a>
+                            <a href="#" onclick="bukaModalLacak(); return false;" style="color: var(--primary);"><i class="fas fa-search"></i> Cek Pesanan</a>
                             <a href="#" class="btn-login" onclick="showToast('error', 'Pendaftaran Member VIP saat ini sedang penuh / ditutup sementara.'); return false;"><i class="fas fa-user-circle"></i> Member Area</a>
                         </div>
                     </div>
@@ -1877,7 +1878,15 @@
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" alt="GoPay" style="height: 18px;">
                                 <span style="font-weight: 900; font-size: 0.9rem; letter-spacing: 1px; color:#fff;">OVO</span>
                             </div>
-                            <strong style="color: #fff; font-size: 1.2rem; letter-spacing: 1px; user-select: all;" id="nomor-ewallet">085757568455</strong>
+                            
+                            <!-- BAGIAN NOMOR & TOMBOL SALIN YANG BARU -->
+                            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin: 10px 0;">
+                                <strong style="color: #fff; font-size: 1.3rem; letter-spacing: 1px;" id="nomor-ewallet">085757568455</strong>
+                                <button onclick="salinNomorEwallet()" style="background: var(--primary); color: #000; border: none; padding: 6px 12px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                    <i class="fas fa-copy"></i> Salin
+                                </button>
+                            </div>
+
                             <p style="color: var(--text-dim); font-size: 0.8rem; margin-top: 5px;">a.n. Ainul Riskian</p>
                         </div>
                     </div>
@@ -1887,6 +1896,23 @@
                 <p style="color: var(--error); font-size: 0.8rem; text-align: center; margin-bottom: 15px; font-style: italic;">*Jika sudah bayar, wajib klik tombol di bawah untuk konfirmasi ke Admin.</p>
 
                 <button class="btn-submit-review" onclick="lanjutBayarWA()" id="btn-lanjut-wa">Kirim Bukti Transfer <i class="fab fa-whatsapp"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- === MODAL LACAK PESANAN === -->
+    <div class="modal-overlay" id="modal-lacak">
+        <div class="modal-box">
+            <button class="close-modal" onclick="tutupModalLacak()"><i class="fas fa-times"></i></button>
+            <h3 class="modal-title"><i class="fas fa-search"></i> Lacak Pesanan</h3>
+            <p style="color: var(--text-dim); font-size: 0.9rem; text-align: center; margin-bottom: 20px;">Masukkan Nomor Resi (INV-XXXXXX) untuk melacak status pesanan Anda.</p>
+            <div class="input-box">
+                <input type="text" id="input-resi-lacak" placeholder="Contoh: INV-123456" style="text-transform: uppercase;">
+            </div>
+            <button class="btn-submit-review" onclick="cariPesanan()">Cari Pesanan</button>
+            
+            <!-- Tempat Muncul Hasil Pencarian -->
+            <div id="hasil-lacak" style="margin-top: 20px; display: none; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; border: 1px solid var(--glass-border);">
             </div>
         </div>
     </div>
@@ -2038,6 +2064,9 @@
             if (selectedPayment === 'QRIS') {
                 startQrisTimer();
             }
+
+            // SIMPAN KE RIWAYAT UNTUK DILACAK
+            simpanRiwayatLokal(resi, gameName, selectedNominal, hargaTotal);
 
             // === ROBOT PENGIRIM NOTIFIKASI KE TELEGRAM ===
             const botToken = "8919249232:AAFwEw7aeK0SzWUhzRTg84CC93fm-hWqQbI";
@@ -2640,6 +2669,67 @@
                 a.href = newCanvas.toDataURL("image/png");
                 a.download = "QRIS_NullStore_Otomatis.png";
                 a.click();
+            }
+        }
+
+        // === FITUR SALIN CERDAS E-WALLET ===
+        window.salinNomorEwallet = function() {
+            let nombor = document.getElementById('nomor-ewallet').innerText;
+            navigator.clipboard.writeText(nombor).then(() => {
+                showToast('success', 'Nomor E-Wallet berhasil disalin!');
+                setTimeout(() => {
+                    let bukaApp = confirm("Nomor berhasil disalin! 📋\n\nMau langsung buka aplikasi DANA sekarang?");
+                    if(bukaApp) { window.location.href = "dana://"; }
+                }, 800);
+            });
+        }
+
+        // === FITUR LACAK PESANAN (ORDER TRACKING) ===
+        window.bukaModalLacak = function() { document.getElementById('modal-lacak').style.display = 'flex'; }
+        window.tutupModalLacak = function() { 
+            document.getElementById('modal-lacak').style.display = 'none'; 
+            document.getElementById('hasil-lacak').style.display = 'none';
+            document.getElementById('input-resi-lacak').value = '';
+        }
+        
+        // Rumus Simpan Pesanan (Dijalanin otomatis pas klik Beli Sekarang)
+        function simpanRiwayatLokal(resiData, gameData, itemData, totalData) {
+            let history = JSON.parse(localStorage.getItem('nullstore_history')) || [];
+            history.push({ resi: resiData, game: gameData, item: itemData, total: totalData, time: new Date().getTime() });
+            localStorage.setItem('nullstore_history', JSON.stringify(history));
+        }
+
+        // Cari Resi
+        window.cariPesanan = function() {
+            let inputResi = document.getElementById('input-resi-lacak').value.trim().toUpperCase();
+            let hasilBox = document.getElementById('hasil-lacak');
+            if(!inputResi) return showToast('error', 'Masukkan nomor resi dulu bosku!');
+            
+            let history = JSON.parse(localStorage.getItem('nullstore_history')) || [];
+            let order = history.find(o => o.resi === inputResi);
+            
+            if(order) {
+                let now = new Date().getTime();
+                let selisihMenit = (now - order.time) / (1000 * 60);
+                
+                let statusHtml = '';
+                if(selisihMenit < 5) {
+                    statusHtml = `<span style="color: #FACC15; font-weight: bold; font-size:1.1rem;"><i class="fas fa-spinner fa-spin"></i> Sedang Diproses</span><p style="font-size:0.75rem; color:var(--text-dim); margin-top:3px;">Admin sedang memproses pesananmu (1-5 Menit)</p>`;
+                } else {
+                    statusHtml = `<span style="color: var(--success); font-weight: bold; font-size:1.1rem;"><i class="fas fa-check-circle"></i> Berhasil</span><p style="font-size:0.75rem; color:var(--text-dim); margin-top:3px;">Pesanan telah masuk ke akun Anda.</p>`;
+                }
+
+                hasilBox.innerHTML = `
+                    <div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px dashed rgba(255,255,255,0.1);">${statusHtml}</div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;"><span style="color: var(--text-dim); font-size: 0.85rem;">Resi</span><strong style="color: #fff; font-size: 0.85rem;">${order.resi}</strong></div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;"><span style="color: var(--text-dim); font-size: 0.85rem;">Game</span><strong style="color: #fff; font-size: 0.85rem;">${order.game}</strong></div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;"><span style="color: var(--text-dim); font-size: 0.85rem;">Item</span><strong style="color: var(--primary); font-size: 0.85rem;">${order.item}</strong></div>
+                    <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-dim); font-size: 0.85rem;">Total</span><strong style="color: #fff; font-size: 0.85rem;">${order.total}</strong></div>
+                `;
+                hasilBox.style.display = 'block';
+            } else {
+                hasilBox.innerHTML = `<div style="text-align: center; color: var(--error);"><i class="fas fa-exclamation-triangle" style="font-size:1.5rem; margin-bottom:10px;"></i><br>Pesanan tidak ditemukan. Pastikan Resi benar!</div>`;
+                hasilBox.style.display = 'block';
             }
         }
     </script>
