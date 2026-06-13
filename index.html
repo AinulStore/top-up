@@ -1514,14 +1514,13 @@
         </div>
 
         <!-- ==================== APP PREMIUM CONTENT (NEW) ==================== -->
-        <div id="content-app" class="tab-content">
+        <div id="content-app" class="tab-content" style="display: none; width: 100%;">
             <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
                 <button onclick="kembaliKeKategori()" style="background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); color: #fff; padding: 8px 15px; border-radius: 8px; cursor: pointer; transition: 0.3s;"><i class="fas fa-arrow-left"></i> Kembali</button>
                 <div class="populer-title" style="margin: 0;"><i class="fas fa-crown" style="color: #B800FF;"></i> APP PREMIUM</div>
             </div>
 
             <div class="app-grid">
-                
                 <!-- CANVA -->
                 <div class="app-card" onclick="bukaSheetApp('Canva Edu Selamanya', 25000, 36, 10477, 'CANVA', 'Masa aktif Selamanya\nFitur Pro Terbuka Semua\nGaransi Anti Kicked', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Canva_icon_2021.svg/600px-Canva_icon_2021.svg.png')">
                     <div class="app-img-box">
@@ -1572,13 +1571,12 @@
                         <button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button>
                     </div>
                 </div>
-
             </div>
         </div>
 
         <!-- ==================== MODAL BOTTOM SHEET APP PREMIUM ==================== -->
-        <div class="sheet-overlay" id="modal-app-sheet" style="align-items: center;"> <!-- Ubah dari flex-end jadi center biar melayang keren -->
-            <div class="sheet-box" style="border-radius: 20px; max-height: 95vh; overflow-y: auto; width: 95%;"> <!-- Bikin modal lebih besar dan round -->
+        <div class="sheet-overlay" id="modal-app-sheet" style="align-items: center; justify-content: center; z-index: 9999;"> 
+            <div class="sheet-box" style="border-radius: 20px; max-height: 90vh; overflow-y: auto; width: 95%; max-width: 450px;"> 
                 <button class="sheet-close" onclick="tutupSheetApp()"><i class="fas fa-times"></i></button>
                 
                 <div class="sheet-header">
@@ -1611,7 +1609,7 @@
                         <div style="font-weight: 700; font-size: 0.85rem;">WHATSAPP / TELEGRAM</div>
                         <div class="wa-wrapper">
                             <i class="fas fa-address-book"></i>
-                            <input type="text" id="sheet-wa" class="sheet-wa-input" placeholder="08xxxx / @username"> <!-- Ubah jadi text biar bisa pake @ -->
+                            <input type="text" id="sheet-wa" class="sheet-wa-input" placeholder="08xxxx / @username" autocomplete="off"> 
                         </div>
                     </div>
                 </div>
@@ -2915,70 +2913,57 @@
             }
         }
         
-                // NAVIGASI PILIH KATEGORI LORONG
+        // ==========================================
+        // NAVIGASI PILIH KATEGORI LORONG & HILANGIN STEP 3-4
+        // ==========================================
         window.bukaKategoriUtama = function(kategori) {
             document.getElementById('menu-utama-kategori').style.display = 'none';
-            let globalSteps = document.getElementById('global-steps'); // Ambil elemen Step 3 & 4
-            
+            let globalSteps = document.getElementById('global-steps');
+            let contentApp = document.getElementById('content-app');
+            let contentGame = document.getElementById('sub-menu-game');
+            let wrapperCheckout = document.querySelector('.checkout-wrapper'); // Tombol checkout game yang melayang
+
             if(kategori === 'game') {
-                document.getElementById('sub-menu-game').style.display = 'block';
-                if(globalSteps) globalSteps.style.display = 'block'; // Tunjukin Step 3 & 4 buat game
+                contentGame.style.display = 'block';
+                contentApp.style.display = 'none';
+                if(globalSteps) globalSteps.style.display = 'block';
+                if(wrapperCheckout) wrapperCheckout.style.display = 'flex'; // Munculin lg tombol game
                 switchTab('mlbb', document.querySelector('.game-card')); 
             } else if (kategori === 'app-premium') {
-                document.getElementById('sub-menu-game').style.display = 'none';
-                if(globalSteps) globalSteps.style.display = 'none'; // SEMBUNYIIN Step 3 & 4 buat App Premium
-                switchTab('app');
+                contentGame.style.display = 'none';
+                contentApp.style.display = 'block';
+                contentApp.classList.add('active'); // Biar animasinya jalan
                 
-                // Nambahin tombol kembali otomatis (Kalau belum ada)
-                let headerApp = document.querySelector('.app-grid'); 
-                if(headerApp && !document.getElementById('btn-kembali-app')) {
-                    headerApp.insertAdjacentHTML('beforebegin', `<div style="margin-bottom: 20px; display: flex; align-items: center; gap: 15px;"><button id="btn-kembali-app" onclick="kembaliKeKategori()" style="background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); color: #fff; padding: 8px 15px; border-radius: 8px; cursor: pointer; transition: 0.3s;"><i class="fas fa-arrow-left"></i> Kembali</button><div class="populer-title" style="margin: 0;"><i class="fas fa-crown" style="color: #B800FF;"></i> APP PREMIUM</div></div>`);
-                }
+                // HILANGIN SEMUA ELEMEN BAWAH (Step 3, 4, sama tombol checkout mengambang)
+                if(globalSteps) globalSteps.style.display = 'none';
+                if(wrapperCheckout) wrapperCheckout.style.display = 'none';
                 
-                // Hapus banner & form email yang kemaren kita buat (Karna lu ga mau ada form email di awal)
-                let headerLama1 = document.querySelector('#game-banner-app');
-                let headerLama2 = document.querySelector('#content-app .taka-step-container');
-                let headerLama3 = document.querySelector('#content-app .taka-step-container.step-dimmed .taka-step-header');
-                
-                if(headerLama1) headerLama1.style.display = 'none';
-                if(headerLama2) headerLama2.style.display = 'none';
-                if(headerLama3) headerLama3.style.display = 'none';
-                
-                // Buka gembok katalog App Premium otomatis
-                let katalogApp = document.querySelector('.nominal-grid[data-game="app"]');
-                if(katalogApp) {
-                    katalogApp.classList.remove('katalog-terkunci');
-                    katalogApp.closest('.taka-step-container').classList.remove('step-dimmed');
-                }
+                // Pastikan game dimatikan di background
+                document.querySelectorAll('.tab-content').forEach(c => {
+                    if(c.id !== 'content-app') c.classList.remove('active');
+                });
+                currentGame = 'app';
             }
         }
+        
         window.kembaliKeKategori = function() {
             document.getElementById('sub-menu-game').style.display = 'none';
-            switchTab('beranda'); 
+            document.getElementById('content-app').style.display = 'none';
             document.getElementById('menu-utama-kategori').style.display = 'block';
+            let globalSteps = document.getElementById('global-steps');
+            let wrapperCheckout = document.querySelector('.checkout-wrapper');
+            if(globalSteps) globalSteps.style.display = 'none';
+            if(wrapperCheckout) wrapperCheckout.style.display = 'none';
+            switchTab('beranda'); 
         }
 
-        // BUKA GEMBOK APP PREMIUM
-        let inputApp = document.getElementById('app-email');
-        let katalogApp = document.querySelector('.nominal-grid[data-game="app"]');
-        if(katalogApp) katalogApp.classList.add('katalog-terkunci');
-        
-        if (inputApp) {
-            inputApp.addEventListener('input', function() {
-                if (this.value.includes('@') && this.value.includes('.')) {
-                    katalogApp.classList.remove('katalog-terkunci');
-                    katalogApp.closest('.taka-step-container').classList.remove('step-dimmed');
-                } else katalogApp.classList.add('katalog-terkunci');
-            });
-        }
-        
-                // ==========================================
-        // FITUR APP PREMIUM & BOTTOM SHEET
         // ==========================================
-        let appDataTemp = {}; // Nyimpen data sementara pas di klik
+        // FITUR APP PREMIUM (MODAL & BAYAR)
+        // ==========================================
+        let appDataTemp = {}; 
         
         window.bukaSheetApp = function(title, price, stock, sold, tag, desc, img) {
-            appDataTemp = { title, price, qty: 1 };
+            appDataTemp = { title, price, qty: 1 }; // Kita patenkan qty 1
             
             document.getElementById('sheet-title').innerText = title;
             document.getElementById('sheet-price').innerText = 'Rp ' + price.toLocaleString('id-ID');
@@ -2988,7 +2973,6 @@
             document.getElementById('sheet-desc').innerText = desc;
             document.getElementById('sheet-img').src = img;
             
-            document.getElementById('sheet-qty').value = 1;
             document.getElementById('sheet-total-price').innerText = 'Rp ' + price.toLocaleString('id-ID');
             
             document.getElementById('modal-app-sheet').style.display = 'flex';
@@ -2998,25 +2982,11 @@
             document.getElementById('modal-app-sheet').style.display = 'none';
         }
 
-        window.ubahQty = function(val) {
-            let qtyInput = document.getElementById('sheet-qty');
-            let qty = parseInt(qtyInput.value) + val;
-            if(qty >= 1 && qty <= 10) { // Maksimal beli 10
-                qtyInput.value = qty;
-                appDataTemp.qty = qty;
-                let total = appDataTemp.price * qty;
-                document.getElementById('sheet-total-price').innerText = 'Rp ' + total.toLocaleString('id-ID');
-            }
-        }
-
-        // ==========================================
-        // PROSES BAYAR APP (PAKAI QRIS DANA PRIBADI LU)
-        // ==========================================
         window.prosesBeliApp = function() {
             let waApp = document.getElementById('sheet-wa').value;
             if(!waApp) return showToast('error', 'Nomor WA/Telegram wajib diisi bosku!');
 
-            let totalBelanja = appDataTemp.price * appDataTemp.qty;
+            let totalBelanja = appDataTemp.price;
             let formatTotal = 'Rp ' + totalBelanja.toLocaleString('id-ID');
             let resiBaru = "INV-APP-" + Math.floor(Math.random() * 900000 + 100000);
 
@@ -3024,7 +2994,7 @@
             document.getElementById('inv-resi').innerText = resiBaru;
             document.getElementById('inv-game').innerText = "Aplikasi Premium";
             document.getElementById('inv-id').innerText = waApp;
-            document.getElementById('inv-item').innerText = `${appDataTemp.title} (x${appDataTemp.qty})`;
+            document.getElementById('inv-item').innerText = appDataTemp.title;
             document.getElementById('inv-pay').innerText = "QRIS Otomatis";
             document.getElementById('inv-total').innerText = formatTotal;
 
@@ -3033,7 +3003,7 @@
             document.getElementById('instruksi-ewallet').style.display = 'none';
             document.getElementById('text-nominal-qris').innerText = formatTotal;
 
-            // ⚠️ GANTI TEKS DI BAWAH INI DENGAN TEKS MENTAH QRIS DANA PRIBADI LU NANTI ⚠️
+            // QRIS DANA PRIBADI LU
             let myPersonalQRIS = "00020101021126570011ID.DANA.WWW011893600915303264378902090326437890303UMI51440014ID.CO.QRIS.WWW0215ID10265327541770303UMI5204654053033605802ID5910Null Store6015Kota Banjarmasi6105702396304C29E"; 
             
             // Generate QRIS Otomatis
@@ -3046,7 +3016,7 @@
             // Kirim ke Telegram
             const botToken = "8919249232:AAFwEw7aeK0SzWUhzRTg84CC93fm-hWqQbI";
             const chatId = "8670802727";
-            const telePesan = `🚨 *ORDER APP PREMIUM!* 🚨\n\n🧾 *Resi:* ${resiBaru}\n💎 *Produk:* ${appDataTemp.title} (x${appDataTemp.qty})\n💰 *Total:* ${formatTotal}\n📱 *Kontak Pembeli:* ${waApp}\n\n⚠️ _Silakan cek saldo DANA. Jika masuk, hubungi kontak di atas!_`;
+            const telePesan = `🚨 *ORDER APP PREMIUM!* 🚨\n\n🧾 *Resi:* ${resiBaru}\n💎 *Produk:* ${appDataTemp.title}\n💰 *Total:* ${formatTotal}\n📱 *Kontak Pembeli:* ${waApp}\n\n⚠️ _Silakan cek saldo DANA. Jika masuk, hubungi kontak di atas!_`;
 
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: "POST", headers: { "Content-Type": "application/json" },
@@ -3055,8 +3025,8 @@
 
             simpanRiwayatLokal(resiBaru, "App Premium", appDataTemp.title, formatTotal);
 
-            tutupSheetApp();
-            document.getElementById('modal-invoice').style.display = 'flex';
+            tutupSheetApp(); // Tutup bottom sheet
+            document.getElementById('modal-invoice').style.display = 'flex'; // Munculin struk qris
             startQrisTimer();
         }
     </script>
