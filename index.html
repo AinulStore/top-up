@@ -2039,28 +2039,25 @@
                 startQrisTimer();
             }
 
-            // === ROBOT PENGIRIM NOTIFIKASI KE GMAIL ===
-            // Fungsi ini diem-diem ngirim data pesanan ke email lu pas pembeli klik checkout
-            fetch("https://formsubmit.co/ajax/nullstoregaming@gmail.com", {
+            // === ROBOT PENGIRIM NOTIFIKASI KE TELEGRAM ===
+            const botToken = "8919249232:AAFwEw7aeK0SzWUhzRTg84CC93fm-hWqQbI";
+            const chatId = "8670802727";
+            const telePesan = `🚨 *ORDER BARU MASUK!* 🚨\n\n🧾 *Resi:* ${resi}\n🎮 *Game:* ${gameName}\n🆔 *ID/Server:* ${accountData}\n💎 *Item:* ${selectedNominal}\n💳 *Pembayaran:* ${selectedPayment}\n💰 *Total Tagihan:* ${hargaTotal}\n📱 *WA Pembeli:* ${wa}\n\n⚠️ _Segera cek Mutasi. Jika dana masuk, segera proses!_`;
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    "STATUS": "🚨 ORDER BARU MASUK!",
-                    "Resi": resi,
-                    "Game": gameName,
-                    "ID_Server": accountData,
-                    "Item_Dibeli": selectedNominal,
-                    "Metode_Bayar": selectedPayment,
-                    "Total_Tagihan": hargaTotal,
-                    "WhatsApp_Pembeli": wa,
-                    "PESAN_SISTEM": "Segera cek Mutasi Dana / Order Kuota. Jika uang sudah masuk, segera proses ID ini!"
+                    chat_id: chatId,
+                    text: telePesan,
+                    parse_mode: "Markdown"
                 })
-            }).then(response => response.json())
-              .then(data => console.log("Berhasil kirim intel!"))
-              .catch(error => console.log("Intel gagal", error));
+            })
+            .then(response => response.json())
+            .then(data => console.log("Intel Telegram Berhasil!"))
+            .catch(error => console.log("Intel Telegram Gagal", error));
         }
 
         // === FUNGSI TIMER QRIS 5 MENIT ===
