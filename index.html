@@ -918,6 +918,17 @@
         .pay-chevron { transition: transform 0.3s ease; color: var(--text-dim); }
         .taka-pay-item.selected .pay-chevron { transform: rotate(180deg); color: var(--primary); }
 
+        /* === FIX BINGKAI QRIS OFFSIDE === */
+        #qris-canvas {
+            width: 100% !important;
+            max-width: 250px !important;
+            box-sizing: border-box !important;
+        }
+        #qris-canvas canvas, #qris-canvas img {
+            max-width: 100% !important;
+            height: auto !important;
+        }
+
     </style>
 </head>
 <body>
