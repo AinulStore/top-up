@@ -2714,9 +2714,9 @@
                 
                 let statusHtml = '';
                 if(selisihMenit < 5) {
-                    statusHtml = `<span style="color: #FACC15; font-weight: bold; font-size:1.1rem;"><i class="fas fa-spinner fa-spin"></i> Sedang Diproses</span><p style="font-size:0.75rem; color:var(--text-dim); margin-top:3px;">Admin sedang memproses pesananmu (1-5 Menit)</p>`;
+                    statusHtml = `<span style="color: #FACC15; font-weight: bold; font-size:1.1rem;"><i class="fas fa-clock"></i> Menunggu Pembayaran</span><p style="font-size:0.75rem; color:var(--text-dim); margin-top:3px;">Selesaikan pembayaran dan konfirmasi ke WhatsApp Admin.</p>`;
                 } else {
-                    statusHtml = `<span style="color: var(--success); font-weight: bold; font-size:1.1rem;"><i class="fas fa-check-circle"></i> Berhasil</span><p style="font-size:0.75rem; color:var(--text-dim); margin-top:3px;">Pesanan telah masuk ke akun Anda.</p>`;
+                    statusHtml = `<span style="color: var(--text-dim); font-weight: bold; font-size:1.1rem;"><i class="fas fa-info-circle"></i> Pengecekan / Kadaluarsa</span><p style="font-size:0.75rem; color:var(--text-dim); margin-top:3px; line-height: 1.5;">Waktu bayar habis. Jika <b>SUDAH BAYAR</b>, pesanan sedang dicek manual. Jika <b>BELUM</b>, pesanan ini otomatis dibatalkan.</p>`;
                 }
 
                 hasilBox.innerHTML = `
