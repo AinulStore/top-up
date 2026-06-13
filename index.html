@@ -30,6 +30,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<!-- Mesin Pembuat QR Code -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 
     <style>    
             /* === TEMA LIGHT MODE === */
@@ -1840,8 +1843,12 @@
                     <!-- Ini yang muncul kalau pilih QRIS -->
                     <div id="instruksi-qris" style="display: none;">
                         <p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 10px;">Mohon lakukan pembayaran dengan scan QRIS di bawah ini dengan nominal <strong style="color: var(--primary);" id="text-nominal-qris"></strong></p>
-                        <img src="Qris.png" alt="QRIS Null Store" style="width: 100%; max-width: 250px; border-radius: 8px; border: 2px solid var(--primary); margin-bottom: 10px;">
-                        <a href="Qris.png" download="QRIS_NullStore.jpg" style="display: block; background: rgba(255,255,255,0.1); color: #fff; text-decoration: none; padding: 8px; border-radius: 20px; font-size: 0.85rem; width: 80%; margin: 0 auto; transition: 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'"><i class="fas fa-download"></i> Download QRIS</a>
+                        
+                        <!-- KANVAS TEMPAT MUNCULNYA QRIS DINAMIS -->
+                        <div id="qris-canvas" style="display:flex; justify-content:center; background:#fff; padding:15px; border-radius:8px; border: 2px solid var(--primary); margin: 0 auto 15px; width: fit-content;"></div>
+                        
+                        <!-- TOMBOL DOWNLOAD BARU -->
+                        <button onclick="downloadQR()" style="display: block; background: rgba(255,255,255,0.1); color: #fff; text-decoration: none; padding: 8px; border-radius: 20px; font-size: 0.85rem; width: 80%; margin: 0 auto; border: none; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'"><i class="fas fa-download"></i> Download QRIS</button>
                     </div>
 
                     <!-- Ini yang muncul kalau pilih E-Wallet -->
@@ -1984,6 +1991,23 @@
                 boxQris.style.display = 'block';
                 boxEwallet.style.display = 'none';
                 document.getElementById('text-nominal-qris').innerText = hargaTotal;
+                
+                // === GENERATE QRIS DINAMIS OTOMATIS ===
+                let hargaAngka = parseInt(hargaTotal.replace(/[^0-9]/g, ''));
+                let qrisStatis = "00020101021126670016COM.NOBUBANK.WWW01189360050300000879140214112199437977230303UMI51440014ID.CO.QRIS.WWW0215ID20253837899350303UMI5204481253033605802ID5915AINUL OK23177396011BANJARMASIN61057011162070703A0163049F4A";
+                let qrisDinamis = buatQRISDinamis(qrisStatis, hargaAngka);
+                
+                // Cetak gambar barcodenya ke layar
+                document.getElementById('qris-canvas').innerHTML = ""; // Bersihin QR lama
+                new QRCode(document.getElementById("qris-canvas"), {
+                    text: qrisDinamis,
+                    width: 200,
+                    height: 200,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.M
+                });
+                
             } else {
                 boxQris.style.display = 'none';
                 boxEwallet.style.display = 'block';
@@ -2482,6 +2506,50 @@
                 btn.innerHTML = 'Lihat semua ulasan lainnya <i class="fas fa-chevron-down"></i>';
             } else {
                 btn.innerHTML = 'Sembunyikan ulasan <i class="fas fa-chevron-up"></i>';
+            }
+        }
+
+        // ==========================================
+        // RUMUS HACKER QRIS DINAMIS
+        // ==========================================
+        function hitungCRC(str) {
+            let crc = 0xFFFF;
+            for (let i = 0; i < str.length; i++) {
+                crc ^= str.charCodeAt(i) << 8;
+                for (let j = 0; j < 8; j++) {
+                    if ((crc & 0x8000) !== 0) { crc = (crc << 1) ^ 0x1021; } 
+                    else { crc = crc << 1; }
+                }
+                crc &= 0xFFFF;
+            }
+            return crc.toString(16).toUpperCase().padStart(4, '0');
+        }
+
+        function buatQRISDinamis(qrisStatis, nominal) {
+            // Potong kode verifikasi lama (8 karakter terakhir)
+            let qrisBase = qrisStatis.slice(0, -8);
+            // Ubah kode "Statis" (010211) jadi "Dinamis" (010212)
+            qrisBase = qrisBase.replace("010211", "010212");
+            
+            // Susun kode tag nominal baru
+            let nomStr = nominal.toString();
+            let nomLen = nomStr.length.toString().padStart(2, '0');
+            let tagNominal = "54" + nomLen + nomStr;
+            
+            // Gabungin dan bikin kode keamanan (CRC) baru
+            qrisBase += tagNominal + "6304";
+            let crcBaru = hitungCRC(qrisBase);
+            return qrisBase + crcBaru;
+        }
+
+        // Tombol Download Canvas QRIS
+        window.downloadQR = function() {
+            let canvas = document.querySelector('#qris-canvas canvas');
+            if(canvas) {
+                let a = document.createElement('a');
+                a.href = canvas.toDataURL("image/png");
+                a.download = "QRIS_NullStore_Otomatis.png";
+                a.click();
             }
         }
     </script>
