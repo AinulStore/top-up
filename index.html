@@ -1048,6 +1048,18 @@
                 right: 15px;
             }
         }
+        
+                /* === EFEK GETAR ERROR KOTAK STOK === */
+        @keyframes shakeError {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+        .getar-error {
+            animation: shakeError 0.4s ease-in-out;
+            background: rgba(239, 68, 68, 0.4) !important; /* Merahnya ditebelin dikit pas error */
+            border: 2px solid #EF4444 !important;
+        }
     </style>
 </head>
 <body>
@@ -1952,7 +1964,7 @@
                     </div>
                     
                     <!-- FITUR CHECKBOX DARURAT STOK -->
-                    <div style="background: rgba(239, 68, 68, 0.15); border: 1px dashed var(--error); padding: 12px; border-radius: 10px;">
+                    <div id="box-peringatan-stok" style="background: rgba(239, 68, 68, 0.15); border: 1px dashed var(--error); padding: 12px; border-radius: 10px; transition: 0.3s;">
                         <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
                             <input type="checkbox" id="wajib-tanya-stok" style="margin-top: 2px; width: 20px; height: 20px; accent-color: var(--error); flex-shrink: 0;">
                             <span style="font-size: 0.8rem; color: #fff; line-height: 1.4;"><b>WAJIB BACA!</b> Saya sudah chat Admin di WhatsApp dan memastikan stok produk ini <b>Tersedia</b> sebelum transfer.</span>
@@ -3374,9 +3386,18 @@
         window.prosesBeliApp = function() {
             let waApp = document.getElementById('sheet-wa').value;
             let cekStok = document.getElementById('wajib-tanya-stok');
+            let boxStok = document.getElementById('box-peringatan-stok'); // Panggil kotaknya
 
             if(!waApp) return showToast('error', 'Nomor WA/Telegram wajib diisi bosku!');
-            if(!cekStok.checked) return showToast('error', 'Centang dulu kotak peringatan STOK di atas tombol Bayar bosku!');
+            
+            // JIKA BELUM DICENTANG, BIKIN KOTAKNYA GETAR!
+            if(!cekStok.checked) {
+                showToast('error', 'Centang dulu kotak peringatan STOK di atas tombol Bayar bosku!');
+                boxStok.classList.remove('getar-error'); // Reset dulu
+                void boxStok.offsetWidth; // Pancing ulang animasinya
+                boxStok.classList.add('getar-error'); // Masukin efek getar
+                return; // Stop prosesnya
+            }
 
             let totalBelanja = appDataTemp.price;
             let formatTotal = 'Rp ' + totalBelanja.toLocaleString('id-ID');
