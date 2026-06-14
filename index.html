@@ -3383,19 +3383,30 @@
             document.getElementById('modal-app-sheet').style.display = 'none';
         }
 
-        window.prosesBeliApp = function() {
+                window.prosesBeliApp = function() {
             let waApp = document.getElementById('sheet-wa').value;
             let cekStok = document.getElementById('wajib-tanya-stok');
-            let boxStok = document.getElementById('box-peringatan-stok'); // Panggil kotaknya
+            let boxStok = document.getElementById('box-peringatan-stok'); 
 
             if(!waApp) return showToast('error', 'Nomor WA/Telegram wajib diisi bosku!');
             
-            // JIKA BELUM DICENTANG, BIKIN KOTAKNYA GETAR!
+            // JIKA BELUM DICENTANG, BIKIN KOTAKNYA MENGAMUK (ANTI-GAGAL)
             if(!cekStok.checked) {
                 showToast('error', 'Centang dulu kotak peringatan STOK di atas tombol Bayar bosku!');
-                boxStok.classList.remove('getar-error'); // Reset dulu
-                void boxStok.offsetWidth; // Pancing ulang animasinya
-                boxStok.classList.add('getar-error'); // Masukin efek getar
+                
+                // Efek Jantungan pakai JS langsung (Pasti ngefek walau mode baterai hemat)
+                boxStok.style.transition = '0.1s ease-out';
+                boxStok.style.transform = 'scale(1.05)'; // Kotaknya membesar
+                boxStok.style.backgroundColor = '#EF4444'; // Background jadi merah solid
+                boxStok.style.boxShadow = '0 0 25px rgba(239, 68, 68, 0.9)'; // Nyala glowing merah
+                
+                // Balikin ke bentuk normal dengan cepat (efek kedip/flash)
+                setTimeout(() => {
+                    boxStok.style.transform = 'scale(1)';
+                    boxStok.style.backgroundColor = 'rgba(239, 68, 68, 0.15)';
+                    boxStok.style.boxShadow = 'none';
+                }, 300);
+
                 return; // Stop prosesnya
             }
 
