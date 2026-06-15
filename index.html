@@ -1060,6 +1060,99 @@
             background: rgba(239, 68, 68, 0.4) !important; /* Merahnya ditebelin dikit pas error */
             border: 2px solid #EF4444 !important;
         }
+        
+                /* === DESAIN BINGKAI MEWAH KHUSUS PRODUK PROMO === */
+        .app-card.promo-card {
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            box-shadow: 0 0 25px rgba(255, 75, 43, 0.4), inset 0 0 15px rgba(255, 75, 43, 0.1);
+            animation: pulse-promo-card 2s infinite;
+        }
+
+        .app-card.promo-card::before {
+            content: '';
+            position: absolute;
+            top: -3px; left: -3px; right: -3px; bottom: -3px;
+            background: linear-gradient(45deg, #FF416C, #FF4B2B, #FACC15, #FF416C);
+            z-index: -1;
+            border-radius: 18px;
+            background-size: 300% 300%;
+            animation: gradient-promo 3s ease infinite;
+        }
+
+        @keyframes gradient-promo {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pulse-promo-card {
+            0% { transform: scale(1); box-shadow: 0 0 25px rgba(255, 75, 43, 0.4); }
+            50% { transform: scale(1.02); box-shadow: 0 0 35px rgba(255, 75, 43, 0.7); }
+            100% { transform: scale(1); box-shadow: 0 0 25px rgba(255, 75, 43, 0.4); }
+        }
+
+        .badge-super-hot {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(90deg, #FF0000, #FF5733);
+            color: #FFF;
+            font-size: 0.7rem;
+            font-weight: 900;
+            padding: 5px 12px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.5);
+            z-index: 10;
+            text-transform: uppercase;
+            border: 2px solid #FFF;
+            animation: bounce-promo 1s infinite;
+        }
+
+        @keyframes bounce-promo {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* TOMBOL PROMO HARI INI */
+        .btn-toggle-promo {
+            background: linear-gradient(90deg, #118EEA, #00E1FF);
+            color: #FFF;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 225, 255, 0.4);
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-toggle-promo:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 225, 255, 0.6);
+        }
+        .btn-toggle-promo.active {
+            background: linear-gradient(90deg, #FF4B2B, #FF416C);
+            box-shadow: 0 5px 15px rgba(255, 75, 43, 0.4);
+        }
+        .promo-container {
+            display: none; /* Sembunyiin default */
+            margin-bottom: 30px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+        }
     </style>
 </head>
 <body>
@@ -1599,6 +1692,56 @@
                 </div>
             </div>
 
+            <!-- ================= FITUR PROMO HARI INI ================= -->
+            <!-- CARA PENGGUNAAN BUAT LU (ADMIN): 
+                 Kalau lagi ada promo: Biarin data-status="on" 
+                 Kalau lagi GAK ADA promo: Ganti jadi data-status="off" 
+            -->
+            <button class="btn-toggle-promo" id="btnPromo" data-status="on" onclick="togglePromoHariIni()">
+                <i class="fas fa-gift"></i> Lihat Promo Hari Ini
+            </button>
+            
+            <div id="wadahPromoKosong" style="display: none; text-align: center; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 20px; color: var(--text-dim); font-style: italic;">
+                Wah, sayang sekali hari ini sedang tidak ada promo bosku. Cek lagi besok ya!
+            </div>
+
+                    <div class="promo-container" id="kotakPromoHariIni">
+                <div style="text-align: center; margin-bottom: 15px; color: #FACC15; font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; text-transform: uppercase;">
+                    ⚡ FLASH SALE NETFLIX! ⚡
+                </div>
+                
+                <div class="app-grid">
+                    <!-- PAKET 1 BULAN PROMO -->
+                    <div class="app-card promo-card" onclick="bukaSheetApp('Netflix 1P1U (1 Bulan)', 22000, 15, 215, 'NETFLIX', '⚠️ PROMO TERBATAS!<br><br>📌 1P1U (1 Profile 1 User)<br>🍟 Satu profil khusus untuk kamu sendiri! Dilarang mengubah profil/PIN.', 'netflix.png')">
+                        <div class="badge-super-hot">🔥 22K</div>
+                        <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span></div></div>
+                        <div class="app-title">Netflix 1P1U (1 Bulan)</div>
+                        <div class="app-sisa"><i class="fas fa-box"></i> SISA: 15</div>
+                        <div class="app-bottom">
+                            <div class="app-price"><s style="color:var(--text-dim); font-size:0.75rem;">Rp 27.000</s><br><span style="color:#FF4B2B;">Rp 22.000</span></div>
+                            <button class="app-cart-btn" style="background:#FF4B2B; box-shadow:0 4px 10px rgba(255, 75, 43, 0.4);"><i class="fas fa-shopping-cart"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="app-card promo-card" onclick="bukaSheetApp('Netflix Semi-Private (1 Bulan)', 25000, 10, 87, 'NETFLIX', '⚠️ PROMO TERBATAS!<br><br>📌 SEMI PRIVATE<br>🍟 Satu profile khusus milikmu, tapi bisa login di 2 device-mu sendiri!', 'netflix.png')">
+                        <div class="badge-super-hot">🔥 25K</div>
+                        <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span></div></div>
+                        <div class="app-title">Netflix Semi-Private (1 Bulan)</div>
+                        <div class="app-sisa"><i class="fas fa-box"></i> SISA: 10</div>
+                        <div class="app-bottom">
+                            <div class="app-price"><s style="color:var(--text-dim); font-size:0.75rem;">Rp 40.000</s><br><span style="color:#FF4B2B;">Rp 25.000</span></div>
+                            <button class="app-cart-btn" style="background:#FF4B2B; box-shadow:0 4px 10px rgba(255, 75, 43, 0.4);"><i class="fas fa-shopping-cart"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= KATALOG REGULER ================= -->
+            <div style="display: flex; align-items: center; gap: 10px; margin: 30px 0 15px; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px;">
+                <i class="fas fa-store" style="color: var(--text-dim);"></i> 
+                <span style="font-family: 'Syne', sans-serif; font-weight: 700; color: var(--text-main);">KATALOG REGULER</span>
+            </div>
+
             <div class="app-grid">
                 
                 <!-- ================= CANVA ================= -->
@@ -1616,7 +1759,7 @@
                     <div class="app-bottom"><div class="app-price">Rp 8.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
                 </div>
 
-                <!-- ================= NETFLIX ================= -->
+                <!-- ================= NETFLIX (HARGA NORMAL) ================= -->
                 <div class="app-card" onclick="bukaSheetApp('Netflix 1P1U (1 Bulan)', 27000, 10, 125, 'NETFLIX', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>📌 1P1U (1 Profile 1 User)<br>🍟 Satu profil khusus untuk kamu sendiri! Dilarang mengubah profil/PIN.', 'netflix.png')">
                     <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 125 Terjual</span></div></div>
                     <div class="app-title">Netflix 1P1U (1 Bulan)</div>
@@ -1638,22 +1781,50 @@
                     <div class="app-bottom"><div class="app-price">Rp 40.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
                 </div>
 
-                <div class="app-card" onclick="bukaSheetApp('Netflix 1P1U (1 Minggu)', 15000, 20, 45, 'NETFLIX', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>📌 Paket Mingguan 1P1U<br>🍟 Satu profil khusus untuk kamu sendiri selama 1 Minggu.', 'netflix.png')">
-                    <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 45 Terjual</span></div></div>
-                    <div class="app-title">Netflix 1P1U (1 Minggu)</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 20</div>
+                <div class="app-card" onclick="bukaSheetApp('Netflix 1P1U (7 Hari)', 15000, 25, 145, 'NETFLIX', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>📌 Paket Mingguan 1P1U<br>🍟 Satu profil khusus untuk kamu sendiri selama 1 Minggu.', 'netflix.png')">
+                    <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 145 Terjual</span></div></div>
+                    <div class="app-title">Netflix 1P1U (7 Hari)</div>
+                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 25</div>
                     <div class="app-bottom"><div class="app-price">Rp 15.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
                 </div>
 
-                <div class="app-card" onclick="bukaSheetApp('Netflix 1P2U (1 Minggu)', 13000, 25, 32, 'NETFLIX', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>📌 Paket Mingguan 1P2U<br>🍟 Satu profil dibagi berdua selama 1 Minggu.', 'netflix.png')">
-                    <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 32 Terjual</span></div></div>
-                    <div class="app-title">Netflix 1P2U (1 Minggu)</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 25</div>
-                    <div class="app-bottom"><div class="app-price">Rp 13.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
+                <div class="app-card" onclick="bukaSheetApp('Netflix 1P2U (7 Hari)', 12000, 30, 112, 'NETFLIX', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>📌 Paket Mingguan 1P2U<br>🍟 Satu profil dibagi berdua selama 1 Minggu.', 'netflix.png')">
+                    <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 112 Terjual</span></div></div>
+                    <div class="app-title">Netflix 1P2U (7 Hari)</div>
+                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 30</div>
+                    <div class="app-bottom"><div class="app-price">Rp 12.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
                 </div>
 
-                <div class="app-card" onclick="bukaSheetApp('Netflix 1P1U (Harian)', 5000, 50, 110, 'NETFLIX', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>📌 Paket Harian 1P1U<br>🍟 Satu profil khusus untuk kamu sendiri. Cocok buat yang mau maraton film seharian!', 'netflix.png')">
-                    <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 110 Terjual</span></div></div>
+                <div class="app-card" onclick="bukaSheetApp('Netflix Semi-Private (7 Hari)', 22000, 15, 64, 'NETFLIX', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>📌 Paket Mingguan Semi-Private<br>🍟 Satu profile untukmu, bebas login di 2 device selama 7 Hari.', 'netflix.png')">
+                    <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 64 Terjual</span></div></div>
+                    <div class="app-title">Netflix Semi-Private (7 Hari)</div>
+                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 15</div>
+                    <div class="app-bottom"><div class="app-price">Rp 22.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
+                </div>
+
+                <div class="app-card" onclick="bukaSheetApp('Netflix 1P1U (3 Hari)', 12000, 40, 230, 'NETFLIX', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>📌 Paket Ngebut 3 Hari 1P1U<br>🍟 Pas banget buat yang cuma pengen maraton series weekend ini!', 'netflix.png')">
+                    <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 230 Terjual</span></div></div>
+                    <div class="app-title">Netflix 1P1U (3 Hari)</div>
+                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 40</div>
+                    <div class="app-bottom"><div class="app-price">Rp 12.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
+                </div>
+
+                <div class="app-card" onclick="bukaSheetApp('Netflix 1P2U (3 Hari)', 10000, 50, 195, 'NETFLIX', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>📌 Paket Ngebut 3 Hari 1P2U<br>🍟 Nonton bareng seharga cilok! Profil dibagi berdua selama 3 hari.', 'netflix.png')">
+                    <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 195 Terjual</span></div></div>
+                    <div class="app-title">Netflix 1P2U (3 Hari)</div>
+                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 50</div>
+                    <div class="app-bottom"><div class="app-price">Rp 10.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
+                </div>
+
+                <div class="app-card" onclick="bukaSheetApp('Netflix Semi-Private (3 Hari)', 18000, 20, 88, 'NETFLIX', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>📌 Paket Ngebut Semi-Private<br>🍟 Profile sendiri, login 2 device selama 3 Hari.', 'netflix.png')">
+                    <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 88 Terjual</span></div></div>
+                    <div class="app-title">Netflix Semi-Private (3 Hari)</div>
+                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 20</div>
+                    <div class="app-bottom"><div class="app-price">Rp 18.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
+                </div>
+
+                <div class="app-card" onclick="bukaSheetApp('Netflix 1P1U (Harian)', 5000, 50, 310, 'NETFLIX', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>📌 Paket Harian 1P1U<br>🍟 Satu profil khusus untuk kamu sendiri. Cocok buat coba-coba!', 'netflix.png')">
+                    <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 310 Terjual</span></div></div>
                     <div class="app-title">Netflix 1P1U (Harian)</div>
                     <div class="app-sisa"><i class="fas fa-box"></i> SISA: 50</div>
                     <div class="app-bottom"><div class="app-price">Rp 5.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
@@ -3406,9 +3577,49 @@
             
             // 3. Kembalikan nilainya ke kotak input
             input.value = formattedValue;
+        }
+
+        // ==========================================
+        // FITUR TOMBOL PROMO HARI INI
+        // ==========================================
+        window.togglePromoHariIni = function() {
+            let btnPromo = document.getElementById('btnPromo');
+            let kotakPromo = document.getElementById('kotakPromoHariIni');
+            let wadahKosong = document.getElementById('wadahPromoKosong'); // UDAH DIBENERIN TYPONYA
+            
+            // CEK STATUS DI KODINGAN LU (ON / OFF)
+            let statusPromoDariSistem = btnPromo.getAttribute('data-status');
+            
+            // JIKA LU NGETIK "off" DI HTML:
+            if(statusPromoDariSistem === "off") {
+                btnPromo.classList.remove('active');
+                btnPromo.innerHTML = '<i class="fas fa-gift"></i> Tidak Ada Promo Hari Ini';
+                btnPromo.style.background = '#475569';
+                btnPromo.style.cursor = 'not-allowed';
+                btnPromo.style.boxShadow = 'none';
+                
+                // Tampilkan pesan maaf
+                wadahKosong.style.display = 'block';
+                kotakPromo.style.display = 'none';
+                return; // STOP! Gak usah lanjutin kodingan bawahnya.
+            }
+            
+            // JIKA LU NGETIK "on" DI HTML:
+            // Logika Klik (Toggle Buka-Tutup)
+            if (kotakPromo.style.display === 'none' || kotakPromo.style.display === '') {
+                // BUKA PROMO
+                kotakPromo.style.display = 'block';
+                btnPromo.classList.add('active');
+                btnPromo.innerHTML = '<i class="fas fa-times"></i> Sembunyikan Promo';
+            } else {
+                // TUTUP PROMO
+                kotakPromo.style.display = 'none';
+                btnPromo.classList.remove('active');
+                btnPromo.innerHTML = '<i class="fas fa-gift"></i> Lihat Promo Hari Ini';
+            }
         }                
     </script>
-    
+        
     <!-- === TOMBOL CS MELAYANG === -->
     <a href="https://wa.me/6285757568455?text=Halo%20Miminn%20Null%20Store%2C%20saya%20mau%20tanya-tanya%20nih..." target="_blank" class="floating-wa" title="Hubungi CS Null Store">
         <i class="fab fa-whatsapp"></i>
