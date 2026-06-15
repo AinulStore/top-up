@@ -2618,17 +2618,30 @@
             '3650 VP Valorant',
             '4125 VP Valorant', '5350 VP Valorant', '7400 VP Valorant' // Sultan Valo
         ];
+        
         function spawnLiveToast() {
-            const phoneStr = '08' + Math.floor(Math.random() * 90 + 10) + '****' + Math.floor(Math.random() * 900 + 100);
-            const itemStr = items[Math.floor(Math.random() * items.length)];
-            const toast = document.createElement('div');
-            toast.className = 'live-toast';
-            toast.style.borderLeft = '4px solid var(--primary)';
-            toast.innerHTML = `<div class="toast-icon" style="color: var(--primary); background: rgba(0, 225, 255, 0.1);"><i class="fas fa-shopping-cart"></i></div><div class="toast-text"><p><b>${phoneStr}</b> baru saja order</p><span>${itemStr} • Beberapa detik lalu</span></div>`;
-            toastContainerLive.appendChild(toast);
-            setTimeout(() => { toast.remove(); }, 5000);
+            // === FITUR SENSOR JAM OPERASIONAL BUAT FAKE NOTIF (WITA) ===
+            let waktuWITA = new Date().toLocaleString("en-US", { timeZone: "Asia/Makassar" });
+            let jamSekarang = new Date(waktuWITA).getHours();
             
-            // Waktu munculnya dibikin random antara 20 sampai 60 detik biar natural
+            // BUKA: 08:00 Pagi | TUTUP: 23:00 (11 Malam)
+            let isOpen = (jamSekarang >= 8 && jamSekarang < 23);
+
+            // Kalau Toko Buka, Munculin Notifnya
+            if (isOpen) {
+                const phoneStr = '08' + Math.floor(Math.random() * 90 + 10) + '****' + Math.floor(Math.random() * 900 + 100);
+                const itemStr = items[Math.floor(Math.random() * items.length)];
+                const toast = document.createElement('div');
+                toast.className = 'live-toast';
+                toast.style.borderLeft = '4px solid var(--primary)';
+                toast.innerHTML = `<div class="toast-icon" style="color: var(--primary); background: rgba(0, 225, 255, 0.1);"><i class="fas fa-shopping-cart"></i></div><div class="toast-text"><p><b>${phoneStr}</b> baru saja order</p><span>${itemStr} • Beberapa detik lalu</span></div>`;
+                toastContainerLive.appendChild(toast);
+                
+                setTimeout(() => { toast.remove(); }, 5000);
+            }
+            
+            // Jadwalin ulang muter terus di belakang layar. 
+            // Kalau lagi tutup, dia cuma muter diam-diam tanpa nampilin apa-apa sampai pagi jam 8.
             setTimeout(spawnLiveToast, Math.floor(Math.random() * 40000) + 20000);
         }
         setTimeout(spawnLiveToast, 15000);
@@ -3163,7 +3176,7 @@
         }
         
         // ==========================================
-        // NAVIGASI PILIH KATEGORI LORONG & HILANGIN STEP 3-4
+        // NAVIGASI PILIH KATEGORI LORONG & PENGUNCI JAM GLOBAL
         // ==========================================
         window.bukaKategoriUtama = function(kategori) {
             document.getElementById('menu-utama-kategori').style.display = 'none';
@@ -3172,12 +3185,60 @@
             let contentGame = document.getElementById('sub-menu-game');
             let wrapperCheckout = document.querySelector('.checkout-wrapper'); 
 
+            // === FITUR PENGUNCI JAM OTOMATIS GLOBAL (WITA) ===
+            let waktuWITA = new Date().toLocaleString("en-US", { timeZone: "Asia/Makassar" });
+            let now = new Date(waktuWITA);
+            let jamSekarang = now.getHours();
+
+            // BUKA: 08:00 Pagi | TUTUP: 23:00 (11 Malam)
+            let jamBuka = 8; 
+            let jamTutup = 23; 
+            let isOpen = (jamSekarang >= jamBuka && jamSekarang < jamTutup);
+
             if(kategori === 'game') {
                 contentGame.style.display = 'block';
                 contentApp.style.display = 'none';
-                if(globalSteps) globalSteps.style.display = 'block';
-                if(wrapperCheckout) wrapperCheckout.style.display = 'flex'; 
-                switchTab('mlbb', document.querySelector('.game-card')); 
+                
+                // Bikin banner peringatan tutup khusus Top Up Game (Otomatis generate pakai JS)
+                let bannerGameTutup = document.getElementById('banner-game-tutup');
+                if(!bannerGameTutup) {
+                    let bannerHTML = `
+                    <div id="banner-game-tutup" style="display: none; background: rgba(239, 68, 68, 0.1); border: 1px solid var(--error); border-radius: 12px; padding: 15px; margin-bottom: 20px; align-items: center; gap: 15px; animation: fadeIn 0.5s;">
+                        <i class="fas fa-clock" style="font-size: 2rem; color: var(--error);"></i>
+                        <div>
+                            <strong style="color: var(--error); display: block; font-size: 1rem; margin-bottom: 4px;">Top Up Game Sedang Tutup!</strong>
+                            <span style="color: #fff; font-size: 0.85rem; line-height: 1.4;">Admin sedang Offline (Tidur 😴).<br>Jadwal Buka: <b>Setiap Hari, 08:00 - 23:00 WITA</b></span>
+                        </div>
+                    </div>`;
+                    document.querySelector('.game-selection-grid').insertAdjacentHTML('beforebegin', bannerHTML);
+                    bannerGameTutup = document.getElementById('banner-game-tutup');
+                }
+
+                let semuaGameCards = document.querySelectorAll('.game-card');
+
+                if(!isOpen) {
+                    // KALAU GAME LAGI TUTUP
+                    bannerGameTutup.style.display = 'flex';
+                    if(globalSteps) globalSteps.style.display = 'none';
+                    if(wrapperCheckout) wrapperCheckout.style.display = 'none'; 
+                    
+                    semuaGameCards.forEach(card => {
+                        card.style.opacity = '0.5'; 
+                        card.style.filter = 'grayscale(100%)'; 
+                        
+                        // Timpa fungsi kliknya biar dilarang masuk ke form top up
+                        card.onclick = function() {
+                            showToast('error', 'Top Up Game sedang Offline (Tidur 😴).<br>Jadwal Buka: <b>Setiap Hari, 08:00 - 23:00 WITA</b>');
+                        };
+                    });
+                } else {
+                    // KALAU GAME LAGI BUKA
+                    bannerGameTutup.style.display = 'none';
+                    if(globalSteps) globalSteps.style.display = 'block';
+                    if(wrapperCheckout) wrapperCheckout.style.display = 'flex'; 
+                    switchTab('mlbb', document.querySelector('.game-card')); 
+                }
+
             } else if (kategori === 'app-premium') {
                 contentGame.style.display = 'none';
                 contentApp.style.display = 'block';
@@ -3193,33 +3254,14 @@
                 });
                 currentGame = 'app';
 
-                // === FITUR PENGUNCI JAM OTOMATIS (BUKA 07:30) ===
-                let now = new Date();
-                let jamSekarang = now.getHours();
-                let menitSekarang = now.getMinutes();
-
-                // Kita jadiin desimal biar mesin paham menitnya (07:30 = 7.5)
-                let waktuSekarang = jamSekarang + (menitSekarang / 60);
-
-                // BUKA: 07:30 Pagi (7.5) | TUTUP: 23:00 (11 Malam)
-                let jamBuka = 7.5; 
-                let jamTutup = 23; 
-
-                let isOpen = false;
-
-                // Logika: Buka kalau waktu sekarang >= 7.5 (Jam 07:30) DAN di bawah jam 23 (23:00)
-                if (waktuSekarang >= jamBuka && waktuSekarang < jamTutup) {
-                    isOpen = true;
-                }
-
                 let bannerTutup = document.getElementById('banner-app-tutup');
                 let semuaAppCards = document.querySelectorAll('.app-card');
 
                 if(!isOpen) {
-                    // Kalau lagi TUTUP
+                    // KALAU APP PREMIUM LAGI TUTUP
                     if(bannerTutup) bannerTutup.style.display = 'flex';
                     semuaAppCards.forEach(card => {
-                        card.style.opacity = '0.5'; // Dibikin agak pudar
+                        card.style.opacity = '0.5'; 
                         card.style.filter = 'grayscale(80%)'; 
                         
                         // Ganti tombol keranjang jadi logo gembok/tutup
@@ -3230,13 +3272,13 @@
                             btnCart.style.boxShadow = 'none';
                         }
 
-                        // Timpa fungsi kliknya (Biar gak bisa buka pop-up)
+                        // Timpa fungsi kliknya (Biar gak bisa buka pop-up bayar)
                         card.onclick = function() {
-                            showToast('error', 'Admin sedang Offline. Jadwal Buka: Senin-Jumat (13:00-21:00) & Sabtu-Minggu (08:00-21:00) WITA.');
+                            showToast('error', 'App Premium sedang Offline (Tidur 😴).<br>Jadwal Buka: <b>Setiap Hari, 08:00 - 23:00 WITA</b>');
                         };
                     });
                 } else {
-                    // Kalau BUKA (Normalin lagi jaga-jaga kalau dia refresh pas jam buka)
+                    // KALAU APP PREMIUM LAGI BUKA
                     if(bannerTutup) bannerTutup.style.display = 'none';
                 }
             }
