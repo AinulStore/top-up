@@ -1697,7 +1697,7 @@
                  Kalau lagi ada promo: Biarin data-status="on" 
                  Kalau lagi GAK ADA promo: Ganti jadi data-status="off" 
             -->
-            <button class="btn-toggle-promo" id="btnPromo" data-status="off" onclick="togglePromoHariIni()">
+            <button class="btn-toggle-promo" id="btnPromo" data-status="on" onclick="togglePromoHariIni()">
                 <i class="fas fa-gift"></i> Lihat Promo Hari Ini
             </button>
             
@@ -1711,104 +1711,14 @@
                 </div>
                 
                 <div class="app-grid">
-                    <!-- PAKET 1 BULAN PROMO -->
-                    <div class="app-card promo-card" onclick="bukaSheetApp('Netflix 1P1U (1 Bulan)', 22000, 15, 215, 'NETFLIX', '⚠️ PROMO TERBATAS!<br><br>📌 1P1U (1 Profile 1 User)<br>🍟 Satu profil khusus untuk kamu sendiri! Dilarang mengubah profil/PIN.', 'netflix.png')">
-                        <div class="badge-super-hot">🔥 22K</div>
-                        <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span></div></div>
-                        <div class="app-title">Netflix 1P1U (1 Bulan)</div>
-                        <div class="app-sisa"><i class="fas fa-box"></i> SISA: 15</div>
-                        <div class="app-bottom">
-                            <div class="app-price"><s style="color:var(--text-dim); font-size:0.75rem;">Rp 27.000</s><br><span style="color:#FF4B2B;">Rp 22.000</span></div>
-                            <button class="app-cart-btn" style="background:#FF4B2B; box-shadow:0 4px 10px rgba(255, 75, 43, 0.4);"><i class="fas fa-shopping-cart"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="app-card promo-card" onclick="bukaSheetApp('Netflix 1P2U (1 Bulan)', 18000, 20, 189, 'NETFLIX', '⚠️ PROMO TERBATAS!<br><br>📌 1P2U (1 Profile 2 User)<br>🍟 Satu profil dibagi berdua dengan orang lain. Dilarang mengubah profil/PIN.', 'netflix.png')">
-                        <div class="badge-super-hot">🔥 18K</div>
-                        <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span></div></div>
-                        <div class="app-title">Netflix 1P2U (1 Bulan)</div>
-                        <div class="app-sisa"><i class="fas fa-box"></i> SISA: 20</div>
-                        <div class="app-bottom">
-                            <div class="app-price"><s style="color:var(--text-dim); font-size:0.75rem;">Rp 20.000</s><br><span style="color:#FF4B2B;">Rp 18.000</span></div>
-                            <button class="app-cart-btn" style="background:#FF4B2B; box-shadow:0 4px 10px rgba(255, 75, 43, 0.4);"><i class="fas fa-shopping-cart"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="app-card promo-card" onclick="bukaSheetApp('Netflix Semi-Private (1 Bulan)', 28000, 10, 87, 'NETFLIX', '⚠️ PROMO TERBATAS!<br><br>📌 SEMI PRIVATE<br>🍟 Satu profile khusus milikmu, tapi bisa login di 2 device-mu sendiri!', 'netflix.png')">
-                        <div class="badge-super-hot">🔥 28K</div>
-                        <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span></div></div>
-                        <div class="app-title">Netflix Semi-Private (1 Bulan)</div>
-                        <div class="app-sisa"><i class="fas fa-box"></i> SISA: 10</div>
-                        <div class="app-bottom">
-                            <div class="app-price"><s style="color:var(--text-dim); font-size:0.75rem;">Rp 40.000</s><br><span style="color:#FF4B2B;">Rp 28.000</span></div>
-                            <button class="app-cart-btn" style="background:#FF4B2B; box-shadow:0 4px 10px rgba(255, 75, 43, 0.4);"><i class="fas fa-shopping-cart"></i></button>
-                        </div>
-                    </div>
-
-                    <!-- PAKET 7 HARI PROMO -->
-                    <div class="app-card promo-card" onclick="bukaSheetApp('Netflix 1P1U (7 Hari)', 13000, 25, 145, 'NETFLIX', '⚠️ PROMO TERBATAS!<br><br>📌 Paket Mingguan 1P1U<br>🍟 Satu profil khusus untuk kamu sendiri selama 1 Minggu.', 'netflix.png')">
-                        <div class="badge-super-hot">🔥 13K</div>
-                        <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span></div></div>
-                        <div class="app-title">Netflix 1P1U (7 Hari)</div>
-                        <div class="app-sisa"><i class="fas fa-box"></i> SISA: 25</div>
-                        <div class="app-bottom">
-                            <div class="app-price"><s style="color:var(--text-dim); font-size:0.75rem;">Rp 15.000</s><br><span style="color:#FF4B2B;">Rp 13.000</span></div>
-                            <button class="app-cart-btn" style="background:#FF4B2B; box-shadow:0 4px 10px rgba(255, 75, 43, 0.4);"><i class="fas fa-shopping-cart"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="app-card promo-card" onclick="bukaSheetApp('Netflix 1P2U (7 Hari)', 10500, 30, 112, 'NETFLIX', '⚠️ PROMO TERBATAS!<br><br>📌 Paket Mingguan 1P2U<br>🍟 Satu profil dibagi berdua selama 1 Minggu.', 'netflix.png')">
-                        <div class="badge-super-hot">🔥 10.5K</div>
-                        <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span></div></div>
-                        <div class="app-title">Netflix 1P2U (7 Hari)</div>
-                        <div class="app-sisa"><i class="fas fa-box"></i> SISA: 30</div>
-                        <div class="app-bottom">
-                            <div class="app-price"><s style="color:var(--text-dim); font-size:0.75rem;">Rp 12.000</s><br><span style="color:#FF4B2B;">Rp 10.500</span></div>
-                            <button class="app-cart-btn" style="background:#FF4B2B; box-shadow:0 4px 10px rgba(255, 75, 43, 0.4);"><i class="fas fa-shopping-cart"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="app-card promo-card" onclick="bukaSheetApp('Netflix Semi-Private (7 Hari)', 18500, 15, 64, 'NETFLIX', '⚠️ PROMO TERBATAS!<br><br>📌 Paket Mingguan Semi-Private<br>🍟 Satu profile untukmu, bebas login di 2 device selama 7 Hari.', 'netflix.png')">
-                        <div class="badge-super-hot">🔥 18.5K</div>
-                        <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span></div></div>
-                        <div class="app-title">Netflix Semi-Private (7 Hari)</div>
-                        <div class="app-sisa"><i class="fas fa-box"></i> SISA: 15</div>
-                        <div class="app-bottom">
-                            <div class="app-price"><s style="color:var(--text-dim); font-size:0.75rem;">Rp 22.000</s><br><span style="color:#FF4B2B;">Rp 18.500</span></div>
-                            <button class="app-cart-btn" style="background:#FF4B2B; box-shadow:0 4px 10px rgba(255, 75, 43, 0.4);"><i class="fas fa-shopping-cart"></i></button>
-                        </div>
-                    </div>
-
-                    <!-- PAKET 3 HARI PROMO -->
-                    <div class="app-card promo-card" onclick="bukaSheetApp('Netflix 1P1U (3 Hari)', 12000, 40, 230, 'NETFLIX', '⚠️ PROMO TERBATAS!<br><br>📌 Paket Ngebut 3 Hari 1P1U<br>🍟 Pas banget buat yang cuma pengen maraton series weekend ini!', 'netflix.png')">
-                        <div class="badge-super-hot">🔥 12K</div>
-                        <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span></div></div>
-                        <div class="app-title">Netflix 1P1U (3 Hari)</div>
-                        <div class="app-sisa"><i class="fas fa-box"></i> SISA: 40</div>
-                        <div class="app-bottom">
-                            <div class="app-price"><s style="color:var(--text-dim); font-size:0.75rem;">Rp 15.000</s><br><span style="color:#FF4B2B;">Rp 12.000</span></div>
-                            <button class="app-cart-btn" style="background:#FF4B2B; box-shadow:0 4px 10px rgba(255, 75, 43, 0.4);"><i class="fas fa-shopping-cart"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="app-card promo-card" onclick="bukaSheetApp('Netflix 1P2U (3 Hari)', 8000, 50, 195, 'NETFLIX', '⚠️ PROMO TERBATAS!<br><br>📌 Paket Ngebut 3 Hari 1P2U<br>🍟 Nonton bareng seharga cilok! Profil dibagi berdua selama 3 hari.', 'netflix.png')">
+                    <!-- PAKET CANVA PROMO -->
+                    <div class="app-card promo-card" onclick="bukaSheetApp('Canva 1 TAHUN', 8000, 7, 215, 'CANVA', '⚠️ PROMO TERBATAS!<br><br>📌 CANVA 1 TAHUN<br>• Masa aktif 1 Tahun<br>• Fitur otomatis premium & bebas desain pakai elemen pro<br>• Tidak bisa mengelola tim<br>• Tidak bisa membuat brand kit (simpan logo, font, & palet warna tokomu)', 'netflix.png')">
                         <div class="badge-super-hot">🔥 8K</div>
-                        <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span></div></div>
-                        <div class="app-title">Netflix 1P2U (3 Hari)</div>
-                        <div class="app-sisa"><i class="fas fa-box"></i> SISA: 50</div>
+                        <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">CANVA</span></div></div>
+                        <div class="app-title">Canva 1 Tahun</div>
+                        <div class="app-sisa"><i class="fas fa-box"></i> SISA: 7</div>
                         <div class="app-bottom">
-                            <div class="app-price"><s style="color:var(--text-dim); font-size:0.75rem;">Rp 10.000</s><br><span style="color:#FF4B2B;">Rp 8.000</span></div>
-                            <button class="app-cart-btn" style="background:#FF4B2B; box-shadow:0 4px 10px rgba(255, 75, 43, 0.4);"><i class="fas fa-shopping-cart"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="app-card promo-card" onclick="bukaSheetApp('Netflix Semi-Private (3 Hari)', 15000, 20, 88, 'NETFLIX', '⚠️ PROMO TERBATAS!<br><br>📌 Paket Ngebut Semi-Private<br>🍟 Profile sendiri, login 2 device selama 3 Hari.', 'netflix.png')">
-                        <div class="badge-super-hot">🔥 15K</div>
-                        <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span></div></div>
-                        <div class="app-title">Netflix Semi-Private (3 Hari)</div>
-                        <div class="app-sisa"><i class="fas fa-box"></i> SISA: 20</div>
-                        <div class="app-bottom">
-                            <div class="app-price"><s style="color:var(--text-dim); font-size:0.75rem;">Rp 18.000</s><br><span style="color:#FF4B2B;">Rp 15.000</span></div>
+                            <div class="app-price"><s style="color:var(--text-dim); font-size:0.75rem;">Rp 25.000</s><br><span style="color:#FF4B2B;">Rp 8.000</span></div>
                             <button class="app-cart-btn" style="background:#FF4B2B; box-shadow:0 4px 10px rgba(255, 75, 43, 0.4);"><i class="fas fa-shopping-cart"></i></button>
                         </div>
                     </div>
