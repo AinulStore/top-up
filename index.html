@@ -1772,7 +1772,7 @@
             </div>
         </div> <!-- INI PENUTUP YANG KEMAREN HILANG BOSKU! -->
         
-                <!-- === MODAL KHUSUS NETFLIX === -->
+        <!-- === MODAL KHUSUS NETFLIX === -->
         <div class="sheet-overlay" id="modal-netflix-sheet" style="align-items: center; justify-content: center; z-index: 9999;"> 
             <div class="sheet-box" style="border-radius: 20px; max-height: 90vh; overflow-y: auto; width: 95%; max-width: 450px;"> 
                 <button class="sheet-close" onclick="document.getElementById('modal-netflix-sheet').style.display='none'"><i class="fas fa-times"></i></button>
@@ -1809,18 +1809,18 @@
 
                 <div class="sheet-action-box">
                     <div style="margin-bottom: 15px;">
+                        <div style="font-weight: 700; font-size: 0.85rem;">📧 EMAIL (WAJIB UNTUK PREMIUM)</div>
+                        <div class="wa-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="netflix-email" class="sheet-wa-input" placeholder="Masukkan email aktif..." autocomplete="off"> 
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 15px;">
                         <div style="font-weight: 700; font-size: 0.85rem;">⚠️WHATSAPP (WAJIB)</div>
                         <div class="wa-wrapper">
                             <i class="fas fa-address-book"></i>
                             <input type="tel" id="netflix-wa" class="sheet-wa-input" placeholder="08xx-xxxx-xxxx" autocomplete="off" oninput="formatWA(this)" maxlength="15"> 
                         </div>
-                    </div>
-                    
-                    <div id="box-peringatan-stok-netflix" style="background: rgba(239, 68, 68, 0.15); border: 1px dashed var(--error); padding: 12px; border-radius: 10px; transition: 0.3s;">
-                        <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
-                            <input type="checkbox" id="wajib-tanya-stok-netflix" style="margin-top: 2px; width: 20px; height: 20px; accent-color: var(--error); flex-shrink: 0;">
-                            <span style="font-size: 0.8rem; color: #fff; line-height: 1.4;"><b>WAJIB BACA!</b> Saya sudah chat Admin di WhatsApp dan memastikan stok produk ini <b>Tersedia</b> sebelum transfer.</span>
-                        </label>
                     </div>
                 </div>
 
@@ -1879,14 +1879,6 @@
                             <input type="tel" id="sheet-wa" class="sheet-wa-input" placeholder="08xx-xxxx-xxxx" autocomplete="off" oninput="formatWA(this)" maxlength="15"> 
                         </div>
                     </div>
-                    
-                    <!-- FITUR CHECKBOX DARURAT STOK -->
-                    <div id="box-peringatan-stok" style="background: rgba(239, 68, 68, 0.15); border: 1px dashed var(--error); padding: 12px; border-radius: 10px; transition: 0.3s;">
-                        <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
-                            <input type="checkbox" id="wajib-tanya-stok" style="margin-top: 2px; width: 20px; height: 20px; accent-color: var(--error); flex-shrink: 0;">
-                            <span style="font-size: 0.8rem; color: #fff; line-height: 1.4;"><b>WAJIB BACA!</b> Saya sudah chat Admin di WhatsApp dan memastikan stok produk ini <b>Tersedia</b> sebelum transfer.</span>
-                        </label>
-                    </div>
                 </div>
 
                 <div class="sheet-footer">
@@ -1898,7 +1890,7 @@
                 </div>
             </div>
         </div>
-
+        
         <!-- ==================== GLOBAL STEPS 3 & 4 (Hanya untuk Game) ==================== -->
         <div class="global-steps" id="global-steps" style="display: none;">
             
@@ -1962,7 +1954,7 @@
                             <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" style="width: 22px; border-radius: 2px;">
                             <i class="fas fa-chevron-down" style="font-size: 0.7rem; color: var(--text-dim);"></i>
                         </div>
-                        <input type="number" id="user-wa" class="taka-wa-input" placeholder="+62 Masukkan nomor WA...">
+                        <input type="tel" id="user-wa" class="taka-wa-input" placeholder="08xx-xxxx-xxxx" autocomplete="off" oninput="formatWA(this)" maxlength="15">
                     </div>
                     <p style="font-size: 0.75rem; font-style: italic; color: var(--text-dim); margin-top: 8px;">*Nomor ini akan dihubungi jika terjadi masalah</p>
 
@@ -3330,9 +3322,8 @@
         let appDataTemp = {}; 
         
         window.bukaSheetApp = function(title, price, stock, sold, tag, desc, img) {
-            appDataTemp = { title, price, qty: 1 }; // Kita patenkan qty 1
+            appDataTemp = { title, price, qty: 1 }; 
             
-            document.getElementById('wajib-tanya-stok').checked = false; 
             document.getElementById('sheet-title').innerText = title;
             document.getElementById('sheet-price').innerText = 'Rp ' + price.toLocaleString('id-ID');
             document.getElementById('sheet-stock').innerText = stock;
@@ -3352,26 +3343,10 @@
         window.prosesBeliApp = function() {
             let emailApp = document.getElementById('sheet-email').value;
             let waApp = document.getElementById('sheet-wa').value;
-            let cekStok = document.getElementById('wajib-tanya-stok');
-            let boxStok = document.getElementById('box-peringatan-stok'); 
 
             if(!emailApp || !emailApp.includes('@')) return showToast('error', 'Email tidak valid atau belum diisi bosku!');
             if(!waApp) return showToast('error', 'Nomor WA/Telegram wajib diisi bosku!');
             
-            if(!cekStok.checked) {
-                showToast('error', 'Centang dulu kotak peringatan STOK di atas tombol Bayar bosku!');
-                boxStok.style.transition = '0.1s ease-out';
-                boxStok.style.transform = 'scale(1.05)'; 
-                boxStok.style.backgroundColor = '#EF4444'; 
-                boxStok.style.boxShadow = '0 0 25px rgba(239, 68, 68, 0.9)'; 
-                setTimeout(() => {
-                    boxStok.style.transform = 'scale(1)';
-                    boxStok.style.backgroundColor = 'rgba(239, 68, 68, 0.15)';
-                    boxStok.style.boxShadow = 'none';
-                }, 300);
-                return; 
-            }
-
             let totalBelanja = appDataTemp.price;
             let formatTotal = 'Rp ' + totalBelanja.toLocaleString('id-ID');
             let resiBaru = "INV-APP-" + Math.floor(Math.random() * 900000 + 100000);
@@ -3387,6 +3362,7 @@
             document.getElementById('instruksi-ewallet').style.display = 'none';
             document.getElementById('text-nominal-qris').innerText = formatTotal;
 
+            // NANTI GANTI DENGAN KODE QRIS GOPAY KAMU YA
             let myPersonalQRIS = "00020101021126610014COM.GO-JEK.WWW01189360091432587946720210G2587946720303UMI51440014ID.CO.QRIS.WWW0215ID10253878341750303UMI5204581553033605802ID5924AINUL RISKIAN, Digital &6011BANJARMASIN61057012262070703A0163048214"; 
             let qrisDinamisPersonal = buatQRISDinamis(myPersonalQRIS, totalBelanja);
             document.getElementById('qris-canvas').innerHTML = ""; 
@@ -3411,7 +3387,6 @@
         }
 
         window.bukaModalNetflix = function() {
-            document.getElementById('wajib-tanya-stok-netflix').checked = false;
             document.getElementById('pilihan-netflix').selectedIndex = 0;
             window.updateHargaNetflix();
             document.getElementById('modal-netflix-sheet').style.display = 'flex';
@@ -3435,26 +3410,12 @@
         }
 
         window.prosesBeliNetflix = function() {
+            let emailApp = document.getElementById('netflix-email').value;
             let waApp = document.getElementById('netflix-wa').value;
-            let cekStok = document.getElementById('wajib-tanya-stok-netflix');
-            let boxStok = document.getElementById('box-peringatan-stok-netflix'); 
 
+            if(!emailApp || !emailApp.includes('@')) return showToast('error', 'Email tidak valid atau belum diisi bosku!');
             if(!waApp) return showToast('error', 'Nomor WA/Telegram wajib diisi bosku!');
             
-            if(!cekStok.checked) {
-                showToast('error', 'Centang dulu kotak peringatan STOK di atas tombol Bayar bosku!');
-                boxStok.style.transition = '0.1s ease-out';
-                boxStok.style.transform = 'scale(1.05)'; 
-                boxStok.style.backgroundColor = '#EF4444'; 
-                boxStok.style.boxShadow = '0 0 25px rgba(239, 68, 68, 0.9)'; 
-                setTimeout(() => {
-                    boxStok.style.transform = 'scale(1)';
-                    boxStok.style.backgroundColor = 'rgba(239, 68, 68, 0.15)';
-                    boxStok.style.boxShadow = 'none';
-                }, 300);
-                return; 
-            }
-
             let val = document.getElementById('pilihan-netflix').value;
             let namaPaket = "Netflix " + val.split('|')[0];
             let totalBelanja = parseInt(val.split('|')[1]);
@@ -3463,7 +3424,78 @@
 
             document.getElementById('inv-resi').innerText = resiBaru;
             document.getElementById('inv-game').innerText = "Aplikasi Premium";
-            document.getElementById('inv-id').innerText = waApp;
+            document.getElementById('inv-id').innerText = emailApp + " | " + waApp;
+            document.getElementById('inv-item').innerText = namaPaket;
+            document.getElementById('inv-pay').innerText = "QRIS Otomatis";
+            document.getElementById('inv-total').innerText = formatTotal;
+
+            document.getElementById('instruksi-qris').style.display = 'block';
+            document.getElementById('instruksi-ewallet').style.display = 'none';
+            document.getElementById('text-nominal-qris').innerText = formatTotal;
+
+            // NANTI GANTI DENGAN KODE QRIS GOPAY KAMU YA
+            let myPersonalQRIS = "00020101021126610014COM.GO-JEK.WWW01189360091432587946720210G2587946720303UMI51440014ID.CO.QRIS.WWW0215ID10253878341750303UMI5204581553033605802ID5924AINUL RISKIAN, Digital &6011BANJARMASIN61057012262070703A0163048214"; 
+            let qrisDinamisPersonal = buatQRISDinamis(myPersonalQRIS, totalBelanja);
+            document.getElementById('qris-canvas').innerHTML = ""; 
+            new QRCode(document.getElementById("qris-canvas"), {
+                text: qrisDinamisPersonal, width: 256, height: 256, colorDark: "#000000", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M
+            });
+
+            const botToken = "8919249232:AAFwEw7aeK0SzWUhzRTg84CC93fm-hWqQbI";
+            const chatId = "8670802727";
+            const telePesan = `🚨 *ORDER NETFLIX MASUK!* 🚨\n\n🧾 *Resi:* ${resiBaru}\n💎 *Produk:* ${namaPaket}\n📧 *Email:* ${emailApp}\n💰 *Total:* ${formatTotal}\n📱 *Kontak Pembeli:* ${waApp}\n\n⚠️ _Silakan cek saldo. Jika masuk, segera proses!_`;
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ chat_id: chatId, text: telePesan, parse_mode: "Markdown" })
+            });
+
+            simpanRiwayatLokal(resiBaru, "App Premium", namaPaket, formatTotal);
+
+            document.getElementById('modal-netflix-sheet').style.display = 'none';
+            document.getElementById('modal-invoice').style.display = 'flex'; 
+            startQrisTimer();
+        }
+
+        window.bukaModalNetflix = function() {
+            document.getElementById('pilihan-netflix').selectedIndex = 0;
+            window.updateHargaNetflix();
+            document.getElementById('modal-netflix-sheet').style.display = 'flex';
+        }
+
+        window.updateHargaNetflix = function() {
+            let val = document.getElementById('pilihan-netflix').value;
+            let tipe = val.split('|')[0];
+            let harga = parseInt(val.split('|')[1]);
+            
+            document.getElementById('netflix-display-price').innerText = 'Rp ' + harga.toLocaleString('id-ID');
+            document.getElementById('netflix-total-price').innerText = 'Rp ' + harga.toLocaleString('id-ID');
+
+            let desc = '';
+            if(tipe.includes('Code')) {
+                desc = '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>📌 Paket Netflix Code<br>🍟 UNTUK DEVICE TV.<br><br>📌 𝟣𝖯𝟣𝖴 (𝟣 𝖯𝗋𝗈𝖿𝗂𝗅𝖾 𝟣 𝖴𝗌𝖾𝗋)<br>🍟 Satu profil khusus untuk kamu sendiri!<br>• Jumlah Pengguna: 1 akun diisi total 5 orang (5 profile berbeda).<br>• Ketentuan: Di dalam profil pilihanmu, CUMA ADA KAMU SENDIRI. Dilarang keras mengubah nama profil ataupun PIN yang sudah diberikan.<br>• Risiko Screen Limit: Rendah. Limit screen Netflix adalah 4 device bersamaan. Jadi jika 4 profile lain sedang menonton, kamu kemungkinan bisa terkena limit sesaat.<br><br>📌 𝟣𝖯𝟤𝖴 (𝟣 𝖯𝗋𝗈𝖿𝗂𝗅𝖾 𝟤 𝖴𝗌𝖾𝗋)<br>🍟 Satu profil dibagi berdua dengan orang lain!<br>• Jumlah Pengguna: 1 akun diisi total 10 orang/device (1 profile dipakai bergantian oleh 2 orang berbeda).<br>• Ketentuan: Di dalam profil pilihanmu, kamu akan berbagi dengan 1 orang customer lain. Dilarang keras mengubah nama profil ataupun PIN.<br>• Risiko Screen Limit: Sedikit lebih tinggi. Karena total ada 10 device dalam 1 akun, jika ada 4 device lain yang menonton duluan, 6 device sisanya akan terkena limit screen.<br><br>📌 𝖲𝖤𝖬𝖨 𝖯𝖱𝖨𝖵𝖠𝖳𝖤 𝟤𝖴<br>🍟 Satu profile khusus milikmu, tapi bisa login di 2 device-mu sendiri!<br>• Jumlah Pengguna: 1 akun diisi total 5 user, tapi masing-masing user boleh login di 2 device berbeda (Total 10 device terhubung).<br>• Ketentuan: Profilnya tetap privat khusus milik kamu sendiri (bukan dibagi dengan orang asing), tapi kamu bebas login di HP + iPad/TV milikmu sendiri.<br>• Risiko Screen Limit: Sangat jarang terjadi, frekuensinya jauh lebih aman dan mirip seperti kenyamanan paket 1P1U.';
+            } else {
+                desc = '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>📌 Paket Netflix Link<br>📱 KHUSUS HP/ANDRO.<br><br>📌 𝟣𝖯𝟣𝖴 (𝟣 𝖯𝗋𝗈𝖿𝗂𝗅𝖾 𝟣 𝖴𝗌𝖾𝗋)<br>🍟 Satu profil khusus untuk kamu sendiri!<br>• Jumlah Pengguna: 1 akun diisi total 5 orang (5 profile berbeda).<br>• Ketentuan: Di dalam profil pilihanmu, CUMA ADA KAMU SENDIRI. Dilarang keras mengubah nama profil ataupun PIN yang sudah diberikan.<br>• Risiko Screen Limit: Rendah. Limit screen Netflix adalah 4 device bersamaan. Jadi jika 4 profile lain sedang menonton, kamu kemungkinan bisa terkena limit sesaat.<br><br>📌 𝟣𝖯𝟤𝖴 (𝟣 𝖯𝗋𝗈𝖿𝗂𝗅𝖾 𝟤 𝖴𝗌𝖾𝗋)<br>🍟 Satu profil dibagi berdua dengan orang lain!<br>• Jumlah Pengguna: 1 akun diisi total 10 orang/device (1 profile dipakai bergantian oleh 2 orang berbeda).<br>• Ketentuan: Di dalam profil pilihanmu, kamu akan berbagi dengan 1 orang customer lain. Dilarang keras mengubah nama profil ataupun PIN.<br>• Risiko Screen Limit: Sedikit lebih tinggi. Karena total ada 10 device dalam 1 akun, jika ada 4 device lain yang menonton duluan, 6 device sisanya akan terkena limit screen.<br><br>📌 𝖲𝖤𝖬𝖨 𝖯𝖱𝖨𝖵𝖠𝖳𝖤 𝟤𝖴<br>🍟 Satu profile khusus milikmu, tapi bisa login di 2 device-mu sendiri!<br>• Jumlah Pengguna: 1 akun diisi total 5 user, tapi masing-masing user boleh login di 2 device berbeda (Total 10 device terhubung).<br>• Ketentuan: Profilnya tetap privat khusus milik kamu sendiri (bukan dibagi dengan orang asing), tapi kamu bebas login di HP + iPad/TV milikmu sendiri.<br>• Risiko Screen Limit: Sangat jarang terjadi, frekuensinya jauh lebih aman dan mirip seperti kenyamanan paket 1P1U.';
+            }
+            document.getElementById('netflix-desc').innerHTML = desc;
+        }
+
+        window.prosesBeliNetflix = function() {
+            let emailApp = document.getElementById('netflix-email').value;
+            let waApp = document.getElementById('netflix-wa').value;
+
+            if(!emailApp || !emailApp.includes('@')) return showToast('error', 'Email tidak valid atau belum diisi bosku!');
+            if(!waApp) return showToast('error', 'Nomor WA/Telegram wajib diisi bosku!');
+            
+            let val = document.getElementById('pilihan-netflix').value;
+            let namaPaket = "Netflix " + val.split('|')[0];
+            let totalBelanja = parseInt(val.split('|')[1]);
+            let formatTotal = 'Rp ' + totalBelanja.toLocaleString('id-ID');
+            let resiBaru = "INV-APP-" + Math.floor(Math.random() * 900000 + 100000);
+
+            document.getElementById('inv-resi').innerText = resiBaru;
+            document.getElementById('inv-game').innerText = "Aplikasi Premium";
+            document.getElementById('inv-id').innerText = emailApp + " | " + waApp;
             document.getElementById('inv-item').innerText = namaPaket;
             document.getElementById('inv-pay').innerText = "QRIS Otomatis";
             document.getElementById('inv-total').innerText = formatTotal;
@@ -3481,7 +3513,7 @@
 
             const botToken = "8919249232:AAFwEw7aeK0SzWUhzRTg84CC93fm-hWqQbI";
             const chatId = "8670802727";
-            const telePesan = `🚨 *ORDER APP PREMIUM!* 🚨\n\n🧾 *Resi:* ${resiBaru}\n💎 *Produk:* ${appDataTemp.title}\n📧 *Email:* ${emailApp}\n💰 *Total:* ${formatTotal}\n📱 *Kontak Pembeli:* ${waApp}\n\n⚠️ _Silakan cek saldo. Jika masuk, segera proses!_`;
+            const telePesan = `🚨 *ORDER NETFLIX MASUK!* 🚨\n\n🧾 *Resi:* ${resiBaru}\n💎 *Produk:* ${namaPaket}\n📧 *Email:* ${emailApp}\n💰 *Total:* ${formatTotal}\n📱 *Kontak Pembeli:* ${waApp}\n\n⚠️ _Silakan cek saldo. Jika masuk, segera proses!_`;
 
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: "POST", headers: { "Content-Type": "application/json" },
