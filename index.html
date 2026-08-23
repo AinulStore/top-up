@@ -1702,7 +1702,7 @@
                  Kalau lagi ada promo: Biarin data-status="on" 
                  Kalau lagi GAK ADA promo: Ganti jadi data-status="off" 
             -->
-            <button class="btn-toggle-promo" id="btnPromo" data-status="on" onclick="togglePromoHariIni()">
+            <button class="btn-toggle-promo" id="btnPromo" data-status="off" onclick="togglePromoHariIni()">
                 <i class="fas fa-gift"></i> Lihat Promo Hari Ini
             </button>
             
@@ -1740,144 +1740,33 @@
             <div class="app-grid">
                 
                 <!-- ================= CANVA ================= -->
-                <div class="app-card" onclick="bukaSheetApp('Canva Premium 1 Bulan', 1500, 71590, 318, 'CANVA', '• Masa aktif 1 Bulan<br>• Fitur otomatis premium & bebas desain pakai elemen pro<br>• Tidak bisa mengelola tim<br>• Bisa membuat brand kit (simpan logo, font, & palet warna tokomu)', 'Canva.png')">
-                    <div class="app-img-box"><img src="Canva.png"><div class="app-tags"><span class="app-tag-merk">CANVA</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 318 Terjual</span></div></div>
-                    <div class="app-title">Canva Premium 1 Bulan</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 71K+</div>
-                    <div class="app-bottom"><div class="app-price">Rp 1.500</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
+                <div class="app-card" onclick="bukaSheetApp('Canva Member 1 Bulan', 100, 245, 318, 'PREMIUM', '• Masa aktif 1 Bulan<br>• Bisa pakai hampir semua fitur Pro (pakai template premium).<br>• Tidak bisa pakai fitur Designer (upload font, color palette, & brand kit)', 'Canva.png')">
+                    <div class="app-img-box"><img src="Canva.png"><div class="app-tags"><span class="app-tag-merk">PREMIUM</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 318 Terjual</span></div></div>
+                    <div class="app-title">Canva Member 1 Bulan</div>
+                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 200+</div>
+                    <div class="app-bottom"><div class="app-price">Rp 100</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
                 </div>
                 
-                <!-- ================= NETFLIX (PILIHAN LENGKAP) ================= -->
-                <div class="app-card" onclick="bukaModalNetflix()">
-                    <div class="app-img-box"><img src="netflix.png" style="object-fit: contain; background:#000; padding:10px;"><div class="app-tags"><span class="app-tag-merk">NETFLIX</span><span class="app-tag-sold"><i class="fas fa-fire"></i> Terlaris</span></div></div>
-                    <div class="app-title">Netflix Premium (Pilih Paket)</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: Stok Ready</div>
-                    <div class="app-bottom"><div class="app-price">Mulai Rp 13.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
-                </div>
-
+                <div class="app-card" onclick="bukaSheetApp('Canva Designer 1 Bulan', 200, 245, 525, 'PREMIUM', '• Masa aktif 1 Bulan<br>• Bisa pakai SEMUA fitur Pro + fitur Designer (pakai template premium).<br>• Bebas upload font sendiri, custom color palette, & set brand kit!', 'Canva.png')">
+                    <div class="app-img-box"><img src="Canva.png"><div class="app-tags"><span class="app-tag-merk">PREMIUM</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 525 Terjual</span></div></div>
+                    <div class="app-title">Canva Designer 1 Bulan</div>
+                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 200+</div>
+                    <div class="app-bottom"><div class="app-price">Rp 200</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
+                </div>      
+                
+                <div class="app-card" onclick="bukaSheetApp('Canva Admin 1 Bulan', 1000, 8, 163, 'PREMIUM', '• Masa aktif 1 Bulan<br>• Termasuk semua benefit Member & Designer.<br>• Bisa invite hingga 10 member!', 'Canva.png')">
+                    <div class="app-img-box"><img src="Canva.png"><div class="app-tags"><span class="app-tag-merk">PREMIUM</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 163 Terjual</span></div></div>
+                    <div class="app-title">Canva Admin 1 Bulan</div>
+                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 8</div>
+                    <div class="app-bottom"><div class="app-price">Rp 1.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
+                </div>                                                    
+                              
                 <!-- ================= YOUTUBE ================= -->
-                <div class="app-card" onclick="bukaSheetApp('Youtube Famplan 1 Bulan', 5000, 30, 12, 'YOUTUBE', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>• Cuma butuh email kamu karena sistemnya via invite<br>• Email wajib fresh (belum pernah dipakai buat YouTube Premium)', 'yt.png')">
-                    <div class="app-img-box"><img src="yt.png" style="background:#000;"><div class="app-tags"><span class="app-tag-merk">YOUTUBE</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 12 Terjual</span></div></div>
+                <div class="app-card" onclick="bukaSheetApp('Youtube Famplan 1 Bulan', 2500, 3, 381, 'YOUTUBE', '⚠️ PENTING: Harap isi email dengan benar, kesalahan email bukan tanggung jawab admin.<br><br>• Cuma butuh email kamu karena sistemnya via invite<br>• Email wajib fresh (belum pernah dipakai buat YouTube Premium)', 'yt.png')">
+                    <div class="app-img-box"><img src="yt.png" style="background:#000;"><div class="app-tags"><span class="app-tag-merk">YOUTUBE</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 381 Terjual</span></div></div>
                     <div class="app-title">Youtube Famplan 1 Bulan</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 30</div>
-                    <div class="app-bottom"><div class="app-price">Rp 5.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
-                </div>
-
-                <div class="app-card" onclick="bukaSheetApp('Youtube Famhead 1 Bulan', 13000, 15, 22, 'YOUTUBE', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>• Kamu bertindak sebagai Kepala Keluarga.<br>• Bisa mengundang akun lain masuk ke dalam paket Family Plan.', 'yt.png')">
-                    <div class="app-img-box"><img src="yt.png" style="background:#000;"><div class="app-tags"><span class="app-tag-merk">YOUTUBE</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 22 Terjual</span></div></div>
-                    <div class="app-title">Youtube Famhead 1 Bulan</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 15</div>
-                    <div class="app-bottom"><div class="app-price">Rp 13.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
-                </div>
-
-                <div class="app-card" onclick="bukaSheetApp('Youtube Indplan 1 Bulan', 7000, 97, 38, 'YOUTUBE', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>• Email wajib fresh/belum pernah berlangganan sebelumnya.', 'yt.png')">
-                    <div class="app-img-box"><img src="yt.png" style="background:#000;"><div class="app-tags"><span class="app-tag-merk">YOUTUBE</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 38 Terjual</span></div></div>
-                    <div class="app-title">Youtube Indplan 1 Bulan</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 97</div>
-                    <div class="app-bottom"><div class="app-price">Rp 7.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
-                </div>
-
-                <!-- ================= SPOTIFY ================= -->
-                <div class="app-card" onclick="bukaSheetApp('Spotify Famplan 1 Bulan', 20000, 50, 17, 'SPOTIFY', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>• Bergaransi.', 'spotify.png')">
-                    <div class="app-img-box"><img src="spotify.png" style="background:#000;"><div class="app-tags"><span class="app-tag-merk">SPOTIFY</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 17 Terjual</span></div></div>
-                    <div class="app-title">Spotify Famplan 1 Bulan</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 50</div>
-                    <div class="app-bottom"><div class="app-price">Rp 20.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
-                </div>
-
-                <div class="app-card" onclick="bukaSheetApp('Spotify Indplan 1 Bulan', 22000, 50, 58, 'SPOTIFY', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>• Bergaransi.', 'spotify.png')">
-                    <div class="app-img-box"><img src="spotify.png" style="background:#000;"><div class="app-tags"><span class="app-tag-merk">SPOTIFY</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 58 Terjual</span></div></div>
-                    <div class="app-title">Spotify Indplan 1 Bulan</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 50</div>
-                    <div class="app-bottom"><div class="app-price">Rp 22.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
-                </div>
-
-                <!-- ================= CAPCUT ================= -->
-                <div class="app-card" onclick="bukaSheetApp('CapCut Sharing 7 Hari', 10000, 50, 4, 'CAPCUT', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>• Sistem Via Email dari Kami (Limit Login)', 'capcut.png')">
-                    <div class="app-img-box"><img src="capcut.png" style="background:#000;"><div class="app-tags"><span class="app-tag-merk">CAPCUT</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 4 Terjual</span></div></div>
-                    <div class="app-title">CapCut Sharing 7 Hari</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 50</div>
-                    <div class="app-bottom"><div class="app-price">Rp 10.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
-                </div>
-
-                <div class="app-card" onclick="bukaSheetApp('CapCut Sharing 1 Bulan', 23000, 28, 8, 'CAPCUT', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>• Sistem Via Email dari Kami (Limit Login)', 'capcut.png')">
-                    <div class="app-img-box"><img src="capcut.png" style="background:#000;"><div class="app-tags"><span class="app-tag-merk">CAPCUT</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 8 Terjual</span></div></div>
-                    <div class="app-title">CapCut Sharing 1 Bulan</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 28</div>
-                    <div class="app-bottom"><div class="app-price">Rp 23.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
-                </div>
-
-                <div class="app-card" onclick="bukaSheetApp('CapCut Private 7 Hari', 12000, 37, 12, 'CAPCUT', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>• Private hanya untuk Anda.', 'capcut.png')">
-                    <div class="app-img-box"><img src="capcut.png" style="background:#000;"><div class="app-tags"><span class="app-tag-merk">CAPCUT</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 12 Terjual</span></div></div>
-                    <div class="app-title">CapCut Private 7 Hari</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 37</div>
-                    <div class="app-bottom"><div class="app-price">Rp 12.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
-                </div> 
-
-                <div class="app-card" onclick="bukaSheetApp('CapCut Private 1 Bulan', 30000, 14, 31, 'CAPCUT', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>• Private hanya untuk Anda.', 'capcut.png')">
-                    <div class="app-img-box"><img src="capcut.png" style="background:#000;"><div class="app-tags"><span class="app-tag-merk">CAPCUT</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 31 Terjual</span></div></div>
-                    <div class="app-title">CapCut Private 1 Bulan</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 14</div>
-                    <div class="app-bottom"><div class="app-price">Rp 30.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
-                </div>
-
-                <!-- ================= CHAT GPT ================= -->
-                <div class="app-card" onclick="bukaSheetApp('Chat GPT Go Sharing 1 Bulan', 10000, 25, 7, 'CHAT GPT', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>• Full Garansi.', 'gpt.png')">
-                    <div class="app-img-box"><img src="gpt.png" style="background:#000;"><div class="app-tags"><span class="app-tag-merk">CHAT GPT</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 7 Terjual</span></div></div>
-                    <div class="app-title">Chat GPT Go Sharing 1 Bulan</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 25</div>
-                    <div class="app-bottom"><div class="app-price">Rp 10.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
-                </div>
-                
-                <div class="app-card" onclick="bukaSheetApp('Chat GPT Go Private 1 Bulan', 13000, 25, 2, 'CHAT GPT', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>• Full Garansi.', 'gpt.png')">
-                    <div class="app-img-box"><img src="gpt.png" style="background:#000;"><div class="app-tags"><span class="app-tag-merk">CHAT GPT</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 2 Terjual</span></div></div>
-                    <div class="app-title">Chat GPT Go Private 1 Bulan</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 25</div>
-                    <div class="app-bottom"><div class="app-price">Rp 13.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
-                </div>  
-
-                <!-- ================= WETV ================= -->
-                <div class="app-card" onclick="bukaSheetApp('WeTV Sharing 3U 1 Bulan', 15000, 15, 12, 'WETV', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!', 'wetv.png')">
-                    <div class="app-img-box"><img src="wetv.png" style="background:#000;"><div class="app-tags"><span class="app-tag-merk">WETV</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 12 Terjual</span></div></div>
-                    <div class="app-title">WeTV Sharing 3U 1 Bulan</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 15</div>
-                    <div class="app-bottom"><div class="app-price">Rp 15.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
-                </div>
-
-                <div class="app-card" onclick="bukaSheetApp('WeTV Sharing 6U 1 Bulan', 8000, 20, 24, 'WETV', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!', 'wetv.png')">
-                    <div class="app-img-box"><img src="wetv.png" style="background:#000;"><div class="app-tags"><span class="app-tag-merk">WETV</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 24 Terjual</span></div></div>
-                    <div class="app-title">WeTV Sharing 6U 1 Bulan</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 20</div>
-                    <div class="app-bottom"><div class="app-price">Rp 8.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
-                </div>
-
-                <div class="app-card" onclick="bukaSheetApp('WeTV Private 1 Bulan', 28000, 10, 8, 'WETV', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!', 'wetv.png')">
-                    <div class="app-img-box"><img src="wetv.png" style="background:#000;"><div class="app-tags"><span class="app-tag-merk">WETV</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 8 Terjual</span></div></div>
-                    <div class="app-title">WeTV Private 1 Bulan</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 10</div>
-                    <div class="app-bottom"><div class="app-price">Rp 28.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
-                </div>
-
-                <!-- ================= LAINNYA ================= -->
-                <div class="app-card" onclick="bukaSheetApp('Get Contact 1 Bulan', 10000, 455, 62, 'GET CONTACT', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!', 'gc.png')">
-                    <div class="app-img-box"><img src="gc.png" style="background:#000;"><div class="app-tags"><span class="app-tag-merk">GET CONTACT</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 62 Terjual</span></div></div>
-                    <div class="app-title">Get Contact 1 Bulan</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 455</div>
-                    <div class="app-bottom"><div class="app-price">Rp 10.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
-                </div>
-
-                <div class="app-card" onclick="bukaSheetApp('Viu Premium 1 Tahun', 5000, 10, 13, 'VIU', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!', 'viu.png')">
-                    <div class="app-img-box"><img src="viu.png" style="background:#000;"><div class="app-tags"><span class="app-tag-merk">VIU</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 13 Terjual</span></div></div>
-                    <div class="app-title">Viu Premium 1 Tahun</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 10</div>
-                    <div class="app-bottom"><div class="app-price">Rp 5.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
-                </div>
-
-                <div class="app-card" onclick="bukaSheetApp('Alight Motion Premium 1 Tahun', 5000, 20, 1, 'ALIGHTMOTION', '⚠️ PENTING: Harap chat Admin via WhatsApp untuk cek ketersediaan stok!<br><br>• Support semua perangkat.<br>• Acc dari buyer.', 'am.png')">
-                    <div class="app-img-box"><img src="am.png" style="background:#000;"><div class="app-tags"><span class="app-tag-merk">ALIGHT MOTION</span><span class="app-tag-sold"><i class="fas fa-fire"></i> 1 Terjual</span></div></div>
-                    <div class="app-title">Alight Motion 1 Tahun</div>
-                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 20</div>
-                    <div class="app-bottom"><div class="app-price">Rp 5.000</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
+                    <div class="app-sisa"><i class="fas fa-box"></i> SISA: 3</div>
+                    <div class="app-bottom"><div class="app-price">Rp 2.500</div><button class="app-cart-btn"><i class="fas fa-shopping-cart"></i></button></div>
                 </div>
 
             </div>
@@ -1976,6 +1865,13 @@
                 </div>
 
                 <div class="sheet-action-box">
+                    <div style="margin-bottom: 15px;">
+                        <div style="font-weight: 700; font-size: 0.85rem;">📧 EMAIL (WAJIB UNTUK PREMIUM)</div>
+                        <div class="wa-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="sheet-email" class="sheet-wa-input" placeholder="Masukkan email aktif..." autocomplete="off"> 
+                        </div>
+                    </div>
                     <div style="margin-bottom: 15px;">
                         <div style="font-weight: 700; font-size: 0.85rem;">⚠️WHATSAPP (WAJIB)</div>
                         <div class="wa-wrapper">
@@ -3454,10 +3350,12 @@
         }
 
         window.prosesBeliApp = function() {
+            let emailApp = document.getElementById('sheet-email').value;
             let waApp = document.getElementById('sheet-wa').value;
             let cekStok = document.getElementById('wajib-tanya-stok');
             let boxStok = document.getElementById('box-peringatan-stok'); 
 
+            if(!emailApp || !emailApp.includes('@')) return showToast('error', 'Email tidak valid atau belum diisi bosku!');
             if(!waApp) return showToast('error', 'Nomor WA/Telegram wajib diisi bosku!');
             
             if(!cekStok.checked) {
@@ -3480,7 +3378,7 @@
 
             document.getElementById('inv-resi').innerText = resiBaru;
             document.getElementById('inv-game').innerText = "Aplikasi Premium";
-            document.getElementById('inv-id').innerText = waApp;
+            document.getElementById('inv-id').innerText = emailApp + " | " + waApp;
             document.getElementById('inv-item').innerText = appDataTemp.title;
             document.getElementById('inv-pay').innerText = "QRIS Otomatis";
             document.getElementById('inv-total').innerText = formatTotal;
@@ -3489,7 +3387,7 @@
             document.getElementById('instruksi-ewallet').style.display = 'none';
             document.getElementById('text-nominal-qris').innerText = formatTotal;
 
-            let myPersonalQRIS = "00020101021126570011ID.DANA.WWW011893600915303264378902090326437890303UMI51440014ID.CO.QRIS.WWW0215ID10265327541770303UMI5204481253033605802ID5910Null Store6015Kota Banjarmasi6105702396304C29E"; 
+            let myPersonalQRIS = "00020101021126610014COM.GO-JEK.WWW01189360091432587946720210G2587946720303UMI51440014ID.CO.QRIS.WWW0215ID10253878341750303UMI5204581553033605802ID5924AINUL RISKIAN, Digital &6011BANJARMASIN61057012262070703A0163048214"; 
             let qrisDinamisPersonal = buatQRISDinamis(myPersonalQRIS, totalBelanja);
             document.getElementById('qris-canvas').innerHTML = ""; 
             new QRCode(document.getElementById("qris-canvas"), {
@@ -3498,7 +3396,7 @@
 
             const botToken = "8919249232:AAFwEw7aeK0SzWUhzRTg84CC93fm-hWqQbI";
             const chatId = "8670802727";
-            const telePesan = `🚨 *ORDER APP PREMIUM!* 🚨\n\n🧾 *Resi:* ${resiBaru}\n💎 *Produk:* ${appDataTemp.title}\n💰 *Total:* ${formatTotal}\n📱 *Kontak Pembeli:* ${waApp}\n\n⚠️ _Silakan cek saldo DANA. Jika masuk, hubungi kontak di atas!_`;
+            const telePesan = `🚨 *ORDER APP PREMIUM!* 🚨\n\n🧾 *Resi:* ${resiBaru}\n💎 *Produk:* ${appDataTemp.title}\n📧 *Email:* ${emailApp}\n💰 *Total:* ${formatTotal}\n📱 *Kontak Pembeli:* ${waApp}\n\n⚠️ _Silakan cek saldo. Jika masuk, segera proses!_`;
 
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: "POST", headers: { "Content-Type": "application/json" },
@@ -3574,7 +3472,7 @@
             document.getElementById('instruksi-ewallet').style.display = 'none';
             document.getElementById('text-nominal-qris').innerText = formatTotal;
 
-            let myPersonalQRIS = "00020101021126570011ID.DANA.WWW011893600915303264378902090326437890303UMI51440014ID.CO.QRIS.WWW0215ID10265327541770303UMI5204481253033605802ID5910Null Store6015Kota Banjarmasi6105702396304C29E"; 
+            let myPersonalQRIS = "00020101021126610014COM.GO-JEK.WWW01189360091432587946720210G2587946720303UMI51440014ID.CO.QRIS.WWW0215ID10253878341750303UMI5204581553033605802ID5924AINUL RISKIAN, Digital &6011BANJARMASIN61057012262070703A0163048214"; 
             let qrisDinamisPersonal = buatQRISDinamis(myPersonalQRIS, totalBelanja);
             document.getElementById('qris-canvas').innerHTML = ""; 
             new QRCode(document.getElementById("qris-canvas"), {
@@ -3583,7 +3481,7 @@
 
             const botToken = "8919249232:AAFwEw7aeK0SzWUhzRTg84CC93fm-hWqQbI";
             const chatId = "8670802727";
-            const telePesan = `🚨 *ORDER APP PREMIUM!* 🚨\n\n🧾 *Resi:* ${resiBaru}\n💎 *Produk:* ${namaPaket}\n💰 *Total:* ${formatTotal}\n📱 *Kontak Pembeli:* ${waApp}\n\n⚠️ _Silakan cek saldo DANA. Jika masuk, hubungi kontak di atas!_`;
+            const telePesan = `🚨 *ORDER APP PREMIUM!* 🚨\n\n🧾 *Resi:* ${resiBaru}\n💎 *Produk:* ${appDataTemp.title}\n📧 *Email:* ${emailApp}\n💰 *Total:* ${formatTotal}\n📱 *Kontak Pembeli:* ${waApp}\n\n⚠️ _Silakan cek saldo. Jika masuk, segera proses!_`;
 
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: "POST", headers: { "Content-Type": "application/json" },
