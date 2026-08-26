@@ -3072,19 +3072,18 @@
             let targetUrl = `https://api.autoresbot.com/api/stalker/${gamePath}?apikey=${apiKey}&user_id=${idInput}`;
             if(game === 'mlbb') targetUrl += `&server=${serverInput}`;
 
-            // JURUS RAHASIA 2.0: Pakai Proxy VIP (corsproxy.io) yang anti-blokir!
-            let apiUrl = `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
+            // JURUS RAHASIA 3.0: Pakai Proxy Codetabs (Semoga panjang umur!)
+            let apiUrl = `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`;
 
             try {
                 let response = await fetch(apiUrl);
-                let textData = await response.text(); // Ambil mentahannya dulu
+                let textData = await response.text(); 
                 
-                // Kalau proxy ngasih halaman HTML "Oops" atau Error, langsung tolak!
                 if(textData.includes('<html') || textData.includes('Oops')) {
-                    throw new Error("Server Autoresbot sedang memblokir permintaan.");
+                    throw new Error("Server Autoresbot memblokir proxy kita.");
                 }
                 
-                let data = JSON.parse(textData); // Ubah jadi JSON dengan aman
+                let data = JSON.parse(textData);
 
                 btn.innerHTML = teksAsli; 
                 btn.style.pointerEvents = 'auto'; 
