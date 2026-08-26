@@ -3069,8 +3069,11 @@
             const apiKey = "4f2906171b95b4c7d0f5e1f6";
             
             // Susun Link API Autoresbot yang baru sesuai temuanmu
-            let apiUrl = `https://api.autoresbot.com/api/stalker/${gamePath}?apikey=${apiKey}&user_id=${idInput}`;
-            if(game === 'mlbb') apiUrl += `&server=${serverInput}`;
+            let targetUrl = `https://api.autoresbot.com/api/stalker/${gamePath}?apikey=${apiKey}&user_id=${idInput}`;
+            if(game === 'mlbb') targetUrl += `&server=${serverInput}`;
+
+            // JURUS RAHASIA: Pakai Proxy biar browser HP nggak nge-block (Bypass CORS)
+            let apiUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
 
             try {
                 let response = await fetch(apiUrl);
