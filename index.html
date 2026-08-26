@@ -3072,8 +3072,8 @@
             let targetUrl = `https://api.autoresbot.com/api/stalker/${gamePath}?apikey=${apiKey}&user_id=${idInput}`;
             if(game === 'mlbb') targetUrl += `&server=${serverInput}`;
 
-            // JURUS RAHASIA 3.0: Pakai Proxy Codetabs (Semoga panjang umur!)
-            let apiUrl = `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`;
+            // JURUS RAHASIA 4.0: Pakai ThingProxy (Jalur alternatif terakhir)
+            let apiUrl = `https://thingproxy.freeboard.io/fetch/${targetUrl}`;
 
             try {
                 let response = await fetch(apiUrl);
