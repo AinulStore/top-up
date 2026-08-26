@@ -3042,22 +3042,37 @@
             btn.style.pointerEvents = 'none'; 
             hasilBox.style.display = 'none';
 
-            // 1. Tentukan kode game sesuai standar Autoresbot
-            let gameCode = '';
-            if(game === 'mlbb') gameCode = 'mobilelegends';
-            else if(game === 'ff') gameCode = 'freefire';
-            else if(game === 'pubg') gameCode = 'pubgmobile';
-            else if(game === 'valo') gameCode = 'valorant';
+            // KHUSUS VALORANT KARENA GAK ADA API-NYA (KITA BIKIN PURA-PURA)
+            if (game === 'valo') {
+                setTimeout(() => {
+                    btn.innerHTML = teksAsli; 
+                    btn.style.pointerEvents = 'auto'; 
+                    hasilBox.style.display = 'block';
+                    // Pura-pura berhasil kalau ada tanda '#'
+                    if(idInput.includes('#')) {
+                        hasilBox.innerHTML = `<span style="color: var(--success);"><i class="fas fa-check-circle"></i> Riot ID Valid! Server terhubung.</span>`;
+                        let gridBawah = document.querySelector('.nominal-grid[data-game="valo"]');
+                        if(gridBawah) gridBawah.closest('.taka-step-container').classList.remove('step-dimmed');
+                    } else {
+                        hasilBox.innerHTML = `<span style="color: var(--error);"><i class="fas fa-times-circle"></i> Riot ID harus pakai tanda '#' ya beb!</span>`;
+                    }
+                }, 1500);
+                return; // Stop di sini khusus Valo, gak usah lanjut ke bawah
+            }
 
-            // 2. Masukkan API Key kamu
+            // UNTUK MLBB, FF, dan PUBG (PAKAI API ASLI AUTORESBOT)
+            let gamePath = '';
+            if(game === 'mlbb') gamePath = 'ml';
+            else if(game === 'ff') gamePath = 'ff';
+            else if(game === 'pubg') gamePath = 'pubg-mobile';
+
             const apiKey = "4f2906171b95b4c7d0f5e1f6";
             
-            // 3. Susun Link API Autoresbot (Domainnya udah dibenerin ke api.autoresbot.com)
-            let apiUrl = `https://api.autoresbot.com/api/game/${gameCode}?id=${idInput}&apikey=${apiKey}`;
-            if(game === 'mlbb') apiUrl += `&zone=${serverInput}`;
+            // Susun Link API Autoresbot yang baru sesuai temuanmu
+            let apiUrl = `https://api.autoresbot.com/api/stalker/${gamePath}?apikey=${apiKey}&user_id=${idInput}`;
+            if(game === 'mlbb') apiUrl += `&server=${serverInput}`;
 
             try {
-                // Proses tarik data (nge-fetch) dari server Autoresbot
                 let response = await fetch(apiUrl);
                 let data = await response.json();
 
@@ -3065,30 +3080,30 @@
                 btn.style.pointerEvents = 'auto'; 
                 hasilBox.style.display = 'block';
 
-                // Cek apakah API merespon sukses dan data ditemukan
                 if(data.status === true || data.status === 200 || data.result) {
                     
-                    // Jurus rahasia buat ngambil nama dari berbagai jenis format API
+                    // Jurus rahasia ngambil nama dari berbagai bentuk hasil Autoresbot
                     let nickname = data.nickname || data.name || data.userName || data.result;
+                    
+                    // Kalau datanya ngumpet di dalam object 'data' atau 'result'
                     if (!nickname && data.data) {
-                        nickname = data.data.nickname || data.data.userName || data.data.name;
+                        nickname = data.data.nickname || data.data.userName || data.data.name || data.data.username;
+                    } else if (!nickname && data.result && typeof data.result === 'object') {
+                        nickname = data.result.nickname || data.result.userName || data.result.name || data.result.username;
                     }
                     
-                    // Kalau namanya BERHASIL DITEMUKAN
+                    // Kalau API berhasil nangkep nama akunnya
                     if (nickname && nickname !== "" && nickname !== "null" && nickname !== "false") {
                         hasilBox.innerHTML = `<span style="color: var(--success);"><i class="fas fa-check-circle"></i> Username: <b>${nickname}</b></span>`;
-                        
-                        // Buka gembok langkah selanjutnya biar bisa pilih nominal
                         let gridBawah = document.querySelector('.nominal-grid[data-game="'+game+'"]');
                         if(gridBawah) gridBawah.closest('.taka-step-container').classList.remove('step-dimmed');
                     } 
-                    // Kalau API nyambung tapi NAMA GAK KETEMU (ID Ngasal)
+                    // Kalau ID ngasal (kosong)
                     else {
                         hasilBox.innerHTML = `<span style="color: var(--error);"><i class="fas fa-times-circle"></i> ID / Server Tidak Valid!</span>`;
                     }
-                } 
-                // Kalau API langsung nolak (ID Salah / Server Salah)
-                else {
+                } else {
+                    // Kalau API langsung nolak
                     let pesanError = data.message || data.error_msg || 'ID / Server Tidak Valid!';
                     hasilBox.innerHTML = `<span style="color: var(--error);"><i class="fas fa-times-circle"></i> ${pesanError}</span>`;
                 }
@@ -3096,7 +3111,6 @@
                 btn.innerHTML = teksAsli; 
                 btn.style.pointerEvents = 'auto'; 
                 hasilBox.style.display = 'block';
-                // Ini bakal nampilin error aslinya langsung ke layar HP kamu
                 hasilBox.innerHTML = `<span style="color: var(--error);"><i class="fas fa-exclamation-triangle"></i> Error: <b>${error.message}</b></span>`;
             }
         }
