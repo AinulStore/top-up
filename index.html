@@ -3082,7 +3082,8 @@
                 btn.innerHTML = teksAsli; 
                 btn.style.pointerEvents = 'auto'; 
                 hasilBox.style.display = 'block';
-                hasilBox.innerHTML = `<span style="color: var(--error);"><i class="fas fa-wifi"></i> Gagal konek ke server. Coba lagi!</span>`;
+                // Ini bakal nampilin error aslinya langsung ke layar HP kamu
+                hasilBox.innerHTML = `<span style="color: var(--error);"><i class="fas fa-exclamation-triangle"></i> Error: <b>${error.message}</b></span>`;
             }
         }
 
