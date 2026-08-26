@@ -3027,28 +3027,63 @@
         }
         document.addEventListener('DOMContentLoaded', muatUlasanTersimpan);
 
-        function cekIdIlusi(game) {
+        async function cekIdIlusi(game) {
             let btn = document.getElementById('btn-cek-' + game);
             let hasilBox = document.getElementById('hasil-cek-' + game);
             let idInput = document.getElementById(game + '-id').value;
-            let isValid = false;
+            let serverInput = (game === 'mlbb') ? document.getElementById('mlbb-server').value : '';
             
-            if(idInput.length >= 5) {
-                if(game === 'mlbb') { let serverInput = document.getElementById('mlbb-server').value; if(serverInput.length >= 3) isValid = true; } 
-                else { isValid = true; }
-            }
-            
+            // Validasi input kosong
+            if(!idInput) return showToast('error', 'Masukkan ID dulu bosku!');
+            if(game === 'mlbb' && !serverInput) return showToast('error', 'Masukkan Server ID juga bosku!');
+
             let teksAsli = btn.innerHTML;
-            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Memeriksa Server...`; btn.style.pointerEvents = 'none'; hasilBox.style.display = 'none'; 
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Mengecek Nama...`; 
+            btn.style.pointerEvents = 'none'; 
+            hasilBox.style.display = 'none';
+
+            // 1. Tentukan kode game sesuai standar Autoresbot
+            let gameCode = '';
+            if(game === 'mlbb') gameCode = 'mobilelegends';
+            else if(game === 'ff') gameCode = 'freefire';
+            else if(game === 'pubg') gameCode = 'pubgmobile';
+            else if(game === 'valo') gameCode = 'valorant';
+
+            // 2. Masukkan API Key kamu
+            const apiKey = "4f2906171b95b4c7d0f5e1f6";
             
-            setTimeout(() => {
-                btn.innerHTML = teksAsli; btn.style.pointerEvents = 'auto'; hasilBox.style.display = 'block';
-                if(isValid) {
-                    hasilBox.innerHTML = `<span style="color: var(--success);"><i class="fas fa-check-circle"></i> Format ID Valid! Server terhubung.</span>`;
-                    if(game === 'mlbb') document.querySelector('.nominal-grid[data-game="mlbb"]').closest('.taka-step-container').classList.remove('step-dimmed');
-                    if(game === 'ff') document.querySelector('.nominal-grid[data-game="ff"]').closest('.taka-step-container').classList.remove('step-dimmed');
-                } else { hasilBox.innerHTML = `<span style="color: var(--error);"><i class="fas fa-exclamation-triangle"></i> ID atau Server tidak lengkap / salah!</span>`; }
-            }, 2000); 
+            // 3. Susun Link API Autoresbot
+            let apiUrl = `https://autoresbot.com/api/v1/cek-nickname?api_key=${apiKey}&game=${gameCode}&id=${idInput}`;
+            if(game === 'mlbb') apiUrl += `&zone=${serverInput}`;
+
+            try {
+                // Proses tarik data (nge-fetch) dari server Autoresbot
+                let response = await fetch(apiUrl);
+                let data = await response.json();
+
+                btn.innerHTML = teksAsli; 
+                btn.style.pointerEvents = 'auto'; 
+                hasilBox.style.display = 'block';
+
+                // Cek apakah API merespon sukses
+                if(data.status === true || data.status === 200 || data.result) {
+                    // Ambil nama dari respon (disesuaikan dengan respon Autoresbot)
+                    let nickname = data.nickname || data.name || data.result || "Ditemukan";
+                    
+                    hasilBox.innerHTML = `<span style="color: var(--success);"><i class="fas fa-check-circle"></i> Username: <b>${nickname}</b></span>`;
+                    
+                    // Buka gembok langkah selanjutnya biar bisa pilih nominal
+                    let gridBawah = document.querySelector('.nominal-grid[data-game="'+game+'"]');
+                    if(gridBawah) gridBawah.closest('.taka-step-container').classList.remove('step-dimmed');
+                } else {
+                    hasilBox.innerHTML = `<span style="color: var(--error);"><i class="fas fa-exclamation-triangle"></i> ${data.message || 'ID/Server tidak ditemukan!'}</span>`;
+                }
+            } catch (error) {
+                btn.innerHTML = teksAsli; 
+                btn.style.pointerEvents = 'auto'; 
+                hasilBox.style.display = 'block';
+                hasilBox.innerHTML = `<span style="color: var(--error);"><i class="fas fa-wifi"></i> Gagal konek ke server. Coba lagi!</span>`;
+            }
         }
 
         let deferredPrompt; const pwaBanner = document.getElementById('pwa-banner'); const installBtn = document.getElementById('btn-install-pwa');
@@ -3260,9 +3295,9 @@
             let now = new Date(waktuWITA);
             let jamSekarang = now.getHours();
 
-            // BUKA: 08:00 Pagi | TUTUP: 23:00 (11 Malam)
-            let jamBuka = 8; 
-            let jamTutup = 23; 
+            // BUKA 24 JAM BIAR BEBAS NGETES KAPAN AJA
+            let jamBuka = 0; 
+            let jamTutup = 24; 
             let isOpen = (jamSekarang >= jamBuka && jamSekarang < jamTutup);
 
             if(kategori === 'game') {
