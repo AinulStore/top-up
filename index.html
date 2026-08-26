@@ -3052,8 +3052,8 @@
             // 2. Masukkan API Key kamu
             const apiKey = "4f2906171b95b4c7d0f5e1f6";
             
-            // 3. Susun Link API Autoresbot
-            let apiUrl = `https://autoresbot.com/api/v1/cek-nickname?api_key=${apiKey}&game=${gameCode}&id=${idInput}`;
+            // 3. Susun Link API Autoresbot (Domainnya udah dibenerin ke api.autoresbot.com)
+            let apiUrl = `https://api.autoresbot.com/api/game/${gameCode}?id=${idInput}&apikey=${apiKey}`;
             if(game === 'mlbb') apiUrl += `&zone=${serverInput}`;
 
             try {
@@ -3065,18 +3065,32 @@
                 btn.style.pointerEvents = 'auto'; 
                 hasilBox.style.display = 'block';
 
-                // Cek apakah API merespon sukses
+                // Cek apakah API merespon sukses dan data ditemukan
                 if(data.status === true || data.status === 200 || data.result) {
-                    // Ambil nama dari respon (disesuaikan dengan respon Autoresbot)
-                    let nickname = data.nickname || data.name || data.result || "Ditemukan";
                     
-                    hasilBox.innerHTML = `<span style="color: var(--success);"><i class="fas fa-check-circle"></i> Username: <b>${nickname}</b></span>`;
+                    // Jurus rahasia buat ngambil nama dari berbagai jenis format API
+                    let nickname = data.nickname || data.name || data.userName || data.result;
+                    if (!nickname && data.data) {
+                        nickname = data.data.nickname || data.data.userName || data.data.name;
+                    }
                     
-                    // Buka gembok langkah selanjutnya biar bisa pilih nominal
-                    let gridBawah = document.querySelector('.nominal-grid[data-game="'+game+'"]');
-                    if(gridBawah) gridBawah.closest('.taka-step-container').classList.remove('step-dimmed');
-                } else {
-                    hasilBox.innerHTML = `<span style="color: var(--error);"><i class="fas fa-exclamation-triangle"></i> ${data.message || 'ID/Server tidak ditemukan!'}</span>`;
+                    // Kalau namanya BERHASIL DITEMUKAN
+                    if (nickname && nickname !== "" && nickname !== "null" && nickname !== "false") {
+                        hasilBox.innerHTML = `<span style="color: var(--success);"><i class="fas fa-check-circle"></i> Username: <b>${nickname}</b></span>`;
+                        
+                        // Buka gembok langkah selanjutnya biar bisa pilih nominal
+                        let gridBawah = document.querySelector('.nominal-grid[data-game="'+game+'"]');
+                        if(gridBawah) gridBawah.closest('.taka-step-container').classList.remove('step-dimmed');
+                    } 
+                    // Kalau API nyambung tapi NAMA GAK KETEMU (ID Ngasal)
+                    else {
+                        hasilBox.innerHTML = `<span style="color: var(--error);"><i class="fas fa-times-circle"></i> ID / Server Tidak Valid!</span>`;
+                    }
+                } 
+                // Kalau API langsung nolak (ID Salah / Server Salah)
+                else {
+                    let pesanError = data.message || data.error_msg || 'ID / Server Tidak Valid!';
+                    hasilBox.innerHTML = `<span style="color: var(--error);"><i class="fas fa-times-circle"></i> ${pesanError}</span>`;
                 }
             } catch (error) {
                 btn.innerHTML = teksAsli; 
